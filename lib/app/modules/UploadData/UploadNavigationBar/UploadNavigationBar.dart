@@ -5,6 +5,7 @@ import 'package:readingmonitor2/app/modules/UploadData/Upload_GEB/views/upload_g
 import 'package:readingmonitor2/app/modules/UploadData/Upload_Machine/views/upload_machine_view.dart';
 import 'package:readingmonitor2/app/modules/UploadData/Upload_Misc/views/upload_misc_view.dart';
 import 'package:readingmonitor2/app/modules/UploadData/Upload_SteamBoiler/views/upload_steam_boiler_view.dart';
+import 'package:readingmonitor2/app/modules/UploadData/Upload_SupplyPump/views/upload_supply_pump_view.dart';
 import 'package:readingmonitor2/app/modules/UploadData/Upload_ThermoPack/views/upload_thermo_pack_view.dart';
 import 'package:readingmonitor2/app/modules/UploadData/Upload_Utility/views/upload_utility_view.dart';
 import 'package:readingmonitor2/app/modules/UploadData/Upload_WaterQuality/views/upload_water_quality_view.dart';
@@ -111,7 +112,7 @@ class UploadNavigationBar extends StatelessWidget {
               UploadThermoPackView(),
               UploadMachineView(),
               UploadWaterQualityView(),
-              UploadSteamBoilerView(),
+              UploadSupplyPumpView(),
               UploadGEBView(),
               UploadMachineView(),
               UploadFlueGasView(),

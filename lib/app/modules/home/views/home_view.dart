@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../../../Navigation/navigationDrawer.dart';
 import '../controllers/home_controller.dart';
-
  List<Choice> choices = <Choice>[
   Choice(title: 'Utility', image: "assets/Icons/electric_bolt.png" , index: 1),
   Choice(title: 'Steam Boiler', image: "assets/Icons/steam.png", index: 2),

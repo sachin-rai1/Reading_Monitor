@@ -9,7 +9,7 @@ import '../controllers/report_steam_boiler_controller.dart';
 class ReportSteamBoilerView extends GetView<ReportSteamBoilerController> {
   @override
   Widget build(BuildContext context) {
-    Get.put(HomeController());
+    Get.put(ReportSteamBoilerController());
     HomeController homeController = Get.find();
     final w = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
@@ -24,7 +24,7 @@ class ReportSteamBoilerView extends GetView<ReportSteamBoilerController> {
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
                       onTap: () {
-                        homeController.chooseDate();
+                        controller.chooseDate();
                       },
                       child: Row(
                         children: [
@@ -34,12 +34,14 @@ class ReportSteamBoilerView extends GetView<ReportSteamBoilerController> {
                           ),
                           Container(
                               alignment: Alignment.topLeft,
-                              child: Text(
-                                DateFormat("dd-MM-yyyy")
-                                    .format(homeController.selectedDate.value)
-                                    .toString(),
-                                style: const TextStyle(
-                                  color: Color(0xFF848484),
+                              child: Obx(() =>
+                                Text(
+                                  DateFormat("dd-MM-yyyy")
+                                      .format(controller.selectedDate.value)
+                                      .toString(),
+                                  style: const TextStyle(
+                                    color: Color(0xFF848484),
+                                  ),
                                 ),
                               )),
                           const Icon(

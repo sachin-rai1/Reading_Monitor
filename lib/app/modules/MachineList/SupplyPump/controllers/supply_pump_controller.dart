@@ -72,6 +72,8 @@ class SupplyPumpController extends GetxController {
     );
     if (response.statusCode == 200) {
       Constants.showtoast("Data Updated!");
+      Get.back();
+      fetchSupplyPumps();
       return SupplyPump.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Failed to update Data.');

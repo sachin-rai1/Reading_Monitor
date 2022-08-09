@@ -7,6 +7,7 @@ import 'package:readingmonitor2/app/modules/TodayReport/Report_Machines/views/re
 import 'package:readingmonitor2/app/modules/TodayReport/Report_ManoMeter/views/report_mano_meter_view.dart';
 import 'package:readingmonitor2/app/modules/TodayReport/Report_Misc/views/report_misc_view.dart';
 import 'package:readingmonitor2/app/modules/TodayReport/Report_SteamBoiler/views/report_steam_boiler_view.dart';
+import 'package:readingmonitor2/app/modules/TodayReport/Report_SupplyPump/views/report_supply_pump_view.dart';
 import 'package:readingmonitor2/app/modules/TodayReport/Report_ThermoPack/views/report_thermo_pack_view.dart';
 import 'package:readingmonitor2/app/modules/TodayReport/Report_WaterQuality/views/report_water_quality_view.dart';
 import '../../../Navigation/navigationDrawer.dart';
@@ -112,7 +113,7 @@ class ReportNavigationBar extends StatelessWidget {
               ReportThermoPackView(),
               ReportMachinesView(),
               ReportWaterQualityView(),
-              ReportSteamBoilerView(),
+              ReportSupplyPumpView(),
               ReportGEBView(),
               ReportManoMeterView(),
               ReportFlueGasView(),

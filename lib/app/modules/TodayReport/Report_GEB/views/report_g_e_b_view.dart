@@ -9,8 +9,7 @@ import '../controllers/report_g_e_b_controller.dart';
 class ReportGEBView extends GetView<ReportGEBController> {
   @override
   Widget build(BuildContext context) {
-    Get.put(HomeController());
-    HomeController homeController = Get.find();
+    Get.put(ReportGEBController());
     final w = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       child: Container(
@@ -24,7 +23,7 @@ class ReportGEBView extends GetView<ReportGEBController> {
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
                       onTap: () {
-                        homeController.chooseDate();
+                        controller.chooseDate();
                       },
                       child: Row(
                         children: [
@@ -34,12 +33,14 @@ class ReportGEBView extends GetView<ReportGEBController> {
                           ),
                           Container(
                               alignment: Alignment.topLeft,
-                              child: Text(
-                                DateFormat("dd-MM-yyyy")
-                                    .format(homeController.selectedDate.value)
-                                    .toString(),
-                                style: const TextStyle(
-                                  color: Color(0xFF848484),
+                              child: Obx(() =>
+                                Text(
+                                  DateFormat("dd-MM-yyyy")
+                                      .format(controller.selectedDate.value)
+                                      .toString(),
+                                  style: const TextStyle(
+                                    color: Color(0xFF848484),
+                                  ),
                                 ),
                               )),
                           const Icon(

@@ -11,8 +11,8 @@ import '../controllers/report_mano_meter_controller.dart';
 class ReportManoMeterView extends GetView<ReportManoMeterController> {
   @override
   Widget build(BuildContext context) {
-    Get.put(HomeController());
-    HomeController homeController = Get.find();
+    Get.put(ReportManoMeterController());
+
     return Column(
       children: [
         Row(
@@ -22,7 +22,7 @@ class ReportManoMeterView extends GetView<ReportManoMeterController> {
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
                 onTap: () {
-                  homeController.chooseDate();
+                  controller.chooseDate();
                 },
                 child: Row(
                   children: [
@@ -32,12 +32,14 @@ class ReportManoMeterView extends GetView<ReportManoMeterController> {
                     ),
                     Container(
                         alignment: Alignment.topLeft,
-                        child: Text(
-                          DateFormat("dd-MM-yyyy")
-                              .format(homeController.selectedDate.value)
-                              .toString(),
-                          style: const TextStyle(
-                            color: Color(0xFF848484),
+                        child: Obx(() =>
+                          Text(
+                            DateFormat("dd-MM-yyyy")
+                                .format(controller.selectedDate.value)
+                                .toString(),
+                            style: const TextStyle(
+                              color: Color(0xFF848484),
+                            ),
                           ),
                         )),
                     const Icon(

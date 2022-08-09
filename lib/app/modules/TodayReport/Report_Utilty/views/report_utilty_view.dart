@@ -7,7 +7,7 @@ import '../controllers/report_utilty_controller.dart';
 class ReportUtiltyView extends GetView<ReportUtiltyController> {
   @override
   Widget build(BuildContext context) {
-    Get.put(HomeController());
+    Get.put(ReportUtiltyController());
     HomeController homeController = Get.find();
     return Scaffold(
       body: Column(
@@ -19,7 +19,7 @@ class ReportUtiltyView extends GetView<ReportUtiltyController> {
                 padding: const EdgeInsets.all(8.0),
                 child: GestureDetector(
                   onTap: () {
-                    homeController.chooseDate();
+                    controller.chooseDate();
                   },
                   child: Row(
                     children: [
@@ -32,7 +32,7 @@ class ReportUtiltyView extends GetView<ReportUtiltyController> {
                           child: Obx(()=>
                             Text(
                               DateFormat("dd-MM-yyyy")
-                                  .format(homeController.selectedDate.value)
+                                  .format(controller.selectedDate.value)
                                   .toString(),
                               style: const TextStyle(
                                 color: Color(0xFF848484),

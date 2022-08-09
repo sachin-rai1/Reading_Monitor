@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-
-import '../../../home/controllers/home_controller.dart';
 import '../controllers/report_thermo_pack_controller.dart';
 
 class ReportThermoPackView extends GetView<ReportThermoPackController> {
   @override
   Widget build(BuildContext context) {
-    Get.put(HomeController());
-    HomeController homeController = Get.find();
+    Get.put(ReportThermoPackController());
     final w = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       child: Container(
@@ -24,7 +20,7 @@ class ReportThermoPackView extends GetView<ReportThermoPackController> {
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
                       onTap: () {
-                        homeController.chooseDate();
+                        controller.chooseDate();
                       },
                       child: Row(
                         children: [
@@ -34,12 +30,14 @@ class ReportThermoPackView extends GetView<ReportThermoPackController> {
                           ),
                           Container(
                               alignment: Alignment.topLeft,
-                              child: Text(
-                                DateFormat("dd-MM-yyyy")
-                                    .format(homeController.selectedDate.value)
-                                    .toString(),
-                                style: const TextStyle(
-                                  color: Color(0xFF848484),
+                              child: Obx(()=>
+                                Text(
+                                  DateFormat("dd-MM-yyyy")
+                                      .format(controller.selectedDate.value)
+                                      .toString(),
+                                  style: const TextStyle(
+                                    color: Color(0xFF848484),
+                                  ),
                                 ),
                               )),
                           const Icon(

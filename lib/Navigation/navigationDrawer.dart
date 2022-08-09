@@ -39,7 +39,7 @@ class NavigationDrawer extends StatelessWidget {
                   createDrawerBodyItem(
                       icon: Icons.upload, text: 'Upload Report', onTap: () {
                     Get.back();
-                    Get.to(UploadNavigationBar());
+                    Get.to(() => UploadNavigationBar());
                   }),
                   createDrawerBodyItem(
                       icon: Icons.auto_awesome_mosaic,
