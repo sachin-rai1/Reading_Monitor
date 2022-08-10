@@ -53,13 +53,7 @@ class UploadSteamBoilerView extends GetView<UploadSteamBoilerController> {
                   alignment: Alignment.topRight,
                   child: ElevatedButton(
                     onPressed: () {
-                      controller.addUploadSteamBoiler(UploadSteamBoilerModel(
-                          date: controller.selectedDate.value,
-                          bfw: int.parse(controller.bfw.text),
-                          coal1: int.parse(controller.coal1.text),
-                          coal2: int.parse(controller.coal2.text),
-                          bfwEmperature:
-                              int.parse(controller.bfwEmperature.text)));
+                      controller.fetchUploadedSteamBoiler();
                     },
                     child: Text("Submit"),
                     style: ElevatedButton.styleFrom(

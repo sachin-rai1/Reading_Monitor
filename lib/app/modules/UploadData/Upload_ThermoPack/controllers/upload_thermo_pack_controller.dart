@@ -57,12 +57,12 @@ class UploadThermoPackController extends GetxController {
   Future<Future<bool?>?> fetchUploadedThermoPack() async {
     var response = await http.get(
       Uri.parse(
-          "${Constants.connectionString}/urtplist/${selectedDate.value.toString()}"),
+          "${Constants.connectionString}/urtplist/${selectedDate.toString().split(" ")[0]}"),
     );
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
+      print(selectedDate.value.toIso8601String());
       print(data);
-      // ignore: unnecessary_null_comparison
       if (data.length != 0) {
         id = data[0]['id'];
         updateTask(
