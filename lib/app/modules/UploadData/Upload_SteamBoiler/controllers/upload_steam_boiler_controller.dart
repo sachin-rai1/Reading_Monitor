@@ -13,9 +13,7 @@ class UploadSteamBoilerController extends GetxController {
   TextEditingController bfwEmperature = TextEditingController();
   int id = 0;
 
-  var selectedDate = DateTime
-      .now()
-      .obs;
+  var selectedDate = DateTime.now().obs;
 
   chooseDate() async {
     DateTime? picked = await showDatePicker(
@@ -30,17 +28,17 @@ class UploadSteamBoilerController extends GetxController {
 
   addUploadSteamBoiler(UploadSteamBoilerModel uploadSteamBoilerModel) async {
     final response =
-    await http.put(Uri.parse("${Constants.connectionString}/ursbadd"),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode(<String, String>{
-          "date": selectedDate.value.toString(),
-          "bfw": bfw.text,
-          "coal1": coal1.text,
-          "coal2": coal2.text,
-          "bfw_emperature": bfwEmperature.text,
-        }));
+        await http.put(Uri.parse("${Constants.connectionString}/ursbadd"),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+            },
+            body: jsonEncode(<String, String>{
+              "date": selectedDate.value.toString(),
+              "bfw": bfw.text,
+              "coal1": coal1.text,
+              "coal2": coal2.text,
+              "bfw_emperature": bfwEmperature.text,
+            }));
     if (response.statusCode == 200) {
       Fluttertoast.showToast(
           msg: "Data Added Successfully", backgroundColor: Colors.green);
@@ -83,8 +81,7 @@ class UploadSteamBoilerController extends GetxController {
   Future<Future<bool?>?> fetchUploadedSteamBoiler() async {
     var response = await http.get(
       Uri.parse(
-          '${Constants.connectionString}/ursbsearch/${selectedDate.toString()
-              .split(" ")[0]}'),
+          '${Constants.connectionString}/ursbsearch/${selectedDate.toString().split(" ")[0]}'),
     );
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
@@ -99,7 +96,6 @@ class UploadSteamBoilerController extends GetxController {
             int.parse(coal2.text.toString()),
             int.parse(bfwEmperature.text.toString()),
             int.parse(id.toString()));
-
       } else {
         addUploadSteamBoiler(UploadSteamBoilerModel(
             date: selectedDate.value,
@@ -107,14 +103,12 @@ class UploadSteamBoilerController extends GetxController {
             coal1: int.parse(coal1.text),
             coal2: int.parse(coal2.text),
             bfwEmperature: int.parse(bfwEmperature.text)));
-
       }
     }
     return null;
   }
 
-  clearData()
-  {
+  clearData() {
     bfw.clear();
     coal1.clear();
     coal2.clear();

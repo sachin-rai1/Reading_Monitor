@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:readingmonitor2/app/modules/UploadData/Upload_SteamBoiler/Model/UploadSteamBoilerModel.dart';
 import '../controllers/upload_steam_boiler_controller.dart';
 
 class UploadSteamBoilerView extends GetView<UploadSteamBoilerController> {
