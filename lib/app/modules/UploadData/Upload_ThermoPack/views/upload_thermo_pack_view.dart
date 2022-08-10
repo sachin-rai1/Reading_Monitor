@@ -54,19 +54,7 @@ class UploadThermoPackView extends GetView<UploadThermoPackController> {
                     alignment: Alignment.topRight,
                     child: ElevatedButton(
                       onPressed: () {
-                        controller.addUploadThermoPack(UploadThermoPackModel(
-                            date: controller.selectedDate.value,
-                            chambers: int.parse(controller.chambers.text),
-                            coal1: int.parse(controller.coal1.text),
-                            coal2: int.parse(controller.coal2.text),
-                            inTemperature:
-                                int.parse(controller.inTemperature.text),
-                            outTemperature:
-                                int.parse(controller.outTemperature.text),
-                            pumpPressure:
-                                int.parse(controller.pumpPressure.text),
-                            circuitPressure:
-                                int.parse(controller.circuitPressure.text)));
+                        controller.fetchUploadedThermoPack();
                       },
                       child: Text("Submit"),
                       style: ElevatedButton.styleFrom(
