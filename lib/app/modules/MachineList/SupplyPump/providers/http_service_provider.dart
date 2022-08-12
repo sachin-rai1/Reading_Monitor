@@ -1,5 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'package:readingmonitor2/app/data/ConnectionString.dart';
+import '../../Utility/Model/MachineList_Utility_Model.dart';
 import '../Model/SupplyPumpModel.dart';
 
 class HttpServiceProvider // extends GetConnect
@@ -19,6 +20,18 @@ class HttpServiceProvider // extends GetConnect
       throw Exception();
     }
   }
+  static Future<List<ModelMachineList>> fetchUtilityMachine() async {
+    var response =
+    await http.get(Uri.parse("${Constants.connectionString}/mclist"));
+    if (response.statusCode == 200) {
+      var data = response.body;
+      print(data);
+      return modelMachineListFromJson(data);
+    } else {
+      throw Exception();
+    }
+  }
+
 
 
   HttpServiceProvider({required this.body, required this.url ,this.header});

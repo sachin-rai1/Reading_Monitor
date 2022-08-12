@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:readingmonitor2/app/modules/home/controllers/home_controller.dart';
 import '../controllers/report_utilty_controller.dart';
 
 class ReportUtiltyView extends GetView<ReportUtiltyController> {
   @override
   Widget build(BuildContext context) {
     Get.put(ReportUtiltyController());
-    HomeController homeController = Get.find();
     return Scaffold(
       body: Column(
         children: [

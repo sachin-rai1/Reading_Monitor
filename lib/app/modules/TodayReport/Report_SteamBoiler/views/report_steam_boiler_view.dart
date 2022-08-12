@@ -10,7 +10,6 @@ class ReportSteamBoilerView extends GetView<ReportSteamBoilerController> {
   @override
   Widget build(BuildContext context) {
     Get.put(ReportSteamBoilerController());
-    HomeController homeController = Get.find();
     final w = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       child: Container(

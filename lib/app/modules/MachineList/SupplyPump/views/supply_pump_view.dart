@@ -58,8 +58,7 @@ class SupplyPumpView extends GetView<SupplyPumpController> {
               Expanded(
                 child: Obx(() {
                   if (supplyPumpController.isLoading.value) {
-                    return
-                      const Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   } else {
                     return ListView.builder(
                       itemCount: supplyPumpController.supplyPumpList.length,
@@ -88,7 +87,6 @@ class SupplyPumpView extends GetView<SupplyPumpController> {
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
-                                  // crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
                                       supplyPumpController
@@ -104,10 +102,29 @@ class SupplyPumpView extends GetView<SupplyPumpController> {
                                     ),
                                     IconButton(
                                         onPressed: () {
-                                          supplyPumpController.machineNameTextController.text = supplyPumpController.supplyPumpList[index].machine.toString();
-                                          supplyPumpController.averageTextController.text = supplyPumpController.supplyPumpList[index].average.toString();
-                                          supplyPumpController.deviationTextController.text = supplyPumpController.supplyPumpList[index].deviation.toString();
-                                          Get.put(_updateDialog(context, int.parse(supplyPumpController.supplyPumpList[index].id.toString())));
+                                          supplyPumpController
+                                                  .machineNameTextController
+                                                  .text =
+                                              supplyPumpController
+                                                  .supplyPumpList[index].machine
+                                                  .toString();
+                                          supplyPumpController
+                                                  .averageTextController.text =
+                                              supplyPumpController
+                                                  .supplyPumpList[index].average
+                                                  .toString();
+                                          supplyPumpController
+                                                  .deviationTextController
+                                                  .text =
+                                              supplyPumpController
+                                                  .supplyPumpList[index]
+                                                  .deviation
+                                                  .toString();
+                                          Get.put(_updateDialog(
+                                              context,
+                                              int.parse(supplyPumpController
+                                                  .supplyPumpList[index].id
+                                                  .toString())));
                                         },
                                         icon: const Icon(
                                           Icons.edit,
@@ -116,7 +133,11 @@ class SupplyPumpView extends GetView<SupplyPumpController> {
                                         )),
                                     IconButton(
                                         onPressed: () {
-                                          Get.put(_deleteMachineDialog(context , int.parse(supplyPumpController.supplyPumpList[index].id.toString()) ));
+                                          Get.put(_deleteMachineDialog(
+                                              context,
+                                              int.parse(supplyPumpController
+                                                  .supplyPumpList[index].id
+                                                  .toString())));
                                         },
                                         icon: const Icon(
                                           Icons.delete,
@@ -372,7 +393,6 @@ class SupplyPumpView extends GetView<SupplyPumpController> {
                                   .deviationTextController.text)));
                           Navigator.of(context).pop();
                           supplyPumpController.clearData();
-
                         }
                       },
                       style: ButtonStyle(
@@ -446,7 +466,6 @@ class SupplyPumpView extends GetView<SupplyPumpController> {
                                 return 'Machine name is required.';
                               }
                               return null;
-
                             },
                             style: TextStyle(
                               fontFamily: Constants.popins,
@@ -595,11 +614,12 @@ class SupplyPumpView extends GetView<SupplyPumpController> {
                     if (key.currentState!.validate()) {
                       key.currentState!.save();
                       supplyPumpController.updateTask(
-                          supplyPumpController.machineNameTextController.text,
-                          int.parse(supplyPumpController.averageTextController.text),
-                          int.parse(supplyPumpController.deviationTextController.text),
-                          int.parse(id.toString()
-                        ),
+                        supplyPumpController.machineNameTextController.text,
+                        int.parse(
+                            supplyPumpController.averageTextController.text),
+                        int.parse(
+                            supplyPumpController.deviationTextController.text),
+                        int.parse(id.toString()),
                       );
                     }
                   },
@@ -634,6 +654,7 @@ class SupplyPumpView extends GetView<SupplyPumpController> {
           );
         });
   }
+
   Future<void> _deleteMachineDialog(BuildContext context, int id) async {
     return showDialog(
         context: context,
@@ -664,7 +685,7 @@ class SupplyPumpView extends GetView<SupplyPumpController> {
                         fontFamily: Constants.popins,
                       )),
                       backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.white)),
+                          MaterialStateProperty.all<Color>(Colors.white)),
                   child: Text(
                     "Cancel",
                     style: TextStyle(
@@ -679,8 +700,8 @@ class SupplyPumpView extends GetView<SupplyPumpController> {
                 width: 100,
                 child: ElevatedButton(
                   onPressed: () {
-                      supplyPumpController.deleteSupplyPump(id);
-                      Navigator.pop(context);
+                    supplyPumpController.deleteSupplyPump(id);
+                    Navigator.pop(context);
                   },
                   style: ButtonStyle(
                       textStyle: MaterialStateProperty.all<TextStyle>(TextStyle(
@@ -688,7 +709,7 @@ class SupplyPumpView extends GetView<SupplyPumpController> {
                         fontFamily: Constants.popins,
                       )),
                       backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.red)),
+                          MaterialStateProperty.all<Color>(Colors.red)),
                   child: Text(
                     "Delete",
                     style: TextStyle(
