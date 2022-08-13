@@ -20,8 +20,8 @@ class ThermoPackController extends GetxController {
   TextEditingController chamberCost2 = TextEditingController();
 
   addThermoPack(ThermoPack thermoPack) async {
-    HttpServiceProvider add =
-    HttpServiceProvider(url: "${Constants.connectionString}/mltpadd",
+    HttpServiceProvider add = HttpServiceProvider(
+        url: "${Constants.connectionString}/mltpadd",
         body: {
           "coal1": coal1.text,
           "coal1_dev": coal1Dev.text,
@@ -33,11 +33,11 @@ class ThermoPackController extends GetxController {
           "delta_t2": deltaT2.text,
           "chamber_cost1": chamberCost1.text,
           "chamber_cost2": chamberCost2.text,
-
         });
     add.post().then((value) {
       if (value.statusCode == 200) {
         Constants.showtoast("Data Added!");
+        clearData();
       } else {
         print(value.body);
         print(value.statusCode);
@@ -48,14 +48,26 @@ class ThermoPackController extends GetxController {
       }
     }).catchError((onError) {});
   }
-  Future<ThermoPack> updateThermoPack(int id ,int coal1,  int coal1Dev,  int rateOfCoal1,  int coal2,  int coal2Dev,  int rateOfCoal2,  int deltaT1,  int deltaT2,  int chamberCost1,  int chamberCost2) async {
+
+  Future<ThermoPack> updateThermoPack(
+      int id,
+      int coal1,
+      int coal1Dev,
+      int rateOfCoal1,
+      int coal2,
+      int coal2Dev,
+      int rateOfCoal2,
+      int deltaT1,
+      int deltaT2,
+      int chamberCost1,
+      int chamberCost2) async {
     final response = await http.put(
       Uri.parse("${Constants.connectionString}/mltpadd"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(<String, String>{
-        'id' : id.toString(),
+        'id': id.toString(),
         "coal1": coal1.toString(),
         "coal1_dev": coal1Dev.toString(),
         "rate_of_coal1": rateOfCoal1.toString(),
@@ -72,10 +84,10 @@ class ThermoPackController extends GetxController {
       Constants.showtoast("Data Updated!");
       return ThermoPack.fromJson(jsonDecode(response.body));
     } else {
-
       throw Exception('Failed to update Data.');
     }
   }
+
   Future<ThermoPack> fetchThermoPack() async {
     final response = await http.get(
       Uri.parse("${Constants.connectionString}/mltplist"),
@@ -92,5 +104,16 @@ class ThermoPackController extends GetxController {
     }
   }
 
-
+  clearData() {
+    coal1.clear();
+    coal1Dev.clear();
+    rateOfCoal1.clear();
+    coal2.clear();
+    coal2Dev.clear();
+    rateOfCoal2.clear();
+    deltaT1.clear();
+    deltaT2.clear();
+    chamberCost1.clear();
+    chamberCost2.clear();
+  }
 }

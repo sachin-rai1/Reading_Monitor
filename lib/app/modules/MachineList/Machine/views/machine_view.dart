@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:readingmonitor2/app/modules/MachineList/Machine/views/sub_machines_view.dart';
-import 'package:readingmonitor2/app/modules/MachineList/Utility/Model/MachineList_Utility_Model.dart';
+import 'package:readingmonitor2/app/modules/MachineList/Machine/Model/ModelMachineList.dart';
 
 import '../controllers/machine_controller.dart';
 
 class MachineView extends GetView<MachineController> {
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     Get.put(MachineController());
@@ -27,6 +27,7 @@ class MachineView extends GetView<MachineController> {
               ),
               ElevatedButton(
                 onPressed: () {
+                  controller.category.clear();
                   addDialog(context);
                 },
                 child: Row(
@@ -70,17 +71,23 @@ class MachineView extends GetView<MachineController> {
                                 children: [
                                   GestureDetector(
                                       onTap: () {
-                                        controller.category.text = controller.machineList[index].categories.toString();
-                                        editDialog(context);
+                                        controller.category.text = controller
+                                            .machineList[index].categories
+                                            .toString();
+                                        editDialog(context , int.parse(controller.machineList[index].id.toString()));
                                       },
                                       child: Icon(
                                         Icons.edit,
                                         color: Colors.green,
                                       )),
-                                  SizedBox(width: 20,),
+                                  SizedBox(
+                                    width: 20,
+                                  ),
                                   GestureDetector(
                                       onTap: () {
-                                        controller.category.text = controller.machineList[index].categories.toString();
+                                        controller.category.text = controller
+                                            .machineList[index].categories
+                                            .toString();
                                         deleteDialog(context);
                                       },
                                       child: Icon(
@@ -102,20 +109,32 @@ class MachineView extends GetView<MachineController> {
     );
   }
 
-  editDialog(BuildContext context) {
+  editDialog(BuildContext context , int id) {
+
     // set up the button
     Widget okButton = TextButton(
       child: Text("OK"),
       onPressed: () {
+        if(_formKey.currentState!.validate()) {
+          controller.updateMachine(controller.category.text, int.parse(id.toString()));
+          Get.back();
+        }
 
-        Get.back();
+
       },
     );
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: Text("Edit Machine"),
-      content: TextFormField(controller: controller.category,),
+      content: Form(
+        key: _formKey,
+        child: TextFormField(
+          controller: controller.category,
+          validator: (value) =>
+          value!.isEmpty ? 'Machine Name Required' : null,
+        ),
+      ),
       actions: [
         okButton,
       ],
@@ -134,7 +153,8 @@ class MachineView extends GetView<MachineController> {
     Widget okButton = TextButton(
       child: Text("OK"),
       onPressed: () {
-        controller.addMachine(ModelMachineList(categories: controller.category.text));
+        controller
+            .addMachine(ModelMachineList(categories: controller.category.text));
         Get.back();
       },
     );
@@ -157,12 +177,12 @@ class MachineView extends GetView<MachineController> {
       },
     );
   }
+
   deleteDialog(BuildContext context) {
     // set up the button
     Widget okButton = TextButton(
       child: Text("OK"),
       onPressed: () {
-
         Get.back();
       },
     );

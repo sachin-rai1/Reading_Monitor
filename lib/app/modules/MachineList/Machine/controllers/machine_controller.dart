@@ -1,13 +1,10 @@
 import 'dart:convert';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:readingmonitor2/app/data/ConnectionString.dart';
-import 'package:readingmonitor2/app/modules/MachineList/Machine/views/machine_view.dart';
 import '../../SupplyPump/providers/http_service_provider.dart';
-import '../../Utility/Model/MachineList_Utility_Model.dart';
+import '../Model/ModelMachineList.dart';
 import 'package:http/http.dart' as http;
 
 class MachineController extends GetxController {
@@ -17,14 +14,14 @@ class MachineController extends GetxController {
 
   @override
   void onInit() {
-    fetchSupplyPumps();
+    fetchMachineList();
     super.onInit();
   }
 
-  void fetchSupplyPumps() async {
+  void fetchMachineList() async {
     try {
       isLoading(true);
-      var machines = await HttpServiceProvider.fetchUtilityMachine();
+      var machines = await HttpServiceProvider.fetchMachinelist();
       machineList.value = machines;
     } finally {
       isLoading(false);
@@ -44,13 +41,32 @@ class MachineController extends GetxController {
       machineList.add(modelMachineList);
       Fluttertoast.showToast(
           msg: "Machine Added Successfully", backgroundColor: Colors.green);
+
     } else {
-      Fluttertoast.showToast(msg: "Error", backgroundColor: Colors.green);
+      Fluttertoast.showToast(msg: "Error", backgroundColor: Colors.red);
     }
   }
-  Future<ModelMachineList> updateMachine(String categories , int id) async
-  {
 
+  Future<ModelMachineList?> updateMachine(String categories, int id) async {
+    final response =
+        await http.put(Uri.parse("${Constants.connectionString}/mcupdate"),
+            body: jsonEncode(<String, String>{
+              "id": id.toString(),
+              "categories": categories.toString(),
+            }),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8'
+          },
+        );
+    if (response.statusCode == 200) {
+      Fluttertoast.showToast(
+          msg: "Machine Updated", backgroundColor: Colors.green);
+      fetchMachineList();
+    } else {
+      Fluttertoast.showToast(
+          msg: "Error in Update", backgroundColor: Colors.red);
+      print(response.body);
+    }
+    return null;
   }
-
 }

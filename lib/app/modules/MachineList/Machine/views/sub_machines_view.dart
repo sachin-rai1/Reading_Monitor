@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:readingmonitor2/app/modules/MachineList/Machine/controllers/sub_machine_controller_controller.dart';
 
-class SubMachinesView extends GetView {
+class SubMachinesView extends GetView<SubMachineControllerController> {
   @override
   Widget build(BuildContext context) {
     final w = MediaQuery.of(context).size.width;
     return Scaffold(
-      // backgroundColor: Colors.transparent,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
@@ -72,16 +72,16 @@ class SubMachinesView extends GetView {
                       Text("Deviation\nAllowed (%)",
                           style: TextStyle(fontWeight: FontWeight.bold)),
                       ElevatedButton(
-                        onPressed: () {addDialog(context);},
+                        onPressed: () {
+                          addDialog(context);
+                        },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("ADD"),
-                            Icon(Icons.add_box_outlined)
-                          ],
+                          children: [Text("ADD"), Icon(Icons.add_box_outlined)],
                         ),
                         style: ElevatedButton.styleFrom(
-                            primary: Colors.green,),
+                          primary: Colors.green,
+                        ),
                       )
                     ],
                   ),
@@ -113,7 +113,9 @@ class SubMachinesView extends GetView {
                               ),
                             ),
                             GestureDetector(
-                              onTap: (){deleteDialog(context);},
+                              onTap: () {
+                                deleteDialog(context);
+                              },
                               child: Icon(
                                 Icons.delete,
                                 color: Colors.red,
@@ -170,6 +172,7 @@ class SubMachinesView extends GetView {
       },
     );
   }
+
   addDialog(BuildContext context) {
     final h = MediaQuery.of(context).size.height;
     // set up the button
@@ -211,6 +214,7 @@ class SubMachinesView extends GetView {
       },
     );
   }
+
   deleteDialog(BuildContext context) {
     final h = MediaQuery.of(context).size.height;
     // set up the button
