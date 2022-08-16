@@ -17,6 +17,7 @@ class _LoginPageState extends State<LoginPage> {
   final LoginController _loginController = Get.put(LoginController());
   final _formKey = GlobalKey<FormState>();
 
+
   void validateEmail() {
     final bool isValid = EmailValidator.validate(
         _loginController.emailTextController.text.trim());

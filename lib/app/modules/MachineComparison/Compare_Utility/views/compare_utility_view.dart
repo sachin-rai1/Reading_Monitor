@@ -12,16 +12,16 @@ class CompareUtilityView extends GetView<CompareUtilityController> {
   @override
   Widget build(BuildContext context) {
     final List<ChartData> chartData = [
-      ChartData(DateTime(2015, 2, 1), 621, 522),
-      ChartData(DateTime(2015, 2, 2), 534, 235),
-      ChartData(DateTime(2015, 2, 3), 320, 140),
-      ChartData(DateTime(2015, 2, 4), 142, 450),
-      ChartData(DateTime(2015, 2, 5), 335, 260),
-      ChartData(DateTime(2015, 2, 6), 235, 360),
-      ChartData(DateTime(2015, 2, 7), 135, 160),
-      ChartData(DateTime(2015, 2, 8), 325, 360),
-      ChartData(DateTime(2015, 2, 9), 350, 260),
-      ChartData(DateTime(2015, 2, 10), 389, 160),
+      ChartData(DateTime(2015, 2, 1), 621, 522, 300),
+      ChartData(DateTime(2015, 2, 2), 534, 235, 300),
+      ChartData(DateTime(2015, 2, 3), 320, 140, 300),
+      ChartData(DateTime(2015, 2, 4), 142, 450, 300),
+      ChartData(DateTime(2015, 2, 5), 335, 260, 300),
+      ChartData(DateTime(2015, 2, 6), 235, 360, 300),
+      ChartData(DateTime(2015, 2, 7), 135, 160, 300),
+      ChartData(DateTime(2015, 2, 8), 325, 360, 300),
+      ChartData(DateTime(2015, 2, 9), 350, 260, 300),
+      ChartData(DateTime(2015, 2, 10), 389, 160 , 350),
     ];
     final h = MediaQuery.of(context).size.height;
     final w = MediaQuery.of(context).size.width;
@@ -226,9 +226,10 @@ class CompareUtilityView extends GetView<CompareUtilityController> {
 }
 
 class ChartData {
-  ChartData(this.x, this.y, this.y1);
+  ChartData(this.x, this.y, this.y1 , this.y2);
 
   final DateTime x;
   final double y;
   final double y1;
+  final double y2;
 }

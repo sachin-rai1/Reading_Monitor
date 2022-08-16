@@ -15,7 +15,7 @@ class SupplyPumpController extends GetxController {
   var isLoading = true.obs;
   var isDataProcessing = false.obs;
   var supplyPumpList = <SupplyPump>[].obs;
-  int id = 0;
+  // int id = 0;
 
   @override
   void onInit() {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:readingmonitor2/app/modules/MachineList/Machine/controllers/sub_machine_controller_controller.dart';
 
-class SubMachinesView extends GetView<SubMachineControllerController> {
+import 'package:get/get.dart';
+
+class SubUtilityView extends GetView {
   @override
   Widget build(BuildContext context) {
     final w = MediaQuery.of(context).size.width;
@@ -32,14 +32,14 @@ class SubMachinesView extends GetView<SubMachineControllerController> {
                   size: 40,
                   color: Colors.green,
                 )
-                // ClipRRect(
-                //   child: Image.asset(
-                //     'assets/images/user1.png',
-                //     height: 41.19,
-                //     width: 41.19,
-                //   ),
-                // ),
-                ),
+              // ClipRRect(
+              //   child: Image.asset(
+              //     'assets/images/user1.png',
+              //     height: 41.19,
+              //     width: 41.19,
+              //   ),
+              // ),
+            ),
           ),
         ],
       ),

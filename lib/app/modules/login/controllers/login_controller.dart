@@ -9,17 +9,19 @@ class LoginController extends GetxController {
   TextEditingController emailTextController = TextEditingController();
   TextEditingController passwordTextController = TextEditingController();
 
+
   void apiLogin(String email, password) async {
     Get.dialog(const Center(child: CircularProgressIndicator()),
-         barrierDismissible: false);
+         );
     Response response = await post(
         Uri.parse(
-            '${Constants.connectionString}/login/'),
+            '${Constants.connectionString}/login'),
         body: {
           'email': emailTextController.text,
           'password': passwordTextController.text
         });
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
+
       Fluttertoast.showToast(
         msg: 'logged In Successfully',
         backgroundColor: Colors.green,
