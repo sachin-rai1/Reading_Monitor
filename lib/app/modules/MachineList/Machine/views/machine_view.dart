@@ -7,6 +7,7 @@ import '../controllers/machine_controller.dart';
 
 class MachineView extends GetView<MachineController> {
   final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     Get.put(MachineController());
@@ -74,7 +75,11 @@ class MachineView extends GetView<MachineController> {
                                         controller.category.text = controller
                                             .machineList[index].categories
                                             .toString();
-                                        editDialog(context , int.parse(controller.machineList[index].id.toString()));
+                                        editDialog(
+                                            context,
+                                            int.parse(controller
+                                                .machineList[index].id
+                                                .toString()));
                                       },
                                       child: Icon(
                                         Icons.edit,
@@ -109,18 +114,16 @@ class MachineView extends GetView<MachineController> {
     );
   }
 
-  editDialog(BuildContext context , int id) {
-
+  editDialog(BuildContext context, int id) {
     // set up the button
     Widget okButton = TextButton(
       child: Text("OK"),
       onPressed: () {
-        if(_formKey.currentState!.validate()) {
-          controller.updateMachine(controller.category.text, int.parse(id.toString()));
+        if (_formKey.currentState!.validate()) {
+          controller.updateMachine(
+              controller.category.text, int.parse(id.toString()));
           Get.back();
         }
-
-
       },
     );
 
@@ -131,8 +134,7 @@ class MachineView extends GetView<MachineController> {
         key: _formKey,
         child: TextFormField(
           controller: controller.category,
-          validator: (value) =>
-          value!.isEmpty ? 'Machine Name Required' : null,
+          validator: (value) => value!.isEmpty ? 'Machine Name Required' : null,
         ),
       ),
       actions: [

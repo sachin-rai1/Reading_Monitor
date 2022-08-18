@@ -17,6 +17,8 @@ dependencies:
   syncfusion_flutter_charts: 20.2.40
   get_storage: 2.0.3
   path_provider: 2.0.11
+  connectivity: 3.0.6
+  shared_preferences: 2.0.15
   flutter: 
     sdk: flutter
 

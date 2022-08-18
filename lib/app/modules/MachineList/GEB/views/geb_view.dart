@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:readingmonitor2/app/modules/MachineList/GEB/Model/MachineList_GEB_Model.dart';
 import '../controllers/geb_controller.dart';
 
 class GebView extends GetView<GebController> {
   final _formKey = GlobalKey<FormState>();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     Get.lazyPut(() => GebController());
     final GlobalKey<FormState> key = GlobalKey<FormState>();
     final w = MediaQuery.of(context).size.width;
@@ -170,7 +169,6 @@ class GebView extends GetView<GebController> {
                 ),
               ],
             ),
-
             SizedBox(
               height: 10,
             ),
@@ -304,7 +302,6 @@ class GebView extends GetView<GebController> {
             SizedBox(
               height: 10,
             ),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -363,20 +360,9 @@ class GebView extends GetView<GebController> {
             ElevatedButton(
                 onPressed: () {
                   key.currentState?.save();
-                  controller.addGeb(GebModel(
-                      kwh: int.parse(controller.kwh.text),
-                      devKwh: int.parse(controller.devKwh.text),
-                      kvarh: int.parse(controller.kvarh.text),
-                      devKvarh: int.parse(controller.devKvarh.text),
-                      kvah: int.parse(controller.kvah.text),
-                      devKvah: int.parse(controller.devKvah.text),
-                      pf: int.parse(controller.pf.text),
-                      devPf: int.parse(controller.devPf.text),
-                      md: int.parse(controller.md.text),
-                      devMd: int.parse(controller.devMd.text),
-                      mf: int.parse(controller.mf.text),
-                      tb: int.parse(controller.tb.text),
-                      devTb: int.parse(controller.devTb.text)));
+                  controller.fetchGebList(3
+                      // int.parse(controller.gebMAchineList[0].id.toString()
+                      );
                 },
                 child: Container(
                     width: w / 2,

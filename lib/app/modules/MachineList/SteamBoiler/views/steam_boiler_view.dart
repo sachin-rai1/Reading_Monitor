@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:readingmonitor2/app/data/ConnectionString.dart';
+import 'package:readingmonitor2/app/data/Constants.dart';
 import 'package:readingmonitor2/app/modules/MachineList/SteamBoiler/Model/MachineList_Model_SteamBoiler.dart';
 import '../controllers/steam_boiler_controller.dart';
 

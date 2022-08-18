@@ -65,60 +65,62 @@ class MachineListTabBar extends StatelessWidget {
                 Tab(
                     child: Text('Utility',
                         style:
-                        TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
+                            TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
                 Tab(
                     child: Text('Steam Boiler',
                         style:
-                        TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
+                            TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
                 Tab(
                     child: Text('Thermopack',
                         style:
-                        TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
+                            TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
                 Tab(
                     child: Text('Machines',
                         style:
-                        TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
+                            TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
                 Tab(
                     child: Text('WaterQuality',
                         style:
-                        TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
+                            TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
                 Tab(
                     child: Text('SupplyPump',
                         style:
-                        TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
+                            TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
                 Tab(
                     child: Text('GEB',
                         style:
-                        TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
+                            TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
                 Tab(
                     child: Text('ManoMeter',
                         style:
-                        TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
+                            TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
                 Tab(
                     child: Text('FlueGas',
                         style:
-                        TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
+                            TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
                 Tab(
                     child: Text('Misc.',
                         style:
-                        TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
-
+                            TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
               ],
             ),
           ),
           body: TabBarView(
             children: [
-              Container(padding: const EdgeInsets.all(8), child: UtilityView()),
-               Container(padding: const EdgeInsets.all(8),child: SteamBoilerView()),
-               Container(padding: const EdgeInsets.all(8),child: ThermoPackView()),
-               Container(padding: const EdgeInsets.all(8),child: MachineView()),
-               WaterQualityView(),
-               SupplyPumpView(),
-               Container(padding: EdgeInsets.all(8),child: GebView()),
-               ManoMeterView(),
-               FlueGasView(),
-               MiscView()
-
+              Container(
+                  padding: const EdgeInsets.all(8),
+                  child: Get.put(UtilityView())),
+              Container(
+                  padding: const EdgeInsets.all(8), child: SteamBoilerView()),
+              Container(
+                  padding: const EdgeInsets.all(8), child: ThermoPackView()),
+              Container(padding: const EdgeInsets.all(8), child: MachineView()),
+              Get.put(WaterQualityView()),
+              SupplyPumpView(),
+              Container(padding: EdgeInsets.all(8), child: GebView()),
+              ManoMeterView(),
+              FlueGasView(),
+              MiscView()
             ],
           ),
         ),
@@ -126,4 +128,3 @@ class MachineListTabBar extends StatelessWidget {
     );
   }
 }
-

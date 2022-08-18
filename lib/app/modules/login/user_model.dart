@@ -1,13 +1,38 @@
+import 'dart:convert';
+
+User userFromJson(String str) => User.fromJson(json.decode(str));
+
+String userToJson(User data) => json.encode(data.toJson());
 
 class User {
   User({
+    this.user,
+    this.token,
+  });
+
+  UserClass ? user;
+  String ? token;
+
+  factory User.fromJson(Map<String, dynamic> json) => User(
+    user: UserClass.fromJson(json["user"]),
+    token: json["token"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "user": user?.toJson(),
+    "token": token,
+  };
+}
+
+class UserClass {
+  UserClass({
     this.id,
     this.roleType,
     this.photo,
     this.firstname,
     this.surname,
     this.companyName,
-    required this.email,
+   required this.email,
     this.gender,
     this.mobileCode,
     this.mobileNo,
@@ -26,25 +51,25 @@ class User {
   int ? id;
   int ? roleType;
   dynamic photo;
-  String ? firstname;
-  String ? surname;
-  String ? companyName;
+  String ?firstname;
+  String ?surname;
+  String ?companyName;
   String email;
   dynamic gender;
-  String ? mobileCode;
-  String ? mobileNo;
-  String ? address;
+  String ?mobileCode;
+  String ?mobileNo;
+  String ?address;
   dynamic mPassword;
   int ? status;
   dynamic otp;
   dynamic otpSession;
-  int ? logginedBy;
+  int ?logginedBy;
   dynamic socialToken;
   dynamic token;
-  DateTime ? createdAt;
-  DateTime ? updatedAt;
+  DateTime ?createdAt;
+  DateTime ?updatedAt;
 
-  factory User.fromJson(Map<String, dynamic> json) => User(
+  factory UserClass.fromJson(Map<String, dynamic> json) => UserClass(
     id: json["id"],
     roleType: json["role_type"],
     photo: json["photo"],

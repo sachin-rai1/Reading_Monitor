@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:readingmonitor2/app/modules/MachineList/ThermoPack/Model/MachineList_Model_ThermoPack.dart';
-import '../../../../data/ConnectionString.dart';
+import '../../../../data/Constants.dart';
 import '../controllers/thermo_pack_controller.dart';
 
 class ThermoPackView extends GetView<ThermoPackController> {

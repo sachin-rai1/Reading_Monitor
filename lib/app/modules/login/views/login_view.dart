@@ -1,6 +1,8 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import '../../../data/GetXNetworkManagement.dart';
 import '../controllers/login_controller.dart';
 
 class LoginPage extends StatefulWidget {
@@ -9,6 +11,7 @@ class LoginPage extends StatefulWidget {
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
+
 bool isChecked = false;
 
 class _LoginPageState extends State<LoginPage> {
@@ -17,19 +20,22 @@ class _LoginPageState extends State<LoginPage> {
   final LoginController _loginController = Get.put(LoginController());
   final _formKey = GlobalKey<FormState>();
 
-
   void validateEmail() {
     final bool isValid = EmailValidator.validate(
         _loginController.emailTextController.text.trim());
+
     if (isValid) {
       if (_formKey.currentState!.validate()) {
-        _loginController.apiLogin(_loginController.emailTextController.text.toString(), _loginController.passwordTextController.text.toString());
+        _loginController.apiLogin(
+            _loginController.emailTextController.text.toString(),
+            _loginController.passwordTextController.text.toString());
       }
     } else {
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text('Invalid Email')));
     }
   }
+
   @override
   Widget build(BuildContext context) {
     final w = MediaQuery.of(context).size.width;
@@ -69,8 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                             fontSize: 45,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
-                            fontFamily: ''
-                        ),
+                            fontFamily: ''),
                       ),
                     ),
                     SizedBox(width: MediaQuery.of(context).size.width / 2),
@@ -143,7 +148,7 @@ class _LoginPageState extends State<LoginPage> {
                       bottomRight: Radius.circular(0)),
                 ),
                 padding:
-                EdgeInsets.only(top: h / 3, right: w / 10, left: w / 10),
+                    EdgeInsets.only(top: h / 3, right: w / 10, left: w / 10),
                 child: Form(
                   key: _formKey,
                   child: Column(
@@ -165,7 +170,7 @@ class _LoginPageState extends State<LoginPage> {
                           )),
                       TextFormField(
                         validator: (value) =>
-                        value!.isEmpty ? 'Email Required' : null,
+                            value!.isEmpty ? 'Email Required' : null,
                         controller: loginController.emailTextController,
                         decoration: InputDecoration(
                           hintText: 'Enter Your Email',
@@ -187,7 +192,7 @@ class _LoginPageState extends State<LoginPage> {
                           )),
                       TextFormField(
                         validator: (value) =>
-                        value!.isEmpty ? 'Password required' : null,
+                            value!.isEmpty ? 'Password required' : null,
                         controller: _loginController.passwordTextController,
                         obscureText: true,
                         decoration: InputDecoration(
@@ -202,7 +207,7 @@ class _LoginPageState extends State<LoginPage> {
                           Checkbox(
                             checkColor: Colors.white,
                             fillColor:
-                            MaterialStateProperty.resolveWith(getColor),
+                                MaterialStateProperty.resolveWith(getColor),
                             value: isChecked,
                             onChanged: (bool? value) {
                               setState(() {

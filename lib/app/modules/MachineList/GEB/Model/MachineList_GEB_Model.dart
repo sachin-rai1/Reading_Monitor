@@ -1,91 +1,89 @@
 import 'dart:convert';
+
 List<GebModel> gebModelFromJson(String str) => List<GebModel>.from(json.decode(str).map((x) => GebModel.fromJson(x)));
+
 String gebModelToJson(List<GebModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class GebModel {
   GebModel({
     this.id,
-    this.uid,
-    required this.kwh,
-    required this.devKwh,
-    required this.kvarh,
-    required this.devKvarh,
-    required this.kvah,
-    required this.devKvah,
-    required this.pf,
-    required this.devPf,
-    required this.md,
-    required this.devMd,
-    required this.mf,
-    required this.tb,
-    required this.devTb,
-    this.flage,
-    this.deletedAt,
+   required this.kwh,
+   required this.kwmDeviation,
+   required this.kvarh,
+   required this.kvarshDeviation,
+   required this.kevah,
+   required this.kevahDeviation,
+   required this.pf,
+   required this.pfDeviation,
+   required this.md,
+   required this.mdDeviation,
+   required this.turbine,
+   required this.turbineDeviation,
+   required this.mf,
+    this.status,
     this.createdAt,
     this.updatedAt,
+    this.deletedAt,
   });
 
   int ? id;
-  dynamic uid;
   int kwh;
-  int devKwh;
+  int kwmDeviation;
   int kvarh;
-  int devKvarh;
-  int kvah;
-  int devKvah;
+  int kvarshDeviation;
+  int kevah;
+  int kevahDeviation;
   int pf;
-  int devPf;
+  int pfDeviation;
   int md;
-  int devMd;
+  int mdDeviation;
+  int turbine;
+  int turbineDeviation;
   int mf;
-  int tb;
-  int devTb;
-  int ? flage;
-  dynamic deletedAt;
+  int ? status;
   DateTime ? createdAt;
   DateTime ? updatedAt;
+  dynamic deletedAt;
 
   factory GebModel.fromJson(Map<String, dynamic> json) => GebModel(
     id: json["id"],
-    uid: json["uid"],
     kwh: json["kwh"],
-    devKwh: json["dev_kwh"],
+    kwmDeviation: json["kwm_deviation"],
     kvarh: json["kvarh"],
-    devKvarh: json["dev_kvarh"],
-    kvah: json["kvah"],
-    devKvah: json["dev_kvah"],
+    kvarshDeviation: json["kvarsh_deviation"],
+    kevah: json["kevah"],
+    kevahDeviation: json["kevah_deviation"],
     pf: json["pf"],
-    devPf: json["dev_pf"],
+    pfDeviation: json["pf_deviation"],
     md: json["md"],
-    devMd: json["dev_md"],
+    mdDeviation: json["md_deviation"],
+    turbine: json["turbine"],
+    turbineDeviation: json["turbine_deviation"],
     mf: json["mf"],
-    tb: json["tb"],
-    devTb: json["dev_tb"],
-    flage: json["flage"],
+    status: json["status"],
+    createdAt: DateTime.parse(json["created_at"]),
+    updatedAt: DateTime.parse(json["updated_at"]),
     deletedAt: json["deleted_at"],
-    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
-    "uid": uid,
     "kwh": kwh,
-    "dev_kwh": devKwh,
+    "kwm_deviation": kwmDeviation,
     "kvarh": kvarh,
-    "dev_kvarh": devKvarh,
-    "kvah": kvah,
-    "dev_kvah": devKvah,
+    "kvarsh_deviation": kvarshDeviation,
+    "kevah": kevah,
+    "kevah_deviation": kevahDeviation,
     "pf": pf,
-    "dev_pf": devPf,
+    "pf_deviation": pfDeviation,
     "md": md,
-    "dev_md": devMd,
+    "md_deviation": mdDeviation,
+    "turbine": turbine,
+    "turbine_deviation": turbineDeviation,
     "mf": mf,
-    "tb": tb,
-    "dev_tb": devTb,
-    "flage": flage,
+    "status": status,
+    "created_at": createdAt!.toIso8601String(),
+    "updated_at": updatedAt!.toIso8601String(),
     "deleted_at": deletedAt,
-    "created_at": createdAt == null ? null : createdAt!.toIso8601String(),
-    "updated_at": updatedAt == null ? null : updatedAt!.toIso8601String(),
   };
 }

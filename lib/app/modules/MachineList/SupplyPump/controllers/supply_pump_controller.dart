@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import '../../../../data/ConnectionString.dart';
+import '../../../../data/Constants.dart';
 import '../Model/SupplyPumpModel.dart';
 import '../providers/http_service_provider.dart';
 import '../views/supply_pump_view.dart';
@@ -15,23 +15,23 @@ class SupplyPumpController extends GetxController {
   var isLoading = true.obs;
   var isDataProcessing = false.obs;
   var supplyPumpList = <SupplyPump>[].obs;
+
   // int id = 0;
 
-  @override
-  void onInit() {
-    fetchSupplyPumps();
-    super.onInit();
-  }
-
-  void fetchSupplyPumps() async {
-    try {
-      isLoading(true);
-      var pumps = await HttpServiceProvider.fetchSupplyPump();
-      supplyPumpList.value = pumps;
-    } finally {
-      isLoading(false);
-    }
-  }
+  // void onInit() {
+  //   fetchSupplyPumps();
+  //   super.onInit();
+  // }
+  //
+  // void fetchSupplyPumps() async {
+  //   try {
+  //     isLoading(true);
+  //     var pumps = await HttpServiceProvider.fetchSupplyPump();
+  //     supplyPumpList.value = pumps;
+  //   } finally {
+  //     isLoading(false);
+  //   }
+  // }
 
   addSupplyPump(SupplyPump m) async {
     HttpServiceProvider add =
@@ -43,7 +43,7 @@ class SupplyPumpController extends GetxController {
     add.post().then((value) {
       if (value.statusCode == 200) {
         supplyPumpList.add(m);
-        fetchSupplyPumps();
+        // fetchSupplyPumps();
         print(value.body);
         Constants.showtoast("Machine Added!");
       } else {
@@ -73,7 +73,7 @@ class SupplyPumpController extends GetxController {
     if (response.statusCode == 200) {
       Constants.showtoast("Data Updated!");
       Get.back();
-      fetchSupplyPumps();
+      // fetchSupplyPumps();
       return SupplyPump.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Failed to update Data.');
@@ -87,7 +87,7 @@ class SupplyPumpController extends GetxController {
           body: jsonEncode(<String, String>{}));
       delete.post().then((value) {
         if (value.statusCode == 200) {
-          fetchSupplyPumps();
+          // fetchSupplyPumps();
           Constants.showtoast("Machine Deleted!");
         } else {
           Fluttertoast.showToast(

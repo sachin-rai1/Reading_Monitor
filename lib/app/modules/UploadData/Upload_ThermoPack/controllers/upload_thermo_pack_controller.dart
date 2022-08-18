@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart' hide Response;
 import 'package:http/http.dart' as http;
-import 'package:readingmonitor2/app/data/ConnectionString.dart';
+import 'package:readingmonitor2/app/data/Constants.dart';
 import 'package:readingmonitor2/app/modules/UploadData/Upload_ThermoPack/Model/Upload_thermo_pack_model.dart';
 
 class UploadThermoPackController extends GetxController {
