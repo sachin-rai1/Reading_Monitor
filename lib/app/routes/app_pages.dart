@@ -123,11 +123,11 @@ class AppPages {
   static const INITIAL = Routes.LOGIN;
 
   static final routes = [
-    GetPage(
-      page: () => MachineListTabBar(),
-      name: _Paths.MachineListTabBar,
-
-    ),
+    // GetPage(
+    //   page: () => MachineListTabBar(),
+    //   name: _Paths.MachineListTabBar,
+    //
+    // ),
     GetPage(
       name: _Paths.HOME,
       page: () => HomeView(),

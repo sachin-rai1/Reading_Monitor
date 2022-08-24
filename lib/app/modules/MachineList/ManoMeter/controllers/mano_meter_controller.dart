@@ -1,20 +1,46 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:readingmonitor2/app/data/http_service_provider.dart';
+import 'package:readingmonitor2/app/modules/MachineList/ManoMeter/Model/ModelManoMeterSteamBoiler.dart';
+import 'package:readingmonitor2/app/modules/MachineList/ManoMeter/Model/ModelManoMeterThermoPack.dart';
 
 class ManoMeterController extends GetxController {
-  //TODO: Implement ManoMeterController
+  TextEditingController steamBoiler = TextEditingController();
+  TextEditingController thermoPack = TextEditingController();
 
-  final count = 0.obs;
-  @override
+  var isLoading = true.obs;
+  var isLoadingThermopack = true.obs;
+  var steamBoilermachineList = <ModelManoMeterSteamBoiler>[].obs;
+  var thermoPackmachineList = <ModelManoMeterThermoPack>[].obs;
   void onInit() {
+    fetchManometerSteamBoiler();
+    fetchManomterThermoPack();
     super.onInit();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  Future<void> fetchManometerSteamBoiler() async {
+    try {
+      isLoading(true);
+      var manoMeterSteamBoiler = await HttpServiceProvider
+          .fetchManometerSteamBoiler();
+      steamBoilermachineList.value = manoMeterSteamBoiler;
+    }
+    finally {
+      isLoading(false);
+    }
   }
 
-  @override
-  void onClose() {}
-  void increment() => count.value++;
+  Future<void> fetchManomterThermoPack() async {
+    try {
+      isLoadingThermopack(true);
+      var manoMeterThermoPack = await HttpServiceProvider
+          .fetchManometerThermopack();
+      thermoPackmachineList.value = manoMeterThermoPack;
+    }
+    finally {
+      isLoadingThermopack(false);
+    }
+  }
+
+
 }

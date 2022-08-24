@@ -5,15 +5,11 @@ import '../Model/SupplyPumpModel.dart';
 import '../controllers/supply_pump_controller.dart';
 
 class SupplyPumpView extends GetView<SupplyPumpController> {
-  final SupplyPumpController supplyPumpController =
-      Get.put(SupplyPumpController());
   final _formKey = GlobalKey<FormState>();
-  late int index;
-
-  int get id => 0;
 
   @override
   Widget build(BuildContext context) {
+    Get.put(SupplyPumpController());
     return SafeArea(
       child: Scaffold(
         body: Padding(
@@ -32,7 +28,7 @@ class SupplyPumpView extends GetView<SupplyPumpController> {
                       fit: BoxFit.fitHeight,
                       child: ElevatedButton(
                         onPressed: () {
-                          supplyPumpController.clearData();
+                          controller.clearData();
                           _displayTextInputDialog(context);
                         },
                         style: ButtonStyle(
@@ -57,11 +53,11 @@ class SupplyPumpView extends GetView<SupplyPumpController> {
               ),
               Expanded(
                 child: Obx(() {
-                  if (supplyPumpController.isLoading.value) {
+                  if (controller.isLoading.value) {
                     return const Center(child: CircularProgressIndicator());
                   } else {
                     return ListView.builder(
-                      itemCount: supplyPumpController.supplyPumpList.length,
+                      itemCount: controller.supplyPumpList.length,
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -89,8 +85,8 @@ class SupplyPumpView extends GetView<SupplyPumpController> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      supplyPumpController
-                                          .supplyPumpList[index].machine,
+                                      controller.supplyPumpList[index].name
+                                          .toString(),
                                       style: TextStyle(
                                           fontFamily: Constants.popins,
                                           color: Constants.textColor,
@@ -100,50 +96,52 @@ class SupplyPumpView extends GetView<SupplyPumpController> {
                                     const SizedBox(
                                       width: 10,
                                     ),
-                                    IconButton(
-                                        onPressed: () {
-                                          supplyPumpController
-                                                  .machineNameTextController
-                                                  .text =
-                                              supplyPumpController
-                                                  .supplyPumpList[index].machine
-                                                  .toString();
-                                          supplyPumpController
-                                                  .averageTextController.text =
-                                              supplyPumpController
-                                                  .supplyPumpList[index].average
-                                                  .toString();
-                                          supplyPumpController
-                                                  .deviationTextController
-                                                  .text =
-                                              supplyPumpController
-                                                  .supplyPumpList[index]
-                                                  .deviation
-                                                  .toString();
-                                          Get.put(_updateDialog(
-                                              context,
-                                              int.parse(supplyPumpController
-                                                  .supplyPumpList[index].id
-                                                  .toString())));
-                                        },
-                                        icon: const Icon(
-                                          Icons.edit,
-                                          color: Colors.green,
-                                          size: 20,
-                                        )),
-                                    IconButton(
-                                        onPressed: () {
-                                          Get.put(_deleteMachineDialog(
-                                              context,
-                                              int.parse(supplyPumpController
-                                                  .supplyPumpList[index].id
-                                                  .toString())));
-                                        },
-                                        icon: const Icon(
-                                          Icons.delete,
-                                          color: Colors.red,
-                                          size: 20,
-                                        )),
+                                    Row(
+                                      mainAxisAlignment:  MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        IconButton(
+                                            onPressed: () {
+                                              controller.machineNameTextController
+                                                      .text =
+                                                  controller
+                                                      .supplyPumpList[index].name
+                                                      .toString();
+                                              controller
+                                                      .averageTextController.text =
+                                                  controller
+                                                      .supplyPumpList[index].average
+                                                      .toString();
+                                              controller.deviationTextController
+                                                      .text =
+                                                  controller.supplyPumpList[index]
+                                                      .deviation
+                                                      .toString();
+                                              Get.put(_updateDialog(
+                                                  context,
+                                                  int.parse(controller
+                                                      .supplyPumpList[index].id
+                                                      .toString())));
+                                            },
+                                            icon: const Icon(
+                                              Icons.edit,
+                                              color: Colors.green,
+                                              size: 20,
+                                            )),
+                                        IconButton(
+                                            onPressed: () {
+                                              Get.put(_deleteMachineDialog(
+                                                  context,
+                                                  int.parse(controller
+                                                      .supplyPumpList[index].id
+                                                      .toString())));
+                                            },
+                                            icon: const Icon(
+                                              Icons.delete,
+                                              color: Colors.red,
+                                              size: 20,
+                                            )),
+                                      ],
+                                    ),
                                   ],
                                 ),
                                 Row(
@@ -157,8 +155,7 @@ class SupplyPumpView extends GetView<SupplyPumpController> {
                                           fontSize: 12),
                                     ),
                                     Text(
-                                      supplyPumpController
-                                          .supplyPumpList[index].average
+                                      controller.supplyPumpList[index].average
                                           .toString(),
                                       style: TextStyle(
                                           decoration: TextDecoration.underline,
@@ -179,8 +176,7 @@ class SupplyPumpView extends GetView<SupplyPumpController> {
                                           fontSize: 12),
                                     ),
                                     Text(
-                                      supplyPumpController
-                                          .supplyPumpList[index].deviation
+                                      controller.supplyPumpList[index].deviation
                                           .toString(),
                                       style: TextStyle(
                                           decoration: TextDecoration.underline,
@@ -228,25 +224,22 @@ class SupplyPumpView extends GetView<SupplyPumpController> {
                   // Get available height and width of the build area of this widget. Make a choice depending on the size.
                   var height = MediaQuery.of(context).size.height;
                   return SizedBox(
-                    height: height / 5.5,
+                    height: height / 4,
                     width: 200,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          height: 40,
-                          // width: w * 0.45,
+                          height: 60,
                           child: TextFormField(
                             validator: (value) =>
                                 value!.isEmpty ? 'Machine Name Required' : null,
-                            controller:
-                                supplyPumpController.machineNameTextController,
+                            controller: controller.machineNameTextController,
                             style: TextStyle(
                               fontFamily: Constants.popins,
                               // color: Constants.textColor,
                             ),
                             decoration: InputDecoration(
-                                labelText: "Machine Name",
                                 hintText: "Enter Machine Name",
                                 contentPadding: const EdgeInsets.only(
                                     bottom: 10.0, left: 10.0),
@@ -278,22 +271,19 @@ class SupplyPumpView extends GetView<SupplyPumpController> {
                                 fillColor: Colors.white70),
                           ),
                         ),
-                        const SizedBox(height: 10),
                         SizedBox(
-                          height: 40,
+                          height: 60,
                           // width: w * 0.25,
                           child: TextFormField(
                             keyboardType: TextInputType.number,
                             validator: (value) =>
                                 value!.isEmpty ? 'Average required' : null,
-                            controller:
-                                supplyPumpController.averageTextController,
+                            controller: controller.averageTextController,
                             style: TextStyle(
                               fontFamily: Constants.popins,
                               // color: Constants.textColor,
                             ),
                             decoration: InputDecoration(
-                                labelText: "Flow/Unit Average",
                                 hintText: "Flow/Unit Average",
                                 contentPadding: const EdgeInsets.only(
                                     bottom: 10.0, left: 10.0),
@@ -325,22 +315,19 @@ class SupplyPumpView extends GetView<SupplyPumpController> {
                                 fillColor: Colors.white70),
                           ),
                         ),
-                        const SizedBox(height: 10),
                         SizedBox(
-                          height: 40,
+                          height: 60,
                           // width: w * 0.25,
                           child: TextFormField(
                             keyboardType: TextInputType.number,
                             validator: (value) =>
                                 value!.isEmpty ? 'Deviation required' : null,
-                            controller:
-                                supplyPumpController.deviationTextController,
+                            controller: controller.deviationTextController,
                             style: TextStyle(
                               fontFamily: Constants.popins,
                               // color: Constants.textColor,
                             ),
                             decoration: InputDecoration(
-                                labelText: "Deviation",
                                 hintText: "Deviation",
                                 contentPadding: const EdgeInsets.only(
                                     bottom: 10.0, left: 10.0),
@@ -383,16 +370,13 @@ class SupplyPumpView extends GetView<SupplyPumpController> {
                     child: ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          _formKey.currentState!.save();
-                          supplyPumpController.addSupplyPump(SupplyPump(
-                              machine: supplyPumpController
-                                  .machineNameTextController.text,
-                              average: int.parse(supplyPumpController
-                                  .averageTextController.text),
-                              deviation: int.parse(supplyPumpController
-                                  .deviationTextController.text)));
-                          Navigator.of(context).pop();
-                          supplyPumpController.clearData();
+                          _formKey.currentState?.save();
+                          controller.addSupplyPump(ModelSupplyPump(
+                              name: controller.machineNameTextController.text,
+                              average: int.parse(
+                                  controller.averageTextController.text),
+                              deviation: int.parse(
+                                  controller.deviationTextController.text)));
                         }
                       },
                       style: ButtonStyle(
@@ -459,8 +443,7 @@ class SupplyPumpView extends GetView<SupplyPumpController> {
                           height: 60,
                           // width: w * 0.45,
                           child: TextFormField(
-                            controller:
-                                supplyPumpController.machineNameTextController,
+                            controller: controller.machineNameTextController,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Machine name is required.';
@@ -472,7 +455,6 @@ class SupplyPumpView extends GetView<SupplyPumpController> {
                               // color: Constants.textColor,
                             ),
                             decoration: InputDecoration(
-                                labelText: "Machine Name",
                                 hintText: "Enter Machine Name",
                                 contentPadding: const EdgeInsets.only(
                                     bottom: 10.0, left: 10.0),
@@ -508,8 +490,7 @@ class SupplyPumpView extends GetView<SupplyPumpController> {
                           height: 60,
                           // width: w * 0.25,
                           child: TextFormField(
-                            controller:
-                                supplyPumpController.averageTextController,
+                            controller: controller.averageTextController,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Average is required.';
@@ -521,7 +502,6 @@ class SupplyPumpView extends GetView<SupplyPumpController> {
                               // color: Constants.textColor,
                             ),
                             decoration: InputDecoration(
-                                labelText: "Flow/Unit Average",
                                 hintText: "Flow/Unit Average",
                                 contentPadding: const EdgeInsets.only(
                                     bottom: 10.0, left: 10.0),
@@ -554,10 +534,9 @@ class SupplyPumpView extends GetView<SupplyPumpController> {
                           ),
                         ),
                         SizedBox(
-                          height: 10,
+                          height: 60,
                           child: TextFormField(
-                            controller:
-                                supplyPumpController.deviationTextController,
+                            controller: controller.deviationTextController,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Unit is required.';
@@ -568,7 +547,6 @@ class SupplyPumpView extends GetView<SupplyPumpController> {
                               fontFamily: Constants.popins,
                             ),
                             decoration: InputDecoration(
-                                labelText: "Deviation",
                                 hintText: "Deviation",
                                 contentPadding: const EdgeInsets.only(
                                     bottom: 10.0, left: 10.0),
@@ -612,13 +590,12 @@ class SupplyPumpView extends GetView<SupplyPumpController> {
                 child: ElevatedButton(
                   onPressed: () {
                     if (key.currentState!.validate()) {
-                      key.currentState!.save();
-                      supplyPumpController.updateTask(
-                        supplyPumpController.machineNameTextController.text,
+                      controller.updateTask(
+                        controller.machineNameTextController.text,
                         int.parse(
-                            supplyPumpController.averageTextController.text),
+                            controller.averageTextController.text.toString()),
                         int.parse(
-                            supplyPumpController.deviationTextController.text),
+                            controller.deviationTextController.text.toString()),
                         int.parse(id.toString()),
                       );
                     }
@@ -700,7 +677,7 @@ class SupplyPumpView extends GetView<SupplyPumpController> {
                 width: 100,
                 child: ElevatedButton(
                   onPressed: () {
-                    supplyPumpController.deleteSupplyPump(id);
+                    controller.deleteSupplyPump(id);
                     Navigator.pop(context);
                   },
                   style: ButtonStyle(

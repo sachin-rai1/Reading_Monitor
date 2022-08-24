@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:readingmonitor2/app/modules/MachineList/ThermoPack/Model/MachineList_Model_ThermoPack.dart';
 import '../../../../data/Constants.dart';
 import '../controllers/thermo_pack_controller.dart';
 
@@ -291,17 +290,7 @@ class ThermoPackView extends GetView<ThermoPackController> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
-                    controller.addThermoPack(ThermoPack(
-                        coal1: int.parse(controller.coal1.text),
-                        coal1Dev: int.parse(controller.coal1Dev.text),
-                        rateOfCoal1: int.parse(controller.rateOfCoal1.text),
-                        coal2: int.parse(controller.coal2.text),
-                        coal2Dev: int.parse(controller.coal2Dev.text),
-                        rateOfCoal2: int.parse(controller.rateOfCoal2.text),
-                        deltaT1: int.parse(controller.deltaT1.text),
-                        deltaT2: int.parse(controller.deltaT2.text),
-                        chamberCost1: int.parse(controller.chamberCost1.text),
-                        chamberCost2: int.parse(controller.chamberCost2.text)));
+                    controller.fetchThermoPack();
                     }
                   },
                   child: Container(

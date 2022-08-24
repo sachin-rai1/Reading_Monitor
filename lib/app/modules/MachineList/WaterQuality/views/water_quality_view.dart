@@ -10,20 +10,25 @@ class WaterQualityView extends GetView<WaterQualityController> {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(WaterQualityController());
+    Get.put(WaterQualityController(), permanent: true);
+    // Get.putAsync<WaterQualityController>(() async => WaterQualityController());
+    // Get.to(WaterQualityView(), binding: BindingsBuilder(() {
+    //   Get.put(WaterQualityController());
+    // }));
+
     final w = MediaQuery.of(context).size.width;
+    final h = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Container(
-            padding: EdgeInsets.only(top: 10),
-            height: 70,
+            padding: EdgeInsets.only(top: 10, bottom: 10),
             child: Column(
               children: [
                 Container(
                   width: 90,
                   height: 25,
-                  alignment: Alignment.topLeft,
                   child: ElevatedButton(
                     onPressed: () {
                       controller.clearData();
@@ -37,127 +42,187 @@ class WaterQualityView extends GetView<WaterQualityController> {
                     ),
                   ),
                 ),
-                Container(
-                  color: Color(0xff716259),
-                  width: w,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Name",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      Text("TDS",
-                          style: TextStyle(fontWeight: FontWeight.bold)),
-                      Text("TDS \n (%)",
-                          style: TextStyle(fontWeight: FontWeight.bold)),
-                      Text("PH"),
-                      Text("PH \n (%)"),
-                      Text(
-                        "Hardness",
-                        style: TextStyle(),
-                      ),
-                      Column(
-                        children: [
-                          Text("Hardness"),
-                          Text("%"),
-                        ],
-                      ),
-                      Text("Edit  /\n Delete"),
-                    ],
-                  ),
-                )
               ],
             ),
           ),
-          Expanded(
-              flex: 1,
-              child: Card(
-                child: Obx(
-                  () => ListView.builder(
-                      itemCount: controller.machineList.length,
-                      itemBuilder: (context, index) {
-                        return Column(
+          Expanded(child: Obx(() {
+            if (controller.isLoading.value) {
+              return const Center(child: CircularProgressIndicator());
+            } else {
+              return ListView.builder(
+                  itemCount: controller.machineList.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      padding: EdgeInsets.all(15),
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0)),
+                        child: Column(
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(controller.machineList[index].machineName
-                                    .toString()),
-                                Text(controller.machineList[index].tds
-                                    .toString()),
-                                Text(controller.machineList[index].tdsPercentage
-                                    .toString()),
-                                Text(controller.machineList[index].ph
-                                    .toString()),
-                                Text(controller.machineList[index].phDeviation
-                                    .toString()),
-                                Text(controller.machineList[index].hardness
-                                    .toString()),
-                                Text(controller
-                                    .machineList[index].hardnessPercentage
-                                    .toString()),
-                                Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        controller.machineName.text = controller
-                                            .machineList[index].machineName
-                                            .toString();
-                                        controller.tds.text = controller
-                                            .machineList[index].tds
-                                            .toString();
-                                        controller.tdsPer.text = controller
-                                            .machineList[index].tdsPercentage
-                                            .toString();
-                                        controller.ph.text = controller
-                                            .machineList[index].ph
-                                            .toString();
-                                        controller.phPerc.text = controller
-                                            .machineList[index].phDeviation
-                                            .toString();
-                                        controller.hardness.text = controller
-                                            .machineList[index].hardness
-                                            .toString();
-                                        controller.hardnessPerc.text =
-                                            controller.machineList[index]
-                                                .hardnessPercentage
-                                                .toString();
-                                        editDialog(
-                                            context,
-                                            int.parse(controller
-                                                .machineList[index].id
-                                                .toString()));
-                                      },
-                                      child: Icon(
-                                        Icons.edit,
-                                        color: Colors.green,
+                            Container(
+                              padding: EdgeInsets.only(left: 15,right: 15 , top: 15),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    controller.machineList[index].machineName
+                                        .toString()
+                                        .toUpperCase(),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  Row(
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          controller.machineName.text =
+                                              controller.machineList[index]
+                                                  .machineName
+                                                  .toString();
+                                          controller.tds.text = controller
+                                              .machineList[index].tds
+                                              .toString();
+                                          controller.tdsPer.text = controller
+                                              .machineList[index].tdsPercentage
+                                              .toString();
+                                          controller.ph.text = controller
+                                              .machineList[index].ph
+                                              .toString();
+                                          controller.phPerc.text = controller
+                                              .machineList[index].phDeviation
+                                              .toString();
+                                          controller.hardness.text = controller
+                                              .machineList[index].hardness
+                                              .toString();
+                                          controller.hardnessPerc.text =
+                                              controller.machineList[index]
+                                                  .hardnessPercentage
+                                                  .toString();
+                                          editDialog(
+                                              context,
+                                              int.parse(controller
+                                                  .machineList[index].id
+                                                  .toString()));
+                                        },
+                                        child: Icon(
+                                          Icons.edit,
+                                          color: Colors.green,
+                                        ),
                                       ),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        deleteDialog(context , controller.machineList[index].id);
-                                      },
-                                      child: Icon(
-                                        Icons.delete,
-                                        color: Colors.red,
+                                      GestureDetector(
+                                        onTap: () {
+                                          deleteDialog(context,
+                                              controller.machineList[index].id);
+                                        },
+                                        child: Icon(
+                                          Icons.delete,
+                                          color: Colors.red,
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
-                            Divider(
-                              thickness: 0.9,
-                              color: Colors.black,
-                            )
+                            // Divider(thickness: 1,color: Colors.black,),
+                            Padding(
+                              padding: EdgeInsets.only(left: 15,right: 15 , top: 15 , bottom: 15),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    width: w / 3,
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text("TDS"),
+                                            Text(controller
+                                                .machineList[index].tds
+                                                .toString()),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text("TDS %"),
+                                            Text(controller.machineList[index]
+                                                .tdsPercentage
+                                                .toString()),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text("PH"),
+                                            Text(controller
+                                                .machineList[index].ph
+                                                .toString()),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    height: h / 15,
+                                    child: VerticalDivider(
+                                      color: Colors.black12,
+                                      thickness: 2,
+                                    ),
+                                  ),
+                                  Container(
+                                    width: w / 3,
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text("PH % : "),
+                                            Text(controller
+                                                .machineList[index].phDeviation
+                                                .toString()),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text("Hardness : "),
+                                            Text(controller
+                                                .machineList[index].hardness
+                                                .toString()),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text("Hardness % : "),
+                                            Text(controller.machineList[index]
+                                                .hardnessPercentage
+                                                .toString()),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ],
-                        );
-                      }),
-                ),
-              ))
+                        ),
+                      ),
+                    );
+                  });
+            }
+          }))
         ],
       ),
     );
@@ -208,7 +273,8 @@ class WaterQualityView extends GetView<WaterQualityController> {
                 TextFormField(
                   decoration: InputDecoration(hintText: "TDS %"),
                   controller: controller.tdsPer,
-                  validator: (value) => value!.isEmpty ? 'tds % Required' : null,
+                  validator: (value) =>
+                      value!.isEmpty ? 'tds % Required' : null,
                 ),
                 TextFormField(
                   decoration: InputDecoration(hintText: "PH"),
@@ -338,7 +404,7 @@ class WaterQualityView extends GetView<WaterQualityController> {
     );
   }
 
-  deleteDialog(BuildContext context , id) {
+  deleteDialog(BuildContext context, id) {
     final h = MediaQuery.of(context).size.height;
     // set up the button
     Widget okButton = TextButton(

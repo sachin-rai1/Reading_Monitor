@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:readingmonitor2/app/modules/UploadData/Upload_SteamBoiler/Model/UploadSteamBoilerModel.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../data/Constants.dart';
 
 class UploadSteamBoilerController extends GetxController {
@@ -27,10 +28,13 @@ class UploadSteamBoilerController extends GetxController {
   }
 
   addUploadSteamBoiler(UploadSteamBoilerModel uploadSteamBoilerModel) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var tokenvalue = prefs.getString("token");
     final response =
-        await http.put(Uri.parse("${Constants.connectionString}/ursbadd"),
+        await http.put(Uri.parse("${Constants.connectionString}/GetThermopackReportUploadAdd"),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8',
+              'Authorization': 'Bearer $tokenvalue',
             },
             body: jsonEncode(<String, String>{
               "date": selectedDate.value.toString(),

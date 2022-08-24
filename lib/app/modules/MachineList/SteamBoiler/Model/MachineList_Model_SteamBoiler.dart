@@ -1,89 +1,73 @@
 import 'dart:convert';
 
-List<SteamBoiler> steamBoilerFromJson(String str) => List<SteamBoiler>.from(json.decode(str).map((x) => SteamBoiler.fromJson(x)));
+List<ModelSteamBoiler> modelSteamBoilerFromJson(String str) =>
+    List<ModelSteamBoiler>.from(
+        json.decode(str).map((x) => ModelSteamBoiler.fromJson(x)));
 
-String steamBoilerToJson(List<SteamBoiler> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String modelSteamBoilerToJson(List<ModelSteamBoiler> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class SteamBoiler {
-  SteamBoiler({
+class ModelSteamBoiler {
+  ModelSteamBoiler({
     this.id,
-    this.uid,
-   required this.bfw1,
-   required this.bfw2,
-   required this.coal1,
-   required this.coal1Div,
-   required this.rateOfCoal1,
-   required this.coal2,
-   required this.coal2Div,
-   required this.rateOfCoal2,
-   required this.bfwTemperature1,
-   required this.bfwTemperature2,
-   required this.steamCost1,
-   required this.steamCost2,
-    this.flage,
-    this.deletedAt,
-    this.createdAt,
-    this.updatedAt,
+    required this.bfw,
+    required this.temperature,
+    required this.bfwPercentage,
+    required this.bfwTemperaturePercentage,
+    required this.coal1,
+    required this.coal2,
+    required this.coalDeviation1,
+    required this.coalDeviation2,
+    required this.rateOfCoal1,
+    required this.rateOfCoal2,
+    required this.steamCost,
+    required this.steamCostPercentage,
   });
 
-  int ? id;
-  dynamic uid;
-  int bfw1;
-  int bfw2;
+  int? id;
+  int bfw;
+  int temperature;
+  int bfwPercentage;
+  int bfwTemperaturePercentage;
   int coal1;
-  int coal1Div;
-  int rateOfCoal1;
   int coal2;
-  int coal2Div;
+  int coalDeviation1;
+  int coalDeviation2;
+  int rateOfCoal1;
   int rateOfCoal2;
-  int bfwTemperature1;
-  int bfwTemperature2;
-  int steamCost1;
-  int steamCost2;
-  int ? flage;
-  dynamic deletedAt;
-  DateTime ? createdAt;
-  DateTime ? updatedAt;
+  int steamCost;
+  int steamCostPercentage;
 
-  factory SteamBoiler.fromJson(Map<String, dynamic> json) => SteamBoiler(
-    id: json["id"],
-    uid: json["uid"],
-    bfw1: json["bfw1"],
-    bfw2: json["bfw2"],
-    coal1: json["coal1"],
-    coal1Div: json["coal1_div"],
-    rateOfCoal1: json["rate_of_coal1"],
-    coal2: json["coal2"],
-    coal2Div: json["coal2_div"],
-    rateOfCoal2: json["rate_of_coal2"],
-    bfwTemperature1: json["bfw_temperature1"],
-    bfwTemperature2: json["bfw_temperature2"],
-    steamCost1: json["steam_cost1"],
-    steamCost2: json["steam_cost2"],
-    flage: json["flage"],
-    deletedAt: json["deleted_at"],
-    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-  );
+  factory ModelSteamBoiler.fromJson(Map<String, dynamic> json) =>
+      ModelSteamBoiler(
+        id: json["id"],
+        bfw: json["bfw"],
+        temperature: json["temperature"],
+        bfwPercentage: json["bfw_percentage"],
+        bfwTemperaturePercentage: json["bfw_temperature_percentage"],
+        coal1: json["coal_1"],
+        coal2: json["coal_2"],
+        coalDeviation1: json["coal_deviation_1"],
+        coalDeviation2: json["coal_deviation_2"],
+        rateOfCoal1: json["rate_of_coal_1"],
+        rateOfCoal2: json["rate_of_coal_2"],
+        steamCost: json["steam_cost"],
+        steamCostPercentage: json["steam_cost_percentage"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "uid": uid,
-    "bfw1": bfw1,
-    "bfw2": bfw2,
-    "coal1": coal1,
-    "coal1_div": coal1Div,
-    "rate_of_coal1": rateOfCoal1,
-    "coal2": coal2,
-    "coal2_div": coal2Div,
-    "rate_of_coal2": rateOfCoal2,
-    "bfw_temperature1": bfwTemperature1,
-    "bfw_temperature2": bfwTemperature2,
-    "steam_cost1": steamCost1,
-    "steam_cost2": steamCost2,
-    "flage": flage,
-    "deleted_at": deletedAt,
-    "created_at": createdAt == null ? null : createdAt!.toIso8601String(),
-    "updated_at": updatedAt == null ? null : updatedAt!.toIso8601String(),
-  };
+        "id": id,
+        "bfw": bfw,
+        "temperature": temperature,
+        "bfw_percentage": bfwPercentage,
+        "bfw_temperature_percentage": bfwTemperaturePercentage,
+        "coal_1": coal1,
+        "coal_2": coal2,
+        "coal_deviation_1": coalDeviation1,
+        "coal_deviation_2": coalDeviation2,
+        "rate_of_coal_1": rateOfCoal1,
+        "rate_of_coal_2": rateOfCoal2,
+        "steam_cost": steamCost,
+        "steam_cost_percentage": steamCostPercentage,
+      };
 }

@@ -5,6 +5,7 @@ import 'package:get/get.dart' hide Response;
 import 'package:http/http.dart' as http;
 import 'package:readingmonitor2/app/data/Constants.dart';
 import 'package:readingmonitor2/app/modules/UploadData/Upload_ThermoPack/Model/Upload_thermo_pack_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UploadThermoPackController extends GetxController {
   var selectedDate = DateTime.now().obs;
@@ -28,25 +29,29 @@ class UploadThermoPackController extends GetxController {
     }
   }
 
-  addUploadThermoPack(UploadThermoPackModel uploadThermoPackModel) async {
-    final response = await http.put(
+  addUploadThermoPack(ModelUploadThermoPack uploadThermoPackModel) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var tokenvalue = prefs.getString("token");
+    final response = await http.post(
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer $tokenvalue',
         },
-        Uri.parse("${Constants.connectionString}/urtpadd"),
+        Uri.parse("${Constants.connectionString}/GetThermopackReportUploadAdd"),
         body: jsonEncode(<String, String>{
           "date": selectedDate.value.toString(),
-          "chambers": chambers.text,
-          "coal1": coal1.text,
-          "coal2": coal2.text,
+          "chamber": chambers.text,
+          "coal_1": coal1.text,
+          "coal_2": coal2.text,
           "in_temperature": inTemperature.text,
           "out_temperature": outTemperature.text,
-          "pump_pressure": pumpPressure.text,
-          "circuit_pressure": circuitPressure.text,
+          "pump_presure": pumpPressure.text,
+          "circuit_presure": circuitPressure.text,
         }));
     if (response.statusCode == 200) {
       Fluttertoast.showToast(
-          msg: "Data Added SuccessFully", backgroundColor: Colors.green);
+          msg: "Data Added Successfully", backgroundColor: Colors.green);
+      print(jsonDecode(response.body));
       clearData();
     } else {
       Fluttertoast.showToast(
@@ -55,14 +60,19 @@ class UploadThermoPackController extends GetxController {
   }
 
   Future<Future<bool?>?> fetchUploadedThermoPack() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var tokenvalue = prefs.getString("token");
     var response = await http.get(
       Uri.parse(
-          "${Constants.connectionString}/urtplist/${selectedDate.toString().split(" ")[0]}"),
+          "${Constants.connectionString}/GetThermopackReportUploadDate/${selectedDate.toString().split(" ")[0]}"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $tokenvalue',
+      },
     );
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       print(selectedDate.value.toIso8601String());
-      print(data);
       if (data.length != 0) {
         id = data[0]['id'];
         updateTask(
@@ -76,17 +86,17 @@ class UploadThermoPackController extends GetxController {
             int.parse(circuitPressure.text.toString()),
             int.parse(id.toString()));
 
+        print(data);
       } else {
-        addUploadThermoPack(UploadThermoPackModel(
+        addUploadThermoPack(ModelUploadThermoPack(
             date: selectedDate.value,
-            chambers: int.parse(chambers.text),
+            chamber: int.parse(chambers.text),
             coal1: int.parse(coal1.text),
             coal2: int.parse(coal2.text),
             inTemperature: int.parse(inTemperature.text),
             outTemperature: int.parse(outTemperature.text),
-            pumpPressure: int.parse(pumpPressure.text),
-            circuitPressure: int.parse(circuitPressure.text)));
-
+            pumpPresure: int.parse(pumpPressure.text),
+            circuitPresure: int.parse(circuitPressure.text)));
       }
       return null;
     } else {
@@ -94,7 +104,7 @@ class UploadThermoPackController extends GetxController {
     }
   }
 
-  Future<UploadThermoPackModel?> updateTask(
+  Future<ModelUploadThermoPack?> updateTask(
       DateTime dateTime,
       int chambers,
       int coal1,
@@ -104,20 +114,24 @@ class UploadThermoPackController extends GetxController {
       int pump_pressure,
       int circuit_pressure,
       int id) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var tokenvalue = prefs.getString("token");
     final response = await http.put(
-      Uri.parse("${Constants.connectionString}/urtpupdate"),
+      Uri.parse(
+          "${Constants.connectionString}/GetThermopackReportUploadUpdated/$id"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $tokenvalue',
       },
       body: jsonEncode(<String, String>{
         "date": dateTime.toString(),
-        "chambers": chambers.toString(),
-        "coal1": coal1.toString(),
-        "coal2": coal2.toString(),
+        "chamber": chambers.toString(),
+        "coal_1": coal1.toString(),
+        "coal_2": coal2.toString(),
         "in_temperature": in_temperature.toString(),
         "out_temperature": out_temperature.toString(),
-        "pump_pressure": pump_pressure.toString(),
-        "circuit_pressure": circuit_pressure.toString(),
+        "pump_presure": pump_pressure.toString(),
+        "circuit_presure": circuit_pressure.toString(),
         "id": id.toString()
       }),
     );

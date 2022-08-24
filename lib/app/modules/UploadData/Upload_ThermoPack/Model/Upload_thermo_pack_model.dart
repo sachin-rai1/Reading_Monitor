@@ -1,61 +1,53 @@
 import 'dart:convert';
 
-List<UploadThermoPackModel> uploadThermoPackModelFromJson(String str) => List<UploadThermoPackModel>.from(json.decode(str).map((x) => UploadThermoPackModel.fromJson(x)));
+List<ModelUploadThermoPack> modelUploadThermoPackFromJson(String str) => List<ModelUploadThermoPack>.from(json.decode(str).map((x) => ModelUploadThermoPack.fromJson(x)));
 
-String uploadThermoPackModelToJson(List<UploadThermoPackModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String modelUploadThermoPackToJson(List<ModelUploadThermoPack> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class UploadThermoPackModel {
-  UploadThermoPackModel({
+class ModelUploadThermoPack {
+  ModelUploadThermoPack({
     this.id,
-   required this.date,
-   required this.chambers,
+    this.date,
+   required this.chamber,
    required this.coal1,
    required this.coal2,
    required this.inTemperature,
    required this.outTemperature,
-   required this.pumpPressure,
-   required this.circuitPressure,
-    this.createdAt,
-    this.updatedAt,
+   required this.pumpPresure,
+   required this.circuitPresure,
   });
 
   int ? id;
-  DateTime date;
-  int chambers;
+  DateTime ? date;
+  int chamber;
   int coal1;
   int coal2;
   int inTemperature;
   int outTemperature;
-  int pumpPressure;
-  int circuitPressure;
-  dynamic createdAt;
-  DateTime ? updatedAt;
+  int pumpPresure;
+  int circuitPresure;
 
-  factory UploadThermoPackModel.fromJson(Map<String, dynamic> json) => UploadThermoPackModel(
+  factory ModelUploadThermoPack.fromJson(Map<String, dynamic> json) => ModelUploadThermoPack(
     id: json["id"],
-    date: DateTime.parse(json["date"]),
-    chambers: json["chambers"],
-    coal1: json["coal1"],
-    coal2: json["coal2"],
+    date: json["date"],
+    chamber: json["chamber"],
+    coal1: json["coal_1"],
+    coal2: json["coal_2"],
     inTemperature: json["in_temperature"],
     outTemperature: json["out_temperature"],
-    pumpPressure: json["pump_pressure"],
-    circuitPressure: json["circuit_pressure"],
-    createdAt: json["created_at"],
-    updatedAt: DateTime.parse(json["updated_at"]),
+    pumpPresure: json["pump_presure"],
+    circuitPresure: json["circuit_presure"],
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
-    "date": "${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}",
-    "chambers": chambers,
-    "coal1": coal1,
-    "coal2": coal2,
+    "date": date,
+    "chamber": chamber,
+    "coal_1": coal1,
+    "coal_2": coal2,
     "in_temperature": inTemperature,
     "out_temperature": outTemperature,
-    "pump_pressure": pumpPressure,
-    "circuit_pressure": circuitPressure,
-    "created_at": createdAt,
-    "updated_at": updatedAt!.toIso8601String(),
+    "pump_presure": pumpPresure,
+    "circuit_presure": circuitPresure,
   };
 }

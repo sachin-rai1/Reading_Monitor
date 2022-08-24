@@ -1,52 +1,37 @@
 import 'dart:convert';
-List<SupplyPump> supplyPumpFromJson(String str) => List<SupplyPump>.from(json.decode(str).map((x) => SupplyPump.fromJson(x)));
 
-String supplyPumpToJson(List<SupplyPump> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+List<ModelSupplyPump> modelSupplyPumpFromJson(String str) =>
+    List<ModelSupplyPump>.from(
+        json.decode(str).map((x) => ModelSupplyPump.fromJson(x)));
 
-class SupplyPump {
-  SupplyPump({
+String modelSupplyPumpToJson(List<ModelSupplyPump> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
+class ModelSupplyPump {
+  ModelSupplyPump({
     this.id,
-    this.uid,
-    required this.machine,
+    this.name,
     required this.average,
     required this.deviation,
-    this.flage,
-    this.deletedAt,
-    this.createdAt,
-    this.updatedAt,
   });
 
-  int ? id;
-  dynamic  uid;
-  String machine;
-  int average;
-  int deviation;
-  int ? flage;
-  dynamic deletedAt;
-  DateTime ? createdAt;
-  DateTime ? updatedAt;
+  int? id;
+  String? name;
+  int? average;
+  int? deviation;
 
-  factory SupplyPump.fromJson(Map<String, dynamic> json) => SupplyPump(
-    id: json["id"],
-    uid: json["uid"],
-    machine: json["machine"],
-    average: json["average"],
-    deviation: json["deviation"],
-    flage: json["flage"],
-    deletedAt: json["deleted_at"],
-    createdAt: DateTime.parse(json["created_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
-  );
+  factory ModelSupplyPump.fromJson(Map<String, dynamic> json) =>
+      ModelSupplyPump(
+        id: json["id"],
+        name: json["name"],
+        average: json["average"],
+        deviation: json["deviation"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "uid": uid,
-    "machine": machine,
-    "average": average,
-    "deviation": deviation,
-    "flage": flage,
-    "deleted_at": deletedAt,
-    "created_at": createdAt?.toIso8601String(),
-    "updated_at": updatedAt?.toIso8601String(),
-  };
+        "id": id,
+        "name": name,
+        "average": average,
+        "deviation": deviation,
+      };
 }

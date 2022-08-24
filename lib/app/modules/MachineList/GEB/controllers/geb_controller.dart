@@ -105,7 +105,7 @@ class GebController extends GetxController {
     if (response.statusCode == 200) {
       Fluttertoast.showToast(
           msg: "Machine Updated", backgroundColor: Colors.green);
-      // fetchMachineList();
+
     } else {
       Fluttertoast.showToast(
           msg: "Error in Update", backgroundColor: Colors.red);
@@ -114,7 +114,7 @@ class GebController extends GetxController {
     return null;
   }
 
-  var gebMAchineList = <GebModel>[].obs;
+
 
   Future<Future<bool?>?> fetchGebList(int id) async {
     print(id.toString());
@@ -147,6 +147,7 @@ class GebController extends GetxController {
           turbineDeviation: int.parse(devTb.text),
           mf: int.parse(mf.text),
         ));
+        print("Data Added");
       } else {
         updateGebMachine(
             int.parse(kwh.text.toString()),
@@ -163,7 +164,9 @@ class GebController extends GetxController {
             int.parse(devTb.text.toString()),
             int.parse(mf.text.toString()),
             int.parse(id.toString()));
+        print("Data Updated");
       }
+
     }
     return null;
   }

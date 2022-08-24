@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:readingmonitor2/app/modules/MachineList/Utility/controllers/sub_utility_controller.dart';
 
-class SubUtilityView extends GetView {
+class SubUtilityView extends GetView<SubUtilityController> {
   @override
   Widget build(BuildContext context) {
+    Get.put(SubUtilityController());
     final w = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
@@ -93,16 +95,16 @@ class SubUtilityView extends GetView {
               flex: 1,
               child: Card(
                 child: ListView.builder(
-                    itemCount: 100,
+                    itemCount: controller.subUtilityList.length,
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("Machine"),
-                            Text("Machine"),
-                            Text("Machine"),
+                            Text(controller.name.text),
+                            Text(controller.average.text),
+                            Text(controller.deviation.text),
                             GestureDetector(
                               onTap: () {
                                 editDialog(context);

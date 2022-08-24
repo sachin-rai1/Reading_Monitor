@@ -14,7 +14,7 @@ class UtilityController extends GetxController {
   var utilitymachineList = <ModelUtilityMachineList>[].obs;
 
   @override
-  void onInit() {
+  void onInit() async {
     fetchUtilityMachinelist();
     super.onInit();
   }
@@ -23,8 +23,10 @@ class UtilityController extends GetxController {
     try {
       isLoading(true);
       var machinesUtility = await HttpServiceProvider.fetchUtilityMachinelist();
+      // utilitymachineList.assignAll(machinesUtility);
       utilitymachineList.value = machinesUtility;
-    } finally {
+    }
+    finally {
       isLoading(false);
     }
   }
@@ -85,18 +87,15 @@ class UtilityController extends GetxController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var tokenvalue = prefs.getString("token");
     try {
-      final response = await http.post(
-        Uri.parse("${Constants.connectionString}/UtiliyDelete/$id"),
-        body: jsonEncode(<String ,String>
-        {
-          '_method' : "DELETE",
-        }),
-        headers: <String , String>
-          {
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': 'Bearer $tokenvalue',
-        }
-      );
+      final response = await http
+          .post(Uri.parse("${Constants.connectionString}/UtiliyDelete/$id"),
+              body: jsonEncode(<String, String>{
+                '_method': "DELETE",
+              }),
+              headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': 'Bearer $tokenvalue',
+          });
       if (response.statusCode == 200) {
         print(id);
         fetchUtilityMachinelist();

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:readingmonitor2/app/data/Constants.dart';
-import 'package:readingmonitor2/app/modules/MachineList/SteamBoiler/Model/MachineList_Model_SteamBoiler.dart';
 import '../controllers/steam_boiler_controller.dart';
 
 class SteamBoilerView extends GetView<SteamBoilerController> {
@@ -49,12 +48,11 @@ class SteamBoilerView extends GetView<SteamBoilerController> {
                   ),
                 ],
               ),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Temperature : ",
+                    "BFW % : ",
                     style: TextStyle(fontSize: 16),
                   ),
                   Container(
@@ -79,12 +77,11 @@ class SteamBoilerView extends GetView<SteamBoilerController> {
                   ),
                 ],
               ),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "BFW % : ",
+                    "Temperature : ",
                     style: TextStyle(fontSize: 16),
                   ),
                   Container(
@@ -109,7 +106,6 @@ class SteamBoilerView extends GetView<SteamBoilerController> {
                   ),
                 ],
               ),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -139,7 +135,6 @@ class SteamBoilerView extends GetView<SteamBoilerController> {
                   ),
                 ],
               ),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -169,7 +164,6 @@ class SteamBoilerView extends GetView<SteamBoilerController> {
                   ),
                 ],
               ),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -199,7 +193,6 @@ class SteamBoilerView extends GetView<SteamBoilerController> {
                   ),
                 ],
               ),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -229,7 +222,6 @@ class SteamBoilerView extends GetView<SteamBoilerController> {
                   ),
                 ],
               ),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -259,7 +251,6 @@ class SteamBoilerView extends GetView<SteamBoilerController> {
                   ),
                 ],
               ),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -289,7 +280,6 @@ class SteamBoilerView extends GetView<SteamBoilerController> {
                   ),
                 ],
               ),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -319,7 +309,6 @@ class SteamBoilerView extends GetView<SteamBoilerController> {
                   ),
                 ],
               ),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -349,7 +338,6 @@ class SteamBoilerView extends GetView<SteamBoilerController> {
                   ),
                 ],
               ),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -379,34 +367,20 @@ class SteamBoilerView extends GetView<SteamBoilerController> {
                   ),
                 ],
               ),
-
               ElevatedButton(
-                style: ElevatedButton.styleFrom(primary: Constants.primaryColor),
+                  style:
+                      ElevatedButton.styleFrom(primary: Constants.primaryColor),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       key.currentState?.save();
-                      controller.addSteamBoiler(SteamBoiler(
-                          bfw1: int.parse(controller.bfw1.text),
-                          bfw2: int.parse(controller.bfw2.text),
-                          coal1: int.parse(controller.coal1.text),
-                          coal1Div: int.parse(controller.coal1Div.text),
-                          rateOfCoal1: int.parse(controller.rateOfCoal1.text),
-                          coal2: int.parse(controller.rateOfCoal2.text),
-                          coal2Div: int.parse(controller.coal1Div.text),
-                          rateOfCoal2: int.parse(controller.rateOfCoal2.text),
-                          bfwTemperature1:
-                          int.parse(controller.bfwTemperature1.text),
-                          bfwTemperature2:
-                          int.parse(controller.bfwTemperature2.text),
-                          steamCost1: int.parse(controller.steamCost1.text),
-                          steamCost2: int.parse(controller.steamCost2.text)));
+                      controller.fetchSteamBoiler();
+
                     }
                   },
                   child: Container(
                       width: w / 2,
                       alignment: Alignment.center,
                       child: Text("Save")))
-
             ],
           ),
         ),

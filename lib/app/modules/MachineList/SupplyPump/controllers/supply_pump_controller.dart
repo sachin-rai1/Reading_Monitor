@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../data/Constants.dart';
 import '../Model/SupplyPumpModel.dart';
 import '../providers/http_service_provider.dart';
@@ -14,88 +15,106 @@ class SupplyPumpController extends GetxController {
   TextEditingController deviationTextController = TextEditingController();
   var isLoading = true.obs;
   var isDataProcessing = false.obs;
-  var supplyPumpList = <SupplyPump>[].obs;
+  var supplyPumpList = <ModelSupplyPump>[].obs;
 
-  // int id = 0;
+  @override
+  void onInit() {
+    super.onInit();
+    fetchSupplyPumps();
 
-  // void onInit() {
-  //   fetchSupplyPumps();
-  //   super.onInit();
-  // }
-  //
-  // void fetchSupplyPumps() async {
-  //   try {
-  //     isLoading(true);
-  //     var pumps = await HttpServiceProvider.fetchSupplyPump();
-  //     supplyPumpList.value = pumps;
-  //   } finally {
-  //     isLoading(false);
-  //   }
-  // }
-
-  addSupplyPump(SupplyPump m) async {
-    HttpServiceProvider add =
-        HttpServiceProvider(url: "${Constants.connectionString}/spiadd", body: {
-      'machine': machineNameTextController.text,
-      'average': averageTextController.text,
-      'deviation': deviationTextController.text
-    });
-    add.post().then((value) {
-      if (value.statusCode == 200) {
-        supplyPumpList.add(m);
-        // fetchSupplyPumps();
-        print(value.body);
-        Constants.showtoast("Machine Added!");
-      } else {
-        Get.to(() => SupplyPumpView());
-        Fluttertoast.showToast(
-          msg: 'Error In Adding Data',
-          backgroundColor: Colors.red,
-        );
-      }
-    }).catchError((onError) {});
   }
 
-  Future<SupplyPump> updateTask(
+  void fetchSupplyPumps() async {
+    try {
+      isLoading(true);
+      var pumps = await HttpServiceProvider.fetchSupplyPump();
+      supplyPumpList.value = pumps;
+    } finally {
+      isLoading(false);
+    }
+  }
+
+  addSupplyPump(ModelSupplyPump m) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var tokenvalue = prefs.getString("token");
+    final response = await http.post(
+        Uri.parse("${Constants.connectionString}/GetSupplyPumpDataAdd"),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer $tokenvalue',
+        },
+        body: jsonEncode(<String, String>{
+          "name": machineNameTextController.text,
+          "average": averageTextController.text,
+          "deviation": deviationTextController.text
+        }));
+
+    if (response.statusCode == 200) {
+       supplyPumpList.add(m);
+      fetchSupplyPumps();
+      print(response.body);
+      Get.back();
+      Constants.showtoast("Machine Added!");
+    } else {
+      Get.to(() => SupplyPumpView());
+      Fluttertoast.showToast(
+        msg: 'Error In Adding Data',
+        backgroundColor: Colors.red,
+      );
+    }
+  }
+
+  Future<ModelSupplyPump> updateTask(
       String machine, int average, int deviation, int id) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var tokenvalue = prefs.getString("token");
     final response = await http.put(
-      Uri.parse("${Constants.connectionString}/spiupdate"),
+      Uri.parse("${Constants.connectionString}/GetSupplyPumpDataUpdated/$id"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $tokenvalue',
       },
       body: jsonEncode(<String, String>{
-        "id": id.toString(),
-        "machine": machine,
+        '_method': "PUT",
+        "name": machine.toString(),
         "average": average.toString(),
         "deviation": deviation.toString(),
+        "id": id.toString(),
       }),
     );
     if (response.statusCode == 200) {
       Constants.showtoast("Data Updated!");
       Get.back();
-      // fetchSupplyPumps();
-      return SupplyPump.fromJson(jsonDecode(response.body));
+      fetchSupplyPumps();
+      return ModelSupplyPump.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Failed to update Data.');
     }
   }
 
   Future<void> deleteSupplyPump(int id) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var tokenvalue = prefs.getString("token");
     try {
-      HttpServiceProvider delete = HttpServiceProvider(
-          url: "${Constants.connectionString}/spidelete/$id",
-          body: jsonEncode(<String, String>{}));
-      delete.post().then((value) {
-        if (value.statusCode == 200) {
-          // fetchSupplyPumps();
-          Constants.showtoast("Machine Deleted!");
-        } else {
-          Fluttertoast.showToast(
-            msg: 'Error In Deleting Data',
-            backgroundColor: Colors.red,
-          );
-        }
-      });
+      final response = await http.post(
+          Uri.parse(
+              "${Constants.connectionString}/GetSupplyPumpDataDeleted/$id"),
+          body: jsonEncode(<String, String>{
+            '_method': "DELETE",
+          }),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': 'Bearer $tokenvalue',
+          });
+      if (response.statusCode == 200) {
+        fetchSupplyPumps();
+        Constants.showtoast("Machine Deleted!");
+      } else {
+        Fluttertoast.showToast(
+          msg: 'Error In Deleting Data',
+          backgroundColor: Colors.red,
+        );
+      }
     } catch (exception) {
       return Future.error(exception.toString());
     }

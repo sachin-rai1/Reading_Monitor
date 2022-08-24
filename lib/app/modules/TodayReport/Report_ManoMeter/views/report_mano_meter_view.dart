@@ -12,7 +12,6 @@ class ReportManoMeterView extends GetView<ReportManoMeterController> {
   @override
   Widget build(BuildContext context) {
     Get.put(ReportManoMeterController());
-
     return Column(
       children: [
         Row(

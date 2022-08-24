@@ -18,6 +18,8 @@ class MachineController extends GetxController {
     super.onInit();
   }
 
+
+
   void fetchMachineList() async {
     try {
       isLoading(true);

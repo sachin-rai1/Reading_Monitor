@@ -14,7 +14,13 @@ class Constants {
   static showtoast(msg) {
     Fluttertoast.showToast(
       msg: msg,
-      backgroundColor: Colors.grey,
+      backgroundColor: Colors.green,
+    );
+  }
+  static showtoastError(msg) {
+    Fluttertoast.showToast(
+      msg: msg,
+      backgroundColor: Colors.red,
     );
   }
 
