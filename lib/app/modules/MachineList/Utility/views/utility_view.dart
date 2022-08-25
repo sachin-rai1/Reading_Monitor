@@ -8,7 +8,8 @@ class UtilityView extends GetView<UtilityController> {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    Get.lazyPut(() => (UtilityController()) , fenix: true);
+    Get.lazyPut(() => (UtilityController()));
+
     return Column(
       children: [
         Container(

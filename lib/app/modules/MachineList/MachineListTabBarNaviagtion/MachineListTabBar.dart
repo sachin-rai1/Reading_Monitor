@@ -107,17 +107,13 @@ class MachineListTabBar extends StatelessWidget {
           ),
           body: TabBarView(
             children: [
-              Container(
-                  padding: const EdgeInsets.all(8),
-                  child: Get.put(UtilityView())),
-              Container(
-                  padding: const EdgeInsets.all(8), child: SteamBoilerView()),
-              Container(
-                  padding: const EdgeInsets.all(8), child: ThermoPackView()),
-              Container(padding: const EdgeInsets.all(8), child: MachineView()),
-              Get.put(WaterQualityView()),
+              UtilityView(),
+              SteamBoilerView(),
+              ThermoPackView(),
+              MachineView(),
+              WaterQualityView(),
               SupplyPumpView(),
-              Container(padding: EdgeInsets.all(8), child: GebView()),
+              GebView(),
               ManoMeterView(),
               FlueGasView(),
               MiscView()

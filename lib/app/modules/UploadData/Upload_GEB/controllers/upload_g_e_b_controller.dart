@@ -87,8 +87,8 @@ class UploadGEBController extends GetxController {
     }
   }
 
-  var isLoading = true.obs;
-  var uploadGebList = <ModelUploadGeb>[].obs;
+  // var isLoading = true.obs;
+  // var uploadGebList = <ModelUploadGeb>[].obs;
 
   void fetchUploadgebList() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

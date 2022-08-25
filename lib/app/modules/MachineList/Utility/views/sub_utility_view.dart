@@ -102,9 +102,9 @@ class SubUtilityView extends GetView<SubUtilityController> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(controller.name.text),
-                            Text(controller.average.text),
-                            Text(controller.deviation.text),
+                            Text(controller.subUtilityList[index].uilitysubcName.toString()),
+                            Text(controller.subUtilityList[index].average.toString()),
+                            Text(controller.subUtilityList[index].deviation.toString()),
                             GestureDetector(
                               onTap: () {
                                 editDialog(context);

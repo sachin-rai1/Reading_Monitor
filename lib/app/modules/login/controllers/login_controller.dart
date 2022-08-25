@@ -24,7 +24,13 @@ class LoginController extends GetxController {
         body: {
           'email': emailTextController.text,
           'password': passwordTextController.text
-        });
+        }).timeout(
+      const Duration(seconds: 10),
+      onTimeout: () {
+        Get.back();
+        return Constants.showtoastError("Plz check your internet Connection");
+      },
+    );
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);

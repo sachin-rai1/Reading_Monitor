@@ -11,6 +11,14 @@ class SubUtilityController extends GetxController {
   TextEditingController deviation = TextEditingController();
   var subUtilityList = <ModelUtilitySubMachineList>[].obs;
   var isLoading = true.obs;
+  int id1 = 0;
+
+  @override
+  void onInit()
+  {
+    fetchSubUtilityMachinelist(1);
+    super.onInit();
+  }
 
   Future<List<ModelUtilitySubMachineList>> fetchSubUtilityMachinelist(int id) async {
     try {
