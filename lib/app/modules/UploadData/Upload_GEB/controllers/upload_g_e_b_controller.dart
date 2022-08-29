@@ -17,6 +17,12 @@ class UploadGEBController extends GetxController {
   TextEditingController turbine = TextEditingController();
   int id = 0;
 
+  @override
+  void onInit() {
+    fetchUploadgebList();
+    super.onInit();
+  }
+
   Future<void> chooseDate() async {
     DateTime? picked = await showDatePicker(
         context: Get.context!,
@@ -149,6 +155,8 @@ class UploadGEBController extends GetxController {
           turbine: int.parse(turbine.text),
         ));
       }
+      fetchUploadgebList();
+
     }
     return null;
   }

@@ -12,6 +12,7 @@ import 'package:readingmonitor2/app/modules/UploadData/Upload_WaterQuality/views
 
 import '../../../../Navigation/navigationDrawer.dart';
 import '../../home/views/home_view.dart';
+import '../Upload_Misc/uploadmisc.dart';
 
 class UploadNavigationBar extends StatelessWidget {
   const UploadNavigationBar({Key? key}) : super(key: key);
@@ -117,6 +118,7 @@ class UploadNavigationBar extends StatelessWidget {
               UploadMachineView(),
               UploadFlueGasView(),
               UploadMiscView()
+              // UploadMisc()
 
             ],
           ),

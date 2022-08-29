@@ -6,9 +6,9 @@ import '../Model/SupplyPumpModel.dart';
 
 class HttpServiceProvider // extends GetConnect
 {
-  final dynamic url;
-  final dynamic body;
-  final dynamic header;
+  // final dynamic url;
+  // final dynamic body;
+  // final dynamic header;
 
   static Future<List<ModelSupplyPump>> fetchSupplyPump() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -48,11 +48,11 @@ class HttpServiceProvider // extends GetConnect
     }
   }
 
-  HttpServiceProvider({required this.body, required this.url, this.header});
-
-  Future<http.Response> post() {
-    return http
-        .post(Uri.parse(url), body: body)
-        .timeout(const Duration(minutes: 2));
-  }
+  // HttpServiceProvider({required this.body, required this.url, this.header});
+  //
+  // Future<http.Response> post() {
+  //   return http
+  //       .post(Uri.parse(url), body: body)
+  //       .timeout(const Duration(minutes: 2));
+  // }
 }
