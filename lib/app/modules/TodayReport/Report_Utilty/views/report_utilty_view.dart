@@ -27,8 +27,8 @@ class ReportUtiltyView extends GetView<ReportUtiltyController> {
                       ),
                       Container(
                           alignment: Alignment.topLeft,
-                          child: Obx(()=>
-                            Text(
+                          child: Obx(
+                            () => Text(
                               DateFormat("dd-MM-yyyy")
                                   .format(controller.selectedDate.value)
                                   .toString(),
@@ -90,154 +90,14 @@ class ReportUtiltyView extends GetView<ReportUtiltyController> {
           ),
           Expanded(
               child: Scaffold(
-                body: Center(
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: Center(
-                        child: Column(
-                          children: [
-                            _createDataTable2(),
-                            _createDataTable3(),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              )),
+            body: ListView.builder(
+                itemCount: 2,
+                itemBuilder: (context, index) {
+                  return Card(child: Text("Hiii"));
+                }),
+          )),
         ],
       ),
     );
   }
 }
-
-DataTable _createDataTable2() {
-  return DataTable(
-      columns: _createColumns2(),
-      rows: _createRows2(),
-      headingRowColor: MaterialStateProperty.resolveWith(
-              (states) => const Color(0xFF716259)));
-}
-
-List<DataColumn> _createColumns2() {
-  return [
-    const DataColumn(label: Text('Name ')),
-    const DataColumn(label: Text('em')),
-    const DataColumn(label: Text('EM/HM')),
-    const DataColumn(label: Text('%')),
-  ];
-}
-
-List<DataRow> _createRows2() {
-  var row = 1;
-  return [
-    DataRow.byIndex(
-        index: row,
-        color: MaterialStateColor.resolveWith(
-              (states) {
-            if (row == 1) {
-              return const Color(0xFFF1F1F1);
-            } else {
-              return Colors.white;
-            }
-          },
-        ),
-        cells: const [
-          DataCell(Text('Jet')),
-          DataCell(Text('EM')),
-          DataCell(Text('HM')),
-          DataCell(Text('%'))
-        ]),
-    const DataRow(cells: [
-      DataCell(Text('Name')),
-      DataCell(Text('0')),
-      DataCell(Text('0')),
-      DataCell(Text('0'))
-    ]),
-    const DataRow(cells: [
-      DataCell(Text('Name')),
-      DataCell(Text('0')),
-      DataCell(Text('0')),
-      DataCell(Text('0'))
-    ]),
-    const DataRow(cells: [
-      DataCell(Text('Name')),
-      DataCell(Text('0')),
-      DataCell(Text('0')),
-      DataCell(Text('0'))
-    ]),
-    const DataRow(cells: [
-      DataCell(Text('Name')),
-      DataCell(Text('0')),
-      DataCell(Text('0')),
-      DataCell(Text('0'))
-    ]),
-    const DataRow(cells: [
-      DataCell(Text('Name')),
-      DataCell(Text('0')),
-      DataCell(Text('0')),
-      DataCell(Text('0'))
-    ]),
-    const DataRow(cells: [
-      DataCell(Text('Name')),
-      DataCell(Text('0')),
-      DataCell(Text('0')),
-      DataCell(Text('0'))
-    ])
-  ];
-}
-
-DataTable _createDataTable3() {
-  return DataTable(
-      columns: _createColumns3(),
-      rows: _createRows3(),
-      headingRowColor: MaterialStateProperty.resolveWith(
-              (states) => const Color(0xFFF1F1F1)));
-}
-
-List<DataColumn> _createColumns3() {
-  return [
-    const DataColumn(label: Text('Jet')),
-    const DataColumn(label: Text('EM')),
-    const DataColumn(label: Text('EM/HM')),
-    const DataColumn(label: Text('%')),
-  ];
-}
-
-List<DataRow> _createRows3() {
-  return [
-    const DataRow(cells: [
-      DataCell(Text('Jet')),
-      DataCell(Text('0')),
-      DataCell(Text('0')),
-      DataCell(Text('0'))
-    ]),
-    const DataRow(cells: [
-      DataCell(Text('Aame')),
-      DataCell(Text('0')),
-      DataCell(Text('0')),
-      DataCell(Text('0'))
-    ]),
-    const DataRow(cells: [
-      DataCell(Text('Name')),
-      DataCell(Text('0')),
-      DataCell(Text('0')),
-      DataCell(Text('0'))
-    ]),
-    const DataRow(cells: [
-      DataCell(Text('Name')),
-      DataCell(Text('0')),
-      DataCell(Text('0')),
-      DataCell(Text('0'))
-    ]),
-    const DataRow(cells: [
-      DataCell(Text('Name')),
-      DataCell(Text('0')),
-      DataCell(Text('0')),
-      DataCell(Text('0'))
-    ])
-  ];
-}
-

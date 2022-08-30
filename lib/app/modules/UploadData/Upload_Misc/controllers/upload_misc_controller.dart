@@ -1,36 +1,22 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:readingmonitor2/app/modules/MachineList/Misc/Model/ModelMiscMachineList.dart';
-import 'package:readingmonitor2/app/modules/UploadData/Upload_Misc/Model/ModelUploadMisc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../data/Constants.dart';
 
 class UploadMiscController extends GetxController {
-  // TextEditingController machineName = TextEditingController();
-  // TextEditingController value = TextEditingController();
-  // TextEditingController machineId = TextEditingController();
   var selectedDate = DateTime.now().obs;
-
-  // int id = 0;
-  //
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  // Rx<List<ModelMachineMisc>> listofMiscMachine = Rx<List<ModelMachineMisc>>([]);
-  // var selectedMachineList = "0".obs;
-  // Rx<List<DropdownMenuItem<String>>> listMachineDropDownMenu =
-  //     Rx<List<DropdownMenuItem<String>>>([]);
-  //
   @override
   void onReady() {
     super.onStart();
     fetchMiscList();
   }
 
-  //
   Future<void> chooseDate() async {
     DateTime? picked = await showDatePicker(
         context: Get.context!,
@@ -41,14 +27,16 @@ class UploadMiscController extends GetxController {
       selectedDate.value = picked;
       valueUnit.clear();
       fetchMiscList();
+
+
     }
   }
 
-  //
   @override
   void onInit() {
     fetchMiscList();
     super.onInit();
+
   }
 
   //
@@ -64,7 +52,6 @@ class UploadMiscController extends GetxController {
 
   Future<List<ModelMachineMisc>?> fetchMiscList() async {
     isLoading(true);
-    print(isLoading);
     prefs = await SharedPreferences.getInstance();
     tokenvalue = prefs.getString("token");
     final response = await http.get(
@@ -81,6 +68,7 @@ class UploadMiscController extends GetxController {
       print(tokenvalue);
       listdata = jsonDecode(response.body);
       print(listdata);
+
       final responses = await http.get(
         Uri.parse(
             '${Constants.connectionString}/MiscReportUploadSharch/${selectedDate.toString().split(" ")[0]}'),
@@ -97,6 +85,7 @@ class UploadMiscController extends GetxController {
           for (int i = 0; i < listdata.length; i++) {
             var textEditingController = TextEditingController(text: "");
             valueUnit.add(textEditingController);
+            isLoading(false);
           }
         } else {
           for (int i = 0; i < listdata.length; i++) {
@@ -115,8 +104,6 @@ class UploadMiscController extends GetxController {
             }
           }
         }
-        // return modelMachineMiscFromJson(listdata);
-
       } else {
         print(responses.statusCode);
         print(responses.body);

@@ -78,126 +78,120 @@ class UploadMiscView extends GetView<UploadMiscController> {
               : (controller.data.length == 0)
                   ? Expanded(
                       flex: 2,
-                      child: Obx(
-                        () {
-                          if (controller.isLoading.value) {
-                            return const Center(
-                                child: CircularProgressIndicator());
-                          } else {
-                            return ListView.builder(
-                                itemCount: controller.listdata.length,
-                                itemBuilder: (context, index) {
-                                  return Card(
-                                    child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          15, 8, 15, 8),
-                                      child: Column(
+                      child: Obx(()
+                      {
+                        if(controller.isLoading.value)
+                          {
+                          return  CircularProgressIndicator();
+                          }
+                        else {
+                          return ListView.builder(
+                            itemCount: controller.listdata.length,
+                            itemBuilder: (context, index) {
+                              return Card(
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(15, 8, 15, 8),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
+                                          Text("${index + 1}"),
+                                          Text(controller.listdata[index]
+                                                  ['machine_name']
+                                              .toString()),
                                           Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text("${index + 1}"),
-                                              Text(controller.listdata[index]
-                                                      ['machine_name']
-                                                  .toString()),
-                                              Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Text(
-                                                      "Value",
-                                                      style: TextStyle(
-                                                          fontFamily:
-                                                              Constants.popins,
-                                                          color: Constants
-                                                              .textColor,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          fontSize: 12),
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  "Value",
+                                                  style: TextStyle(
+                                                      fontFamily:
+                                                          Constants.popins,
+                                                      color:
+                                                          Constants.textColor,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      fontSize: 12),
+                                                ),
+                                                const SizedBox(width: 10),
+                                                SizedBox(
+                                                  height: 35,
+                                                  width: w * 0.35,
+                                                  child: TextField(
+                                                    controller: controller
+                                                        .valueUnit[index],
+                                                    style: TextStyle(
+                                                      fontFamily:
+                                                          Constants.popins,
+                                                      // color: Constants.textColor,
                                                     ),
-                                                    const SizedBox(width: 10),
-                                                    SizedBox(
-                                                      height: 35,
-                                                      width: w * 0.35,
-                                                      child: TextField(
-                                                        controller: controller
-                                                            .valueUnit[index],
-                                                        style: TextStyle(
+                                                    decoration: InputDecoration(
+                                                        contentPadding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                bottom: 10.0,
+                                                                left: 10.0),
+                                                        isDense: true,
+                                                        border:
+                                                            OutlineInputBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.0),
+                                                        ),
+                                                        enabledBorder:
+                                                            OutlineInputBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.0),
+                                                          borderSide:
+                                                              BorderSide(
+                                                                  color: Colors
+                                                                      .grey
+                                                                      .shade300,
+                                                                  width: 1.0),
+                                                        ),
+                                                        focusedBorder:
+                                                            OutlineInputBorder(
+                                                          borderSide: BorderSide(
+                                                              color: Constants
+                                                                  .primaryColor,
+                                                              width: 2.0),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.0),
+                                                        ),
+                                                        filled: true,
+                                                        hintStyle: TextStyle(
+                                                          color:
+                                                              Colors.grey[400],
                                                           fontFamily:
                                                               Constants.popins,
-                                                          // color: Constants.textColor,
                                                         ),
-                                                        decoration:
-                                                            InputDecoration(
-                                                                contentPadding:
-                                                                    const EdgeInsets
-                                                                            .only(
-                                                                        bottom:
-                                                                            10.0,
-                                                                        left:
-                                                                            10.0),
-                                                                isDense: true,
-                                                                border:
-                                                                    OutlineInputBorder(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              8.0),
-                                                                ),
-                                                                enabledBorder:
-                                                                    OutlineInputBorder(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              8.0),
-                                                                  borderSide: BorderSide(
-                                                                      color: Colors
-                                                                          .grey
-                                                                          .shade300,
-                                                                      width:
-                                                                          1.0),
-                                                                ),
-                                                                focusedBorder:
-                                                                    OutlineInputBorder(
-                                                                  borderSide: BorderSide(
-                                                                      color: Constants
-                                                                          .primaryColor,
-                                                                      width:
-                                                                          2.0),
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              8.0),
-                                                                ),
-                                                                filled: true,
-                                                                hintStyle:
-                                                                    TextStyle(
-                                                                  color: Colors
-                                                                          .grey[
-                                                                      400],
-                                                                  fontFamily:
-                                                                      Constants
-                                                                          .popins,
-                                                                ),
-                                                                // hintText: "first name",
-                                                                fillColor: Colors
-                                                                    .white70),
-                                                      ),
-                                                    )
-                                                  ])
-                                              // Text(controller.data[index].unit
-                                              //     .toString()),
-                                            ],
-                                          ),
+                                                        // hintText: "first name",
+                                                        fillColor:
+                                                            Colors.white70),
+                                                  ),
+                                                )
+                                              ])
+                                          // Text(controller.data[index].unit
+                                          //     .toString()),
                                         ],
                                       ),
-                                    ),
-                                  );
-                                });
-                          }
-                        },
+                                    ],
+                                  ),
+                                ),
+                              );
+                            });
+                        }
+                      }
                       ),
                     )
                   : Expanded(
@@ -324,7 +318,8 @@ class UploadMiscView extends GetView<UploadMiscController> {
                             },
                           );
                         }
-                      }),
+                      }
+                      ),
                     ),
         ],
       ),
