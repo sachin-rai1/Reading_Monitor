@@ -15,4 +15,5 @@ class ReportUtiltyController extends GetxController {
       selectedDate.value = picked;
     }
   }
+
 }

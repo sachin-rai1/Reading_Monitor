@@ -54,7 +54,29 @@ class UploadThermoPackView extends GetView<UploadThermoPackController> {
                     alignment: Alignment.topRight,
                     child: ElevatedButton(
                       onPressed: () {
-                        controller.fetchUploadedThermoPack();
+                        if (controller.data.length > 0) {
+                         controller.updateTask(
+                             controller.selectedDate.value,
+                              int.parse(controller.chambers.text.toString()),
+                              int.parse(controller.coal1.text.toString()),
+                              int.parse(controller.coal2.text.toString()),
+                              int.parse(controller.inTemperature.text.toString()),
+                              int.parse(controller.outTemperature.text.toString()),
+                              int.parse(controller.pumpPressure.text.toString()),
+                              int.parse(controller.circuitPressure.text.toString()),
+                              int.parse(controller.id.toString()));
+                          print(controller.data);
+                        } else {
+                         controller.addUploadThermoPack(ModelUploadThermoPack(
+                              date:controller.selectedDate.value,
+                              chamber: int.parse(controller.chambers.text),
+                              coal1: int.parse(controller.coal1.text),
+                              coal2: int.parse(controller.coal2.text),
+                              inTemperature: int.parse(controller.inTemperature.text),
+                              outTemperature: int.parse(controller.outTemperature.text),
+                              pumpPresure: int.parse(controller.pumpPressure.text),
+                              circuitPresure: int.parse(controller.circuitPressure.text)));
+                        }
                       },
                       child: Text("Submit"),
                       style: ElevatedButton.styleFrom(

@@ -16,7 +16,6 @@ class SupplyPumpController extends GetxController {
   var isLoading = true.obs;
   var isDataProcessing = false.obs;
   var supplyPumpList = <ModelSupplyPump>[].obs;
-
   @override
   void onInit() {
     super.onInit();

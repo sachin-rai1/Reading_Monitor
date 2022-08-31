@@ -7,6 +7,7 @@ class ReportUtiltyView extends GetView<ReportUtiltyController> {
   @override
   Widget build(BuildContext context) {
     Get.put(ReportUtiltyController());
+    final w = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Column(
         children: [
@@ -90,10 +91,127 @@ class ReportUtiltyView extends GetView<ReportUtiltyController> {
           ),
           Expanded(
               child: Scaffold(
+            backgroundColor: Color(0xFFF1F1F1),
             body: ListView.builder(
-                itemCount: 2,
+                itemCount: 10,
                 itemBuilder: (context, index) {
-                  return Card(child: Text("Hiii"));
+                  return Card(
+                      child: Column(
+                    children: [
+                      Container(
+                        height: 30,
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.only(left: 10, right: 10),
+                        width: w,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "MachineName :",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                            Text(
+                              "JET",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                            Text(
+                              "CategoryName : ",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                            Text(
+                              "Jet1",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                          ],
+                        ),
+                        decoration: BoxDecoration(color: Color(0xFF716259)),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 15, right: 15, bottom: 8),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              children: [
+                                Container(
+                                  width: w / 3,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text("EM"),
+                                      Text("23"),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Container(
+                                  width: w / 3,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text("HM"),
+                                      Text("50"),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Container(
+                                height: 40,
+                                child: VerticalDivider(
+                                  thickness: 2,
+                                  color: Colors.red,
+                                )),
+                            Column(
+                              children: [
+                                Container(
+                                  width: w / 3,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text("EM/HM"),
+                                      Text("23"),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Container(
+                                  width: w / 3,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text("Deviation"),
+                                      Text("50"),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ));
                 }),
           )),
         ],

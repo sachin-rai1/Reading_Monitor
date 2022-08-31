@@ -21,8 +21,8 @@ class ModelUploadSupplyPump {
   DateTime? date;
   String? name;
   String? supplypNameId;
-  List<String>? flow;
-  List<String> ? unit;
+   String ? flow;
+  String ? unit;
 
   factory ModelUploadSupplyPump.fromJson(Map<String, dynamic> json) =>
       ModelUploadSupplyPump(

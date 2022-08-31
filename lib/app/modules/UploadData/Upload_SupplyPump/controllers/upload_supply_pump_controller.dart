@@ -3,18 +3,22 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:readingmonitor2/app/modules/MachineList/SupplyPump/controllers/supply_pump_controller.dart';
 import 'package:readingmonitor2/app/modules/UploadData/Upload_SupplyPump/Model/ModelUploadSupplyPump.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../data/Constants.dart';
 
 class UploadSupplyPumpController extends GetxController {
   var selectedDate = DateTime.now().obs;
-  TextEditingController machine = TextEditingController();
-  TextEditingController flow = TextEditingController();
-  TextEditingController unit = TextEditingController();
+  final supplyController = Get.put(SupplyPumpController());
+  List<TextEditingController> machine = [];
+  List<TextEditingController> flow = [];
+  List<TextEditingController> unit = [];
+  List<TextEditingController> valueID = [];
   int id = 0;
   var uploadSupplypumpList = <ModelUploadSupplyPump>[].obs;
   var isLoading = true.obs;
+  var data;
 
   Future<void> chooseDate() async {
     DateTime? picked = await showDatePicker(
@@ -24,11 +28,22 @@ class UploadSupplyPumpController extends GetxController {
         lastDate: DateTime.now());
     if (picked != null && picked != selectedDate.value) {
       selectedDate.value = picked;
-      supplydata();
+      unit.clear();
+      flow.clear();
+      // supplyController.fetchSupplyPumps();
+      fetchUploadSupplypumpList();
     }
   }
 
+  @override
+  void onInit() {
+    supplyController.fetchSupplyPumps();
+    supplydata();
+    super.onInit();
+  }
+
   Future<List<ModelUploadSupplyPump>> fetchUploadSupplypumpList() async {
+    isLoading(true);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var tokenvalue = prefs.getString("token");
     var response = await http.get(
@@ -41,16 +56,44 @@ class UploadSupplyPumpController extends GetxController {
     );
 
     if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
+      data = jsonDecode(response.body);
       print(data);
       if (data.length != 0) {
-        // machine.text = data[0]['name'];
-        // flow.text = data[0]['flow'];
-        // unit.text = data[0]['unit'];
+        for (int i = 0; i < supplyController.supplyPumpList.length; i++) {
+          if (i < data.length) {
+            // print("with data");
+            var idController =
+                TextEditingController(text: data[i]['id'].toString());
+            var machineController =
+                TextEditingController(text: data[i]['machine'].toString());
+            var flowController =
+                TextEditingController(text: data[i]['flow'].toString());
+            var unitController =
+                TextEditingController(text: data[i]['unit'].toString());
+            valueID.add(idController);
+            machine.add(machineController);
+            unit.add(unitController);
+            flow.add(flowController);
+            isLoading(false);
+            print(data);
+          } else {
+            var flowController = TextEditingController(text: "0");
+            flow.add(flowController);
+            var unitController = TextEditingController(text: "0");
+            unit.add(unitController);
+            isLoading(false);
+          }
+        }
       } else {
-        clearData();
+        for (int i = 0; i < supplyController.supplyPumpList.length; i++) {
+          var flowController = TextEditingController(text: "0");
+          flow.add(flowController);
+          var unitController = TextEditingController(text: "0");
+          unit.add(unitController);
+          isLoading(false);
+        }
       }
-
+      isLoading(false);
       return modelUploadSupplyPumpFromJson(response.body);
     } else {
       // throw TimeoutException("TimeOut");
@@ -68,44 +111,88 @@ class UploadSupplyPumpController extends GetxController {
     }
   }
 
-  void fetchUploadSupplyPump() {}
+
+  late var listdata = supplyController.supplyPumpList;
+
+  void addSupplyList() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var tokenvalue = prefs.getString("token");
+    for (int i = 0; i < supplyController.supplyPumpList.length; i++) {
+      if (unit[i].text == "" || flow[i].text == "") {
+        unit[i].text = "0";
+        flow[i].text = "0";
+      }
+      final response = await http.post(
+        Uri.parse('${Constants.connectionString}/GetSupplyPumpReportUploadAdd'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer $tokenvalue',
+        },
+        body: jsonEncode(<String, String>{
+          "date": selectedDate.toString().split(" ")[0],
+          "supplyp_name_id": listdata[i].id.toString(),
+          "flow": flow[i].text.toString(),
+          "unit": unit[i].text.toString(),
+        }),
+      );
+      if (response.statusCode == 200) {
+        print(tokenvalue);
+        print(jsonDecode(response.body));
+        print(unit.toString());
+        print(flow.toString());
+        print("This Is Machine ID${listdata[i].id}");
+
+        if (i == listdata.length - 1) {
+          Constants.showtoast("Report Added!");
+        }
+      } else {
+        print(response.statusCode);
+        print(response.body);
+        Constants.showtoastError("Error Updating Data.");
+      }
+    }
+    supplydata();
+  }
+  void updateSupplyList() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var tokenvalue = prefs.getString("token");
+    for (int i = 0; i < listdata.length; i++) {
+      print(data[i]['id']);
+      final response = await http.put(
+        Uri.parse(
+            '${Constants.connectionString}/SupplyPumpReportUploadUpdated/${data[i]['id']}'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer $tokenvalue',
+        },
+        body: jsonEncode(<String, String>{
+          "flow": flow[i].text,
+          "unit": unit[i].text,
+        }),
+      );
+      if (response.statusCode == 200) {
+        print(data[i]['id']);
+        print(unit.toString());
+        print(flow.toString());
+        print(jsonDecode(response.body));
+
+
+        if (i == listdata.length - 1) {
+          Constants.showtoast("Report Updated!");
+        }
+        // Constants.showtoast("Report Updated!");
+      } else {
+        print(response.statusCode);
+        print(response.body);
+        Constants.showtoast("Error Updating Data.");
+      }
+    }
+    supplydata();
+  }
 
   void clearData() {
     machine.clear();
     flow.clear();
     unit.clear();
   }
-
-  final List<TextEditingController> _unitController = [];
-  final List<TextField> _unitFields = [];
-  final List<TextEditingController> _flowControllers = [];
-  final List<TextField> _flowFields = [];
-
-  // Widget _addTile(BuildContext context) {
-  //
-  //   var stringListReturnedFromApiCall = ["first", "second", "third", "fourth", "..."];
-  //   // This list of controllers can be used to set and get the text from/to the TextFields
-  //   Map<String,TextEditingController> textEditingControllers = {};
-  //   var textFields = <TextField>[];
-  //   stringListReturnedFromApiCall.forEach((str) {
-  //     var textEditingController = new TextEditingController(text: str);
-  //     textEditingControllers.putIfAbsent(str, ()=>textEditingController);
-  //     return textFields.add( TextField(controller: textEditingController));
-  //   });
-  //   // return ListTile(
-  //   //     title: Icon(Icons.add),
-  //   //     onTap: () {
-  //   //       final controller = TextEditingController();
-  //   //       final field = TextField(
-  //   //         controller: controller,
-  //   //         decoration: InputDecoration(
-  //   //           border: OutlineInputBorder(),
-  //   //           labelText: "name${_unitController.length + 1}",
-  //   //         ),
-  //   //       );
-  //   //
-  //   //       _unitController.add(controller);
-  //   //       _unitFields.add(field);
-  //   //     });
-  // }
 }

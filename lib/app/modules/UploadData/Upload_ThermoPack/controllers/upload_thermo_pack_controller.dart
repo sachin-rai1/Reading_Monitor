@@ -17,6 +17,8 @@ class UploadThermoPackController extends GetxController {
   TextEditingController circuitPressure = TextEditingController();
   TextEditingController outTemperature = TextEditingController();
   int id = 0;
+  var data;
+  var isLoading = true.obs;
 
   Future<void> chooseDate() async {
     DateTime? picked = await showDatePicker(
@@ -26,6 +28,7 @@ class UploadThermoPackController extends GetxController {
         lastDate: DateTime.now());
     if (picked != null && picked != selectedDate.value) {
       selectedDate.value = picked;
+      fetchUploadedThermoPack();
     }
   }
 
@@ -53,6 +56,7 @@ class UploadThermoPackController extends GetxController {
           msg: "Data Added Successfully", backgroundColor: Colors.green);
       print(jsonDecode(response.body));
       clearData();
+      fetchUploadedThermoPack();
     } else {
       Fluttertoast.showToast(
           msg: "Data Already Exists", backgroundColor: Colors.red);
@@ -60,6 +64,7 @@ class UploadThermoPackController extends GetxController {
   }
 
   Future<Future<bool?>?> fetchUploadedThermoPack() async {
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var tokenvalue = prefs.getString("token");
     var response = await http.get(
@@ -71,37 +76,31 @@ class UploadThermoPackController extends GetxController {
       },
     );
     if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
+      data = jsonDecode(response.body);
       print(selectedDate.value.toIso8601String());
       if (data.length != 0) {
         id = data[0]['id'];
-        updateTask(
-            selectedDate.value,
-            int.parse(chambers.text.toString()),
-            int.parse(coal1.text.toString()),
-            int.parse(coal2.text.toString()),
-            int.parse(inTemperature.text.toString()),
-            int.parse(outTemperature.text.toString()),
-            int.parse(pumpPressure.text.toString()),
-            int.parse(circuitPressure.text.toString()),
-            int.parse(id.toString()));
-
-        print(data);
-      } else {
-        addUploadThermoPack(ModelUploadThermoPack(
-            date: selectedDate.value,
-            chamber: int.parse(chambers.text),
-            coal1: int.parse(coal1.text),
-            coal2: int.parse(coal2.text),
-            inTemperature: int.parse(inTemperature.text),
-            outTemperature: int.parse(outTemperature.text),
-            pumpPresure: int.parse(pumpPressure.text),
-            circuitPresure: int.parse(circuitPressure.text)));
+        chambers.text = data[0]['chamber'];
+        coal1.text = data[0]['coal_1'];
+        coal2.text = data[0]['coal_2'];
+        inTemperature.text = data[0]['in_temperature'];
+        outTemperature.text = data[0]['out_temperature'];
+        pumpPressure.text = data[0]['pump_presure'];
+        circuitPressure.text = data[0]['circuit_presure'];
+      }
+      else{
+        clearData();
       }
       return null;
     } else {
       throw Exception();
     }
+  }
+
+  @override
+  void onInit() {
+    fetchUploadedThermoPack();
+    super.onInit();
   }
 
   Future<ModelUploadThermoPack?> updateTask(
@@ -139,6 +138,7 @@ class UploadThermoPackController extends GetxController {
       Fluttertoast.showToast(
           msg: "Data Updated", backgroundColor: Colors.green);
       clearData();
+      fetchUploadedThermoPack();
       return null;
     } else {
       print(selectedDate.value.toString());

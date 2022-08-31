@@ -10,6 +10,13 @@ import '../../../../data/Constants.dart';
 class UploadMiscController extends GetxController {
   var selectedDate = DateTime.now().obs;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  var isLoading = true.obs;
+  List<TextEditingController> valueUnit = [];
+  List<TextEditingController> valueID = [];
+  late SharedPreferences prefs;
+  String? tokenvalue;
+  var data;
+  var listdata;
 
   @override
   void onReady() {
@@ -27,8 +34,6 @@ class UploadMiscController extends GetxController {
       selectedDate.value = picked;
       valueUnit.clear();
       fetchMiscList();
-
-
     }
   }
 
@@ -36,19 +41,9 @@ class UploadMiscController extends GetxController {
   void onInit() {
     fetchMiscList();
     super.onInit();
-
   }
 
   //
-  var isLoading = true.obs;
-
-  List<TextEditingController> valueUnit = [];
-  List<TextEditingController> valueID = [];
-
-  late SharedPreferences prefs;
-  String? tokenvalue;
-  var data;
-  var listdata;
 
   Future<List<ModelMachineMisc>?> fetchMiscList() async {
     isLoading(true);
