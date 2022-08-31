@@ -7,8 +7,8 @@ import 'package:readingmonitor2/app/modules/MachineList/Misc/Model/ModelMiscMach
 import 'package:readingmonitor2/app/modules/MachineList/SteamBoiler/Model/MachineList_Model_SteamBoiler.dart';
 import 'package:readingmonitor2/app/modules/MachineList/Utility/Model/ModelUtilityMachineList.dart';
 import 'package:readingmonitor2/app/modules/MachineList/WaterQuality/Model/ModelWaterQuality.dart';
+import 'package:readingmonitor2/app/modules/TodayReport/Report_Misc/Model/ModelMiscReport.dart';
 import 'package:readingmonitor2/app/modules/UploadData/Upload_GEB/Model/ModelUploadGeb.dart';
-import 'package:readingmonitor2/app/modules/UploadData/Upload_SupplyPump/Model/ModelUploadSupplyPump.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../modules/MachineList/Machine/Model/ModelMachineList.dart';
@@ -196,6 +196,30 @@ class HttpServiceProvider extends GetConnect {
       throw Exception();
     }
   }
+  static Future<List<ModelViewMisc>> fetchMiscViewReport() async {
+    var selectedDate = DateTime.now().obs;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var tokenvalue = prefs.getString("token");
+    var response = await http.get(
+      Uri.parse("${Constants.connectionString}/ViewReportMiscDateSearch/${selectedDate.toString().split(" ")[0]}"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $tokenvalue',
+      },
+    );
+    if (response.statusCode == 200) {
+      String data = response.body;
+      print(response.statusCode);
+      print(data);
+      return modelViewMiscFromJson(data);
+    } else {
+      print(response.statusCode);
+      print(response.body);
+
+      throw Exception();
+    }
+  }
+
 
 
 }
