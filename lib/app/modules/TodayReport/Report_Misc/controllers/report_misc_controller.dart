@@ -20,6 +20,12 @@ class ReportMiscController extends GetxController {
     }
   }
 
+  @override
+  void onInit() {
+    fetchMiscViewReport();
+    super.onInit();
+  }
+
   void fetchMiscViewReport() async {
     try {
       isLoading(true);

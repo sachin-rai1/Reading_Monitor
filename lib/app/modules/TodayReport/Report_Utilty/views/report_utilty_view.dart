@@ -92,127 +92,138 @@ class ReportUtiltyView extends GetView<ReportUtiltyController> {
           Expanded(
               child: Scaffold(
             backgroundColor: Color(0xFFF1F1F1),
-            body: ListView.builder(
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return Card(
-                      child: Column(
-                    children: [
-                      Container(
-                        height: 30,
-                        alignment: Alignment.center,
-                        padding: EdgeInsets.only(left: 10, right: 10),
-                        width: w,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "MachineName :",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            ),
-                            Text(
-                              "JET",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            ),
-                            Text(
-                              "CategoryName : ",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            ),
-                            Text(
-                              "Jet1",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            ),
-                          ],
-                        ),
-                        decoration: BoxDecoration(color: Color(0xFF716259)),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            left: 15, right: 15, bottom: 8),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
+            body: Obx(() {
+              if (controller.isLoading.value) {
+                return Center(child: CircularProgressIndicator());
+              } else {
+                return ListView.builder(
+                    itemCount: controller.utilityList.length,
+                    itemBuilder: (context, index) {
+                      return Card(
+                          child: Column(
+                        children: [
+                          Container(
+                            height: 30,
+                            alignment: Alignment.center,
+                            padding: EdgeInsets.only(left: 10, right: 10),
+                            width: w,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Container(
-                                  width: w / 3,
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text("EM"),
-                                      Text("23"),
-                                    ],
-                                  ),
+                                Text(
+                                  "Machine Name",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
                                 ),
-                                SizedBox(
-                                  height: 10,
+                                Text(
+                                  controller
+                                      .utilityList[index].uitilityCategories
+                                      .toString(),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
                                 ),
-                                Container(
-                                  width: w / 3,
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text("HM"),
-                                      Text("50"),
-                                    ],
-                                  ),
+                                Text(
+                                  "CategoryName : ",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+                                Text(
+                                  controller.utilityList[index].uilitysubcName
+                                      .toString(),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
                                 ),
                               ],
                             ),
-                            Container(
-                                height: 40,
-                                child: VerticalDivider(
-                                  thickness: 2,
-                                  color: Colors.red,
-                                )),
-                            Column(
+                            decoration: BoxDecoration(color: Color(0xFF716259)),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 15, right: 15, bottom: 8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Container(
-                                  width: w / 3,
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text("EM/HM"),
-                                      Text("23"),
-                                    ],
-                                  ),
+                                Column(
+                                  children: [
+                                    Container(
+                                      width: w / 3,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text("EM"),
+                                          Text(controller.utilityList[index].em
+                                              .toString()),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Container(
+                                      width: w / 3,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text("HM"),
+                                          Text(controller.utilityList[index].hm
+                                              .toString()),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                SizedBox(
-                                  height: 10,
-                                ),
                                 Container(
-                                  width: w / 3,
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text("Deviation"),
-                                      Text("50"),
-                                    ],
-                                  ),
+                                    height: 40,
+                                    child: VerticalDivider(
+                                      thickness: 2,
+                                      color: Colors.red,
+                                    )),
+                                Column(
+                                  children: [
+                                    Container(
+                                      width: w / 3,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text("EM/HM"),
+                                          Text("23"),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Container(
+                                      width: w / 3,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text("Deviation"),
+                                          Text("50"),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ));
-                }),
+                          )
+                        ],
+                      ));
+                    });
+              }
+            }),
           )),
         ],
       ),

@@ -8,14 +8,13 @@ import 'package:readingmonitor2/app/modules/MachineList/SteamBoiler/Model/Machin
 import 'package:readingmonitor2/app/modules/MachineList/Utility/Model/ModelUtilityMachineList.dart';
 import 'package:readingmonitor2/app/modules/MachineList/WaterQuality/Model/ModelWaterQuality.dart';
 import 'package:readingmonitor2/app/modules/TodayReport/Report_Misc/Model/ModelMiscReport.dart';
+import 'package:readingmonitor2/app/modules/TodayReport/Report_Utilty/Model/ModelViewUtility.dart';
 import 'package:readingmonitor2/app/modules/UploadData/Upload_GEB/Model/ModelUploadGeb.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../modules/MachineList/Machine/Model/ModelMachineList.dart';
 
 class HttpServiceProvider extends GetConnect {
-
-
   static Future<List<ModelMachineList>> fetchMachinelist() async {
     var response =
         await http.get(Uri.parse("${Constants.connectionString}/mclist"));
@@ -125,8 +124,8 @@ class HttpServiceProvider extends GetConnect {
       throw Exception();
     }
   }
-  static Future<List<ModelMachineMisc>>
-  fetchMiscMachineList() async {
+
+  static Future<List<ModelMachineMisc>> fetchMiscMachineList() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var tokenvalue = prefs.getString("token");
     print(tokenvalue);
@@ -178,7 +177,8 @@ class HttpServiceProvider extends GetConnect {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var tokenvalue = prefs.getString("token");
     var response = await http.get(
-      Uri.parse("${Constants.connectionString}/UploadReportGebSharch/${selectedDate.toString().split(" ")[0]}"),
+      Uri.parse(
+          "${Constants.connectionString}/UploadReportGebSharch/${selectedDate.toString().split(" ")[0]}"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $tokenvalue',
@@ -196,12 +196,14 @@ class HttpServiceProvider extends GetConnect {
       throw Exception();
     }
   }
+
   static Future<List<ModelViewMisc>> fetchMiscViewReport() async {
     var selectedDate = DateTime.now().obs;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var tokenvalue = prefs.getString("token");
     var response = await http.get(
-      Uri.parse("${Constants.connectionString}/ViewReportMiscDateSearch/${selectedDate.toString().split(" ")[0]}"),
+      Uri.parse(
+          "${Constants.connectionString}/ViewReportMiscDateSearch/${selectedDate.toString().split(" ")[0]}"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $tokenvalue',
@@ -220,6 +222,28 @@ class HttpServiceProvider extends GetConnect {
     }
   }
 
+  static Future<List<ModelViewUtility>> fetchUtilityViewReport() async {
+    var selectedDate = DateTime.now().obs;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var tokenvalue = prefs.getString("token");
+    var response = await http.get(
+      Uri.parse(
+          "${Constants.connectionString}/ViewReportUtilityDateSerch/${selectedDate.toString().split(" ")[0]}"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $tokenvalue',
+      },
+    );
+    if (response.statusCode == 200) {
+      String data = response.body;
+      print(response.statusCode);
+      print(data);
+      return modelViewUtilityFromJson(data);
+    } else {
+      print(response.statusCode);
+      print(response.body);
 
-
+      throw Exception();
+    }
+  }
 }
