@@ -25,7 +25,7 @@ class ReportUtiltyController extends GetxController {
     try {
       isLoading(true);
       var utility = await HttpServiceProvider.fetchUtilityViewReport();
-      utilityList.value = utility;
+      utilityList.value = utility ;
     } finally {
       isLoading(false);
     }

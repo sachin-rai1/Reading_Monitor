@@ -3,20 +3,22 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
-import 'package:readingmonitor2/app/modules/MachineList/Misc/Model/ModelMiscMachineList.dart';
+import 'package:readingmonitor2/app/modules/MachineList/Utility/controllers/utility_controller.dart';
+import 'package:readingmonitor2/app/modules/UploadData/Upload_Misc/Model/ModelUploadMisc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../data/Constants.dart';
 
 class UploadMiscController extends GetxController {
   var selectedDate = DateTime.now().obs;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final utilityController = Get.put(UtilityController());
   var isLoading = true.obs;
   List<TextEditingController> valueUnit = [];
   List<TextEditingController> valueID = [];
   late SharedPreferences prefs;
   String? tokenvalue;
   var data;
-  var listdata;
+  late var listdata = utilityController.utilitymachineList;
 
   @override
   void onReady() {
@@ -38,77 +40,59 @@ class UploadMiscController extends GetxController {
   }
 
   @override
-  void onInit() {
-    fetchMiscList();
+  void onInit() async {
+    await fetchMiscList();
     super.onInit();
   }
 
   //
 
-  Future<List<ModelMachineMisc>?> fetchMiscList() async {
+  Future<List<ModelUploadMisc>?> fetchMiscList() async {
     isLoading(true);
     prefs = await SharedPreferences.getInstance();
     tokenvalue = prefs.getString("token");
-    final response = await http.get(
-      Uri.parse('${Constants.connectionString}/MiscLisiting'),
+    final responses = await http.get(
+      Uri.parse(
+          '${Constants.connectionString}/MiscReportUploadSharch/${selectedDate.toString().split(" ")[0]}'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $tokenvalue',
       },
     );
-    if (response.statusCode == 200) {
-      print(response.statusCode);
-      print(response.body);
-      print("machine List");
-      print(tokenvalue);
-      listdata = jsonDecode(response.body);
-      print(listdata);
-
-      final responses = await http.get(
-        Uri.parse(
-            '${Constants.connectionString}/MiscReportUploadSharch/${selectedDate.toString().split(" ")[0]}'),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': 'Bearer $tokenvalue',
-        },
-      );
-      if (responses.statusCode == 200) {
-        data = jsonDecode(responses.body);
-        print("upload data");
-        print(data);
-        if (data.length == 0) {
-          for (int i = 0; i < listdata.length; i++) {
-            var textEditingController = TextEditingController(text: "");
-            valueUnit.add(textEditingController);
-            isLoading(false);
-          }
-        } else {
-          for (int i = 0; i < listdata.length; i++) {
-            if (i < data.length) {
-              // print("with data");
-              var idController =
-                  TextEditingController(text: data[i]['id'].toString());
-              var unitsController =
-                  TextEditingController(text: data[i]['unit'].toString());
-              valueID.add(idController);
-              valueUnit.add(unitsController);
-            } else {
-              // print("without data");
-              var unitsController = TextEditingController(text: "0");
-              valueUnit.add(unitsController);
-            }
-          }
+    if (responses.statusCode == 200) {
+      data = jsonDecode(responses.body);
+      print("upload data");
+      print(data);
+      if (data.length == 0) {
+        for (int i = 0; i < listdata.length; i++) {
+          var textEditingController = TextEditingController(text: "0");
+          valueUnit.add(textEditingController);
+          isLoading(false);
         }
       } else {
-        print(responses.statusCode);
-        print(responses.body);
-
-        Constants.showtoast("Error Fetching Data.");
+        for (int i = 0; i < listdata.length; i++) {
+          if (i < data.length) {
+            var idController =
+                TextEditingController(text: data[i]['id'].toString());
+            var unitsController =
+                TextEditingController(text: data[i]['unit'].toString());
+            valueID.add(idController);
+            valueUnit.add(unitsController);
+            isLoading(false);
+          } else {
+            // print("without data");
+            var unitsController = TextEditingController(text: "0");
+            valueUnit.add(unitsController);
+            isLoading(false);
+          }
+        }
       }
     } else {
+      print(responses.statusCode);
+      print(responses.body);
+
       Constants.showtoast("Error Fetching Data.");
     }
-    isLoading(false);
     return null;
   }
 
@@ -128,8 +112,8 @@ class UploadMiscController extends GetxController {
         },
         body: jsonEncode(<String, String>{
           "date": selectedDate.toString().split(" ")[0],
-          "machine_id": listdata[i]["id"].toString(),
-          "machine_name": listdata[i]["machine_name"].toString(),
+          "machine_id": listdata[i].id.toString(),
+          "machine_name": listdata[i].uitilityCategories.toString(),
           "unit": valueUnit[i].text,
         }),
       );

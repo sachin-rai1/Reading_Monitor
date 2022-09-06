@@ -65,19 +65,18 @@ class SteamBoilerController extends GetxController {
     }
   }
 
-  Future<ModelSteamBoiler?> updateSteamBoiler(
-      int bfw,
-      int temp,
-      int bfwper,
-      int bfwTempPer,
-      int c1,
-      int c1d,
-      int roc1,
-      int c2,
-      int c2d,
-      int roc2,
-      int sc,
-      int scPer,
+  Future<ModelSteamBoiler?> updateSteamBoiler(String bfw,
+      String temp,
+      String bfwper,
+      String bfwTempPer,
+      String c1,
+      String c1d,
+      String roc1,
+      String c2,
+      String c2d,
+      String roc2,
+      String sc,
+      String scPer,
       int id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var tokenvalue = prefs.getString("token");
@@ -161,38 +160,39 @@ class SteamBoilerController extends GetxController {
       print(data);
       if (data.length == 0) {
         addSteamBoiler(ModelSteamBoiler(
-            bfw: int.parse(bfw1.text),
-            bfwPercentage: int.parse(bfw2.text),
-            coal1: int.parse(coal1.text),
-            coalDeviation1: int.parse(coal1Div.text),
-            rateOfCoal1: int.parse(rateOfCoal1.text),
-            coal2: int.parse(coal2.text),
-            coalDeviation2: int.parse(coal2Div.text),
-            rateOfCoal2: int.parse(rateOfCoal2.text),
-            temperature: int.parse(bfwTemperature1.text),
-            bfwTemperaturePercentage: int.parse(bfwTemperature2.text),
-            steamCost: int.parse(steamCost1.text),
-            steamCostPercentage: int.parse(steamCost2.text)));
-        print("Added");
+            bfw: bfw1.text,
+            bfwPercentage: bfw2.text,
+            coal1: coal1.text,
+            coalDeviation1: coal1Div.text,
+            rateOfCoal1: rateOfCoal1.text,
+            coal2: coal2.text,
+            coalDeviation2: coal2Div.text,
+            rateOfCoal2: rateOfCoal2.text,
+            temperature: bfwTemperature1.text,
+            bfwTemperaturePercentage: bfwTemperature2.text,
+            steamCost: steamCost1.text,
+            steamCostPercentage: steamCost2.text));
+            print("Added");
         fetchSteamBoilerList();
         print(data);
       } else {
         print("Updated");
         print(id);
         updateSteamBoiler(
-            int.parse(bfw1.text.toString()),
-            int.parse(bfw2.text.toString()),
-            int.parse(bfwTemperature1.text.toString()),
-            int.parse(bfwTemperature2.text.toString()),
-            int.parse(coal1.text.toString()),
-            int.parse(coal2.text.toString()),
-            int.parse(coal1Div.text.toString()),
-            int.parse(coal2Div.text.toString()),
-            int.parse(rateOfCoal1.text.toString()),
-            int.parse(rateOfCoal2.text.toString()),
-            int.parse(steamCost1.text.toString()),
-            int.parse(steamCost2.text.toString()),
-            int.parse(id.toString()));
+            bfw1.text.toString(),
+            bfw2.text.toString(),
+            bfwTemperature1.text.toString(),
+            bfwTemperature2.text.toString(),
+            coal1.text.toString(),
+            coal2.text.toString(),
+            coal1Div.text.toString(),
+            coal2Div.text.toString(),
+            rateOfCoal1.text.toString(),
+            rateOfCoal2.text.toString(),
+            steamCost1.text.toString(),
+            steamCost2.text.toString(),
+            int.parse(id.toString())
+        );
         clearData();
         fetchSteamBoilerList();
 

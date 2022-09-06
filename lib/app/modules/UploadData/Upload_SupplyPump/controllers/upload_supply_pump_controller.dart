@@ -61,7 +61,6 @@ class UploadSupplyPumpController extends GetxController {
       if (data.length != 0) {
         for (int i = 0; i < supplyController.supplyPumpList.length; i++) {
           if (i < data.length) {
-            // print("with data");
             var idController =
                 TextEditingController(text: data[i]['id'].toString());
             var machineController =

@@ -13,9 +13,7 @@ import 'package:readingmonitor2/app/modules/MachineList/waterQuality/views/water
 import '../../../../Navigation/navigationDrawer.dart';
 import '../../home/views/home_view.dart';
 
-class MachineListTabBar extends StatelessWidget {
-  const MachineListTabBar({Key? key}) : super(key: key);
-
+class MachineListTabBar extends GetView {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -107,6 +105,7 @@ class MachineListTabBar extends StatelessWidget {
           ),
           body: TabBarView(
             children: [
+              // Get.toNamed(Routes.UTILITY),
               UtilityView(),
               SteamBoilerView(),
               ThermoPackView(),

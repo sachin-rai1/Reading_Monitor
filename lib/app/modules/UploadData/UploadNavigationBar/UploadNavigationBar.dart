@@ -9,10 +9,9 @@ import 'package:readingmonitor2/app/modules/UploadData/Upload_SupplyPump/views/u
 import 'package:readingmonitor2/app/modules/UploadData/Upload_ThermoPack/views/upload_thermo_pack_view.dart';
 import 'package:readingmonitor2/app/modules/UploadData/Upload_Utility/views/upload_utility_view.dart';
 import 'package:readingmonitor2/app/modules/UploadData/Upload_WaterQuality/views/upload_water_quality_view.dart';
-
 import '../../../../Navigation/navigationDrawer.dart';
 import '../../home/views/home_view.dart';
-import '../Upload_Misc/uploadmisc.dart';
+
 
 class UploadNavigationBar extends StatelessWidget {
   const UploadNavigationBar({Key? key}) : super(key: key);

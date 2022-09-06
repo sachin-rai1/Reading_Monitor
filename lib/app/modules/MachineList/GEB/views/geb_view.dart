@@ -400,7 +400,7 @@ class GebView extends GetView<GebController> {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     key.currentState?.save();
-                    controller.fetchGebList(3);
+                    controller.fetchGebList(1);
                   }
                 },
                 child: Container(

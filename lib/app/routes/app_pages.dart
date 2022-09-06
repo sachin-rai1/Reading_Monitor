@@ -1,7 +1,5 @@
 import 'package:get/get.dart';
 import 'package:readingmonitor2/app/modules/MachineList/MachineListTabBarNaviagtion/MachineListTabBar.dart';
-
-
 import 'package:readingmonitor2/app/modules/Transition/bindings/transition_binding.dart';
 import 'package:readingmonitor2/app/modules/Transition/views/transition_view.dart';
 import 'package:readingmonitor2/app/modules/UploadData/Upload_FlueGas/views/upload_flue_gas_view.dart';
@@ -57,7 +55,6 @@ import '../modules/MachineList/GEB/bindings/geb_binding.dart';
 import '../modules/MachineList/GEB/views/geb_view.dart';
 import '../modules/MachineList/Machine/bindings/machine_binding.dart';
 import '../modules/MachineList/Machine/views/machine_view.dart';
-import '../modules/MachineList/MachineListTabBarNaviagtion/MachineListTabBar.dart';
 import '../modules/MachineList/MachineListTabBarNaviagtion/MachineListTabBar.dart';
 import '../modules/MachineList/ManoMeter/bindings/mano_meter_binding.dart';
 import '../modules/MachineList/ManoMeter/views/mano_meter_view.dart';
@@ -123,11 +120,13 @@ class AppPages {
   static const INITIAL = Routes.LOGIN;
 
   static final routes = [
-    // GetPage(
-    //   page: () => MachineListTabBar(),
-    //   name: _Paths.MachineListTabBar,
-    //
-    // ),
+    GetPage(
+      page: () => MachineListTabBar(),
+      name: _Paths.MachineListTabBar,
+      bindings :[
+        UtilityBinding(),SteamBoilerBinding(),SupplyPumpBinding(),ThermoPackBinding()
+      ]
+    ),
     GetPage(
       name: _Paths.HOME,
       page: () => HomeView(),

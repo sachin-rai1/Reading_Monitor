@@ -10,11 +10,7 @@ class WaterQualityView extends GetView<WaterQualityController> {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(WaterQualityController(), permanent: true);
-    // Get.putAsync<WaterQualityController>(() async => WaterQualityController());
-    // Get.to(WaterQualityView(), binding: BindingsBuilder(() {
-    //   Get.put(WaterQualityController());
-    // }));
+    Get.put(WaterQualityController());
 
     final w = MediaQuery.of(context).size.width;
     final h = MediaQuery.of(context).size.height;
@@ -405,7 +401,6 @@ class WaterQualityView extends GetView<WaterQualityController> {
   }
 
   deleteDialog(BuildContext context, id) {
-    final h = MediaQuery.of(context).size.height;
     // set up the button
     Widget okButton = TextButton(
       child: Text("OK"),

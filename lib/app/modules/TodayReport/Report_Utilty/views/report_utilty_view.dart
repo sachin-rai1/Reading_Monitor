@@ -118,7 +118,7 @@ class ReportUtiltyView extends GetView<ReportUtiltyController> {
                                 ),
                                 Text(
                                   controller
-                                      .utilityList[index].uitilityCategories
+                                      .utilityList[index].uitilitySubcategoriesId
                                       .toString(),
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -131,7 +131,7 @@ class ReportUtiltyView extends GetView<ReportUtiltyController> {
                                       color: Colors.white),
                                 ),
                                 Text(
-                                  controller.utilityList[index].uilitysubcName
+                                  controller.utilityList[index].uitilitySubcategoriesId
                                       .toString(),
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,

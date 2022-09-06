@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -10,8 +11,12 @@ import '../../../../data/http_service_provider.dart';
 
 class UtilityController extends GetxController {
   TextEditingController categories = TextEditingController();
+
   var isLoading = true.obs;
   var utilitymachineList = <ModelUtilityMachineList>[].obs;
+  late Timer timer;
+
+  static var getId;
 
   @override
   void onInit() async {
@@ -19,14 +24,24 @@ class UtilityController extends GetxController {
     super.onInit();
   }
 
+  @override
+  void onClose() {
+    fetchUtilityMachinelist();
+    super.onClose();
+  }
+
+  @override
+  void onReady() async {
+    fetchUtilityMachinelist();
+    super.onReady();
+  }
+
   void fetchUtilityMachinelist() async {
     try {
       isLoading(true);
       var machinesUtility = await HttpServiceProvider.fetchUtilityMachinelist();
-      // utilitymachineList.assignAll(machinesUtility);
       utilitymachineList.value = machinesUtility;
-    }
-    finally {
+    } finally {
       isLoading(false);
     }
   }

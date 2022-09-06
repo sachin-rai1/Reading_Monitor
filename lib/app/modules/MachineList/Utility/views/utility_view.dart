@@ -6,6 +6,7 @@ import '../controllers/utility_controller.dart';
 
 class UtilityView extends GetView<UtilityController> {
   final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     Get.lazyPut(() => (UtilityController()));
@@ -48,69 +49,77 @@ class UtilityView extends GetView<UtilityController> {
             padding: const EdgeInsets.all(8.0),
             child: Obx(() {
               if (controller.isLoading.value) {
-                return const Center(child: CircularProgressIndicator());
+                return Center(child: CircularProgressIndicator());
               } else {
-                return ListView.builder(
-                    itemCount: controller.utilitymachineList.length,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          Get.to(() => SubUtilityView());
-                        },
-                        child: Container(
-                          color: Colors.transparent,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
+              return ListView.builder(
+                  itemCount: controller.utilitymachineList.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                            // controller.utilitymachineList[index].id.toString();
+                        Get.to(() => SubUtilityView(),
+                            arguments : controller.utilitymachineList[index].id.toString(),
+                        );
+                      },
+                      child: Container(
+                        color: Colors.transparent,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Obx(
+                              () => Text(
                                 controller.utilitymachineList[index]
                                     .uitilityCategories
                                     .toString(),
                               ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  GestureDetector(
-                                      onTap: () {
-                                        controller.categories.text = controller
-                                            .utilitymachineList[index]
-                                            .uitilityCategories
-                                            .toString();
-                                        editDialog(
-                                            context,
-                                            int.parse(controller
-                                                .utilitymachineList[index].id
-                                                .toString()));
-                                      },
-                                      child: Icon(
-                                        Icons.edit,
-                                        color: Colors.green,
-                                      )),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                  GestureDetector(
-                                      onTap: () {
-                                        controller.categories.text = controller
-                                            .utilitymachineList[index].uitilityCategories
-                                            .toString();
-                                        deleteDialog(context, controller
-                                            .utilitymachineList[index].id
-                                            );
-                                      },
-                                      child: Icon(
-                                        Icons.delete,
-                                        color: Colors.red,
-                                      )),
-                                ],
-                              )
-                            ],
-                          ),
+                            ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                GestureDetector(
+                                    onTap: () {
+                                      controller.categories.text = controller
+                                          .utilitymachineList[index]
+                                          .uitilityCategories
+                                          .toString();
+                                      editDialog(
+                                          context,
+                                          int.parse(controller
+                                              .utilitymachineList[index].id
+                                              .toString()));
+                                    },
+                                    child: Icon(
+                                      Icons.edit,
+                                      color: Colors.green,
+                                    )),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                GestureDetector(
+                                    onTap: () {
+                                      controller.categories.text = controller
+                                          .utilitymachineList[index]
+                                          .uitilityCategories
+                                          .toString();
+                                      deleteDialog(
+                                          context,
+                                          controller
+                                              .utilitymachineList[index].id);
+                                    },
+                                    child: Icon(
+                                      Icons.delete,
+                                      color: Colors.red,
+                                    )),
+                              ],
+                            )
+                          ],
                         ),
-                      );
-                    });
-              }
-            }),
+                      ),
+                    );
+                  });
+            }
+                }
+                ),
           ),
         )
       ],
@@ -190,7 +199,7 @@ class UtilityView extends GetView<UtilityController> {
     );
   }
 
-  deleteDialog(BuildContext context , id) {
+  deleteDialog(BuildContext context, id) {
     // set up the button
     Widget okButton = TextButton(
       child: Text("OK"),

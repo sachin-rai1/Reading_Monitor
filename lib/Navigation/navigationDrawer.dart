@@ -5,7 +5,7 @@ import 'package:readingmonitor2/app/modules/Charts/ChartNavigationBar.dart';
 import 'package:readingmonitor2/app/modules/MachineComparison/CompareNavigationBar.dart';
 import 'package:readingmonitor2/app/modules/TodayReport/ReportNavigationBar.dart';
 import 'package:readingmonitor2/app/modules/UploadData/UploadNavigationBar/UploadNavigationBar.dart';
-import '../app/modules/MachineList/MachineListTabBarNaviagtion/MachineListTabBar.dart';
+import '../app/routes/app_pages.dart';
 import 'createDrawerBodyItem.dart';
 import 'createDrawerHeader.dart';
 
@@ -58,7 +58,8 @@ class NavigationDrawer extends StatelessWidget {
                       text: 'Machine List',
                       onTap: () {
                         Get.back();
-                         Get.to(() => MachineListTabBar());
+                        Get.toNamed(Routes.MachineListTabBar);
+                         // Get.to(() => MachineListTabBar());
                       }
                   ),
                   createDrawerBodyItem(

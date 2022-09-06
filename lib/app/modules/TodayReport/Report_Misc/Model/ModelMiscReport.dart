@@ -1,7 +1,6 @@
 import 'dart:convert';
 
-List<ModelViewMisc> modelViewMiscFromJson(String str) => List<ModelViewMisc>.from(json.decode(str).map((x) => ModelViewMisc.fromJson(x)));
-
+  List<ModelViewMisc> modelViewMiscFromJson(String str) => List<ModelViewMisc>.from(json.decode(str).map((x) => ModelViewMisc.fromJson(x)));
 String modelViewMiscToJson(List<ModelViewMisc> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class ModelViewMisc {

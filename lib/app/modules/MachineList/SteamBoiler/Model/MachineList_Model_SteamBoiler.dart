@@ -25,18 +25,18 @@ class ModelSteamBoiler {
   });
 
   int? id;
-  int bfw;
-  int temperature;
-  int bfwPercentage;
-  int bfwTemperaturePercentage;
-  int coal1;
-  int coal2;
-  int coalDeviation1;
-  int coalDeviation2;
-  int rateOfCoal1;
-  int rateOfCoal2;
-  int steamCost;
-  int steamCostPercentage;
+  String bfw;
+  String temperature;
+  String bfwPercentage;
+  String bfwTemperaturePercentage;
+  String coal1;
+  String coal2;
+  String coalDeviation1;
+  String coalDeviation2;
+  String rateOfCoal1;
+  String rateOfCoal2;
+  String steamCost;
+  String steamCostPercentage;
 
   factory ModelSteamBoiler.fromJson(Map<String, dynamic> json) =>
       ModelSteamBoiler(

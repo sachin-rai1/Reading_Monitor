@@ -6,7 +6,6 @@ import 'package:readingmonitor2/app/modules/MachineList/GEB/Model/MachineList_GE
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import '../../../../data/Constants.dart';
-import '../../../../data/http_service_provider.dart';
 
 class GebController extends GetxController {
   TextEditingController kwh = TextEditingController();
@@ -23,8 +22,6 @@ class GebController extends GetxController {
   TextEditingController tb = TextEditingController();
   TextEditingController devTb = TextEditingController();
 
-
-
   addGeb(GebModel gebModel) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var tokenvalue = prefs.getString("token");
@@ -35,7 +32,6 @@ class GebController extends GetxController {
         'Authorization': 'Bearer $tokenvalue',
       },
       body: jsonEncode(<String, String>{
-
         "kwh": kwh.text,
         "kwm_deviation": devKwh.text,
         "kvarh": kvarh.text,
@@ -105,7 +101,6 @@ class GebController extends GetxController {
     if (response.statusCode == 200) {
       Fluttertoast.showToast(
           msg: "Machine Updated", backgroundColor: Colors.green);
-
     } else {
       Fluttertoast.showToast(
           msg: "Error in Update", backgroundColor: Colors.red);
@@ -114,7 +109,11 @@ class GebController extends GetxController {
     return null;
   }
 
-
+  @override
+  void onInit() {
+    fetchGebList(1);
+    super.onInit();
+  }
 
   Future<Future<bool?>?> fetchGebList(int id) async {
     print(id.toString());
@@ -166,7 +165,6 @@ class GebController extends GetxController {
             int.parse(id.toString()));
         print("Data Updated");
       }
-
     }
     return null;
   }
