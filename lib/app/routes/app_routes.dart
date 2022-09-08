@@ -117,4 +117,5 @@ abstract class _Paths {
   static const CHART_FLUE_GAS = '/chart-flue-gas';
   static const CHART_MISC = '/chart-misc';
   static const MachineListTabBar = '/MachineListTabBar';
+  static const UploadNavigationBar = '/UploadNavigationBar';
 }

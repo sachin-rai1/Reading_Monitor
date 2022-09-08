@@ -19,17 +19,20 @@ class SupplyPumpController extends GetxController {
 
   @override
   void onInit() {
-    print("Initialized");
     super.onInit();
     fetchSupplyPumps();
 
+  }
+  @override
+  void onClose() {
+    fetchSupplyPumps();
+    super.onClose();
   }
 
 
 
   void fetchSupplyPumps() async {
     try {
-      isLoading(true);
       var pumps = await HttpServiceProvider.fetchSupplyPump();
       supplyPumpList.value = pumps;
     } finally {

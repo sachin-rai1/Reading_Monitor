@@ -12,21 +12,21 @@ import 'package:readingmonitor2/app/modules/MachineList/flueGas/views/flue_gas_v
 import 'package:readingmonitor2/app/modules/MachineList/waterQuality/views/water_quality_view.dart';
 import '../../../../Navigation/navigationDrawer.dart';
 import '../../home/views/home_view.dart';
+import 'MachineListTabBarController.dart';
 
 class MachineListTabBar extends GetView {
   @override
   Widget build(BuildContext context) {
+    final MachineListTabBarController tabx =
+        Get.put(MachineListTabBarController());
     return Container(
       decoration: (const BoxDecoration(
         image: DecorationImage(
           image: AssetImage('assets/images/Bg5.png'),
           fit: BoxFit.cover,
         ),
-        //border:  Border.all(),
-        //borderRadius: BorderRadius.circular(20)
       )),
-      child: DefaultTabController(
-        length: 10,
+
         child: Scaffold(
           backgroundColor: Colors.transparent,
           drawer: NavigationDrawer(),
@@ -56,56 +56,17 @@ class MachineListTabBar extends GetView {
                 tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
               );
             }),
-            bottom: const TabBar(
+            bottom: TabBar(
+              controller: tabx.controller,
               indicatorColor: Colors.brown,
               isScrollable: true,
-              tabs: [
-                Tab(
-                    child: Text('Utility',
-                        style:
-                            TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
-                Tab(
-                    child: Text('Steam Boiler',
-                        style:
-                            TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
-                Tab(
-                    child: Text('Thermopack',
-                        style:
-                            TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
-                Tab(
-                    child: Text('Machines',
-                        style:
-                            TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
-                Tab(
-                    child: Text('WaterQuality',
-                        style:
-                            TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
-                Tab(
-                    child: Text('SupplyPump',
-                        style:
-                            TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
-                Tab(
-                    child: Text('GEB',
-                        style:
-                            TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
-                Tab(
-                    child: Text('ManoMeter',
-                        style:
-                            TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
-                Tab(
-                    child: Text('FlueGas',
-                        style:
-                            TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
-                Tab(
-                    child: Text('Misc.',
-                        style:
-                            TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
-              ],
+              tabs: tabx.myTabs,
             ),
           ),
           body: TabBarView(
+            physics: BouncingScrollPhysics(),
+            controller: tabx.controller,
             children: [
-              // Get.toNamed(Routes.UTILITY),
               UtilityView(),
               SteamBoilerView(),
               ThermoPackView(),
@@ -119,7 +80,7 @@ class MachineListTabBar extends GetView {
             ],
           ),
         ),
-      ),
+
     );
   }
 }

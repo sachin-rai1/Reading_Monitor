@@ -64,7 +64,6 @@ class UploadThermoPackController extends GetxController {
   }
 
   Future<Future<bool?>?> fetchUploadedThermoPack() async {
-
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var tokenvalue = prefs.getString("token");
     var response = await http.get(
@@ -78,6 +77,7 @@ class UploadThermoPackController extends GetxController {
     if (response.statusCode == 200) {
       data = jsonDecode(response.body);
       print(selectedDate.value.toIso8601String());
+      print(data);
       if (data.length != 0) {
         id = data[0]['id'];
         chambers.text = data[0]['chamber'];

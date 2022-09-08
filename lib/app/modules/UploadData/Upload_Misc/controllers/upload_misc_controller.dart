@@ -40,8 +40,8 @@ class UploadMiscController extends GetxController {
   }
 
   @override
-  void onInit() async {
-    await fetchMiscList();
+  void onInit()  {
+    fetchMiscList();
     super.onInit();
   }
 

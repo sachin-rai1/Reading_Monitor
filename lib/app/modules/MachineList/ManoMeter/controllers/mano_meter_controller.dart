@@ -12,10 +12,17 @@ class ManoMeterController extends GetxController {
   var isLoadingThermopack = true.obs;
   var steamBoilermachineList = <ModelManoMeterSteamBoiler>[].obs;
   var thermoPackmachineList = <ModelManoMeterThermoPack>[].obs;
+  @override
   void onInit() {
     fetchManometerSteamBoiler();
     fetchManomterThermoPack();
     super.onInit();
+  }
+  @override
+  void onClose() {
+    fetchManometerSteamBoiler();
+    fetchManomterThermoPack();
+    super.onClose();
   }
 
   Future<void> fetchManometerSteamBoiler() async {

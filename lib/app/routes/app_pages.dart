@@ -1,13 +1,14 @@
 import 'package:get/get.dart';
+import 'package:readingmonitor2/app/modules/MachineComparison/NavigationCompare/CompareNavigationBinding.dart';
 import 'package:readingmonitor2/app/modules/MachineList/MachineListTabBarNaviagtion/MachineListTabBar.dart';
 import 'package:readingmonitor2/app/modules/Transition/bindings/transition_binding.dart';
 import 'package:readingmonitor2/app/modules/Transition/views/transition_view.dart';
+import 'package:readingmonitor2/app/modules/UploadData/UploadNavigationBar/UploadNavigationBar.dart';
 import 'package:readingmonitor2/app/modules/UploadData/Upload_FlueGas/views/upload_flue_gas_view.dart';
 import 'package:readingmonitor2/app/modules/home/bindings/home_binding.dart';
 import 'package:readingmonitor2/app/modules/home/views/home_view.dart';
 import 'package:readingmonitor2/app/modules/login/bindings/login_binding.dart';
 import 'package:readingmonitor2/app/modules/login/views/login_view.dart';
-
 import '../modules/Charts/Chart_FlueGas/bindings/chart_flue_gas_binding.dart';
 import '../modules/Charts//Chart_GEB/bindings/chart_g_e_b_binding.dart';
 import '../modules/Charts/Chart_GEB/views/chart_g_e_b_view.dart';
@@ -56,6 +57,7 @@ import '../modules/MachineList/GEB/views/geb_view.dart';
 import '../modules/MachineList/Machine/bindings/machine_binding.dart';
 import '../modules/MachineList/Machine/views/machine_view.dart';
 import '../modules/MachineList/MachineListTabBarNaviagtion/MachineListTabBar.dart';
+import '../modules/MachineList/MachineListTabBarNaviagtion/MachineListTabBarBindings.dart';
 import '../modules/MachineList/ManoMeter/bindings/mano_meter_binding.dart';
 import '../modules/MachineList/ManoMeter/views/mano_meter_view.dart';
 import '../modules/MachineList/Misc/bindings/misc_binding.dart';
@@ -91,6 +93,7 @@ import '../modules/TodayReport/Report_Utilty/bindings/report_utilty_binding.dart
 import '../modules/TodayReport/Report_Utilty/views/report_utilty_view.dart';
 import '../modules/TodayReport/Report_WaterQuality/bindings/report_water_quality_binding.dart';
 import '../modules/TodayReport/Report_WaterQuality/views/report_water_quality_view.dart';
+import '../modules/UploadData/UploadNavigationBar/UploadNavigationBar.dart';
 import '../modules/UploadData/Upload_FlueGas/bindings/upload_flue_gas_binding.dart';
 import '../modules/UploadData/Upload_GEB/bindings/upload_g_e_b_binding.dart';
 import '../modules/UploadData/Upload_GEB/views/upload_g_e_b_view.dart';
@@ -116,16 +119,19 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  // static const INITIAL = Routes.UTILITY;
   static const INITIAL = Routes.LOGIN;
 
   static final routes = [
     GetPage(
+      page: () => UploadNavigationBar(),
+      name: _Paths.UploadNavigationBar,
+      binding :UploadNavigationBinding(),
+    ),
+
+    GetPage(
       page: () => MachineListTabBar(),
       name: _Paths.MachineListTabBar,
-      bindings :[
-        UtilityBinding(),SteamBoilerBinding(),SupplyPumpBinding(),ThermoPackBinding()
-      ]
+      binding :MachineListTabBinding(),
     ),
     GetPage(
       name: _Paths.HOME,

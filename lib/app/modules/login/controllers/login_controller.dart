@@ -12,7 +12,14 @@ class LoginController extends GetxController {
   TextEditingController passwordTextController = TextEditingController();
 
   void apiLogin(String email, password) async {
-    Get.dialog(Center(child: CircularProgressIndicator()));
+    Get.dialog(Center(
+        child: ClipRRect(
+      child: Image.asset(
+        'assets/images/kaisehai.gif',
+        alignment: Alignment.center,
+        fit: BoxFit.fill,
+      ),
+    )));
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? tokenvalue = prefs.getString("token");
     Response response = await post(

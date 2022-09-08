@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:readingmonitor2/app/modules/Charts/ChartNavigationBar.dart';
-import 'package:readingmonitor2/app/modules/MachineComparison/CompareNavigationBar.dart';
+import 'package:readingmonitor2/app/modules/MachineComparison/NavigationCompare/CompareNavigationBar.dart';
 import 'package:readingmonitor2/app/modules/TodayReport/ReportNavigationBar.dart';
 import 'package:readingmonitor2/app/modules/UploadData/UploadNavigationBar/UploadNavigationBar.dart';
 import '../app/routes/app_pages.dart';

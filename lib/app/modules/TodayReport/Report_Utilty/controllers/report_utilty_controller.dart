@@ -20,6 +20,12 @@ class ReportUtiltyController extends GetxController {
       fetchUtilityViewReport();
     }
   }
+  @override
+  void onInit()
+  {
+    fetchUtilityViewReport();
+    super.onInit();
+  }
 
   void fetchUtilityViewReport() async {
     try {

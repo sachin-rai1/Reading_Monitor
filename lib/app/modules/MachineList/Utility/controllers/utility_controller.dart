@@ -9,6 +9,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../data/Constants.dart';
 import '../../../../data/http_service_provider.dart';
 
+
+
 class UtilityController extends GetxController {
   TextEditingController categories = TextEditingController();
 
@@ -17,6 +19,9 @@ class UtilityController extends GetxController {
   late Timer timer;
 
   static var getId;
+
+
+
 
   @override
   void onInit() async {
@@ -29,12 +34,18 @@ class UtilityController extends GetxController {
     fetchUtilityMachinelist();
     super.onClose();
   }
-
-  @override
-  void onReady() async {
-    fetchUtilityMachinelist();
-    super.onReady();
-  }
+  //
+  // @override
+  // void onReady() async {
+  //   fetchUtilityMachinelist();
+  //   super.onReady();
+  // }
+  //
+  // void onDispose()
+  // {
+  //   fetchUtilityMachinelist();
+  //   super.onDelete();
+  // }
 
   void fetchUtilityMachinelist() async {
     try {

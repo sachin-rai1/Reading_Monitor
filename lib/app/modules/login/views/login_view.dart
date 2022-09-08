@@ -1,8 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import '../../../data/GetXNetworkManagement.dart';
 import '../controllers/login_controller.dart';
 
 class LoginPage extends StatefulWidget {

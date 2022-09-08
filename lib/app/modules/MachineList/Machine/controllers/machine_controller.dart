@@ -18,7 +18,11 @@ class MachineController extends GetxController {
     super.onInit();
   }
 
-
+  @override
+  void onClose() {
+    fetchMachineList();
+    super.onClose();
+  }
 
   void fetchMachineList() async {
     try {
@@ -43,23 +47,22 @@ class MachineController extends GetxController {
       machineList.add(modelMachineList);
       Fluttertoast.showToast(
           msg: "Machine Added Successfully", backgroundColor: Colors.green);
-
     } else {
       Fluttertoast.showToast(msg: "Error", backgroundColor: Colors.red);
     }
   }
 
   Future<ModelMachineList?> updateMachine(String categories, int id) async {
-    final response =
-        await http.put(Uri.parse("${Constants.connectionString}/mcupdate"),
-            body: jsonEncode(<String, String>{
-              "id": id.toString(),
-              "categories": categories.toString(),
-            }),
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8'
-          },
-        );
+    final response = await http.put(
+      Uri.parse("${Constants.connectionString}/mcupdate"),
+      body: jsonEncode(<String, String>{
+        "id": id.toString(),
+        "categories": categories.toString(),
+      }),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8'
+      },
+    );
     if (response.statusCode == 200) {
       Fluttertoast.showToast(
           msg: "Machine Updated", backgroundColor: Colors.green);

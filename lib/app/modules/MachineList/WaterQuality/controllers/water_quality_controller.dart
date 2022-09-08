@@ -26,6 +26,12 @@ class WaterQualityController extends GetxController {
     super.onInit();
   }
 
+  @override
+  void onClose() {
+    fetchWaterQualityList();
+    super.onClose();
+  }
+
   Future<void> fetchWaterQualityList() async {
     try {
       isLoading(true);
