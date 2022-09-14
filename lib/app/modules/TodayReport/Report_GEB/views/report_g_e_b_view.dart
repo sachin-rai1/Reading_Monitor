@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-import '../../../home/controllers/home_controller.dart';
 import '../controllers/report_g_e_b_controller.dart';
 
 class ReportGEBView extends GetView<ReportGEBController> {
@@ -33,8 +32,8 @@ class ReportGEBView extends GetView<ReportGEBController> {
                           ),
                           Container(
                               alignment: Alignment.topLeft,
-                              child: Obx(() =>
-                                Text(
+                              child: Obx(
+                                () => Text(
                                   DateFormat("dd-MM-yyyy")
                                       .format(controller.selectedDate.value)
                                       .toString(),
@@ -111,7 +110,13 @@ class ReportGEBView extends GetView<ReportGEBController> {
                             ),
                             height: 42,
                             width: w / 3,
-                            child: const Text("")),
+                            child: Obx(
+                              () => Text(
+                                  (controller.machineList.isNotEmpty && controller.machineList[0].kwh!=null)
+                                  ? controller.machineList[0].kwh.toString()
+                                  : "0"
+                              ),
+                            )),
                       ],
                     ),
                     Column(
@@ -126,7 +131,13 @@ class ReportGEBView extends GetView<ReportGEBController> {
                             ),
                             height: 42,
                             width: w / 3,
-                            child: const Text("")),
+                            child: Obx(
+                              () => Text((controller.machineList.isNotEmpty && controller.machineList[0].kwhtotalper!=null)
+                                  ? controller.machineList[0].kwhtotalper!
+                                      .toStringAsFixed(2)
+                                      .toString()
+                                  : "0"),
+                            )),
                       ],
                     ),
                   ],
@@ -149,7 +160,13 @@ class ReportGEBView extends GetView<ReportGEBController> {
                             ),
                             height: 42,
                             width: w / 3,
-                            child: const Text("")),
+                            child: Obx(
+                              () => Text((controller.machineList.isNotEmpty && controller.machineList[0].pf!=null)
+                                  ? controller.machineList[0].pf!
+                                      .toStringAsFixed(2)
+                                      .toString()
+                                  : "0"),
+                            )),
                       ],
                     ),
                     Column(
@@ -164,7 +181,13 @@ class ReportGEBView extends GetView<ReportGEBController> {
                             ),
                             height: 42,
                             width: w / 3,
-                            child: const Text("")),
+                            child: Obx(
+                              () => Text((controller.machineList.isNotEmpty && controller.machineList[0].pfper!=null)
+                                  ? controller.machineList[0].pfper!
+                                      .toStringAsFixed(2)
+                                      .toString()
+                                  : "0"),
+                            )),
                       ],
                     ),
                   ],
@@ -187,7 +210,13 @@ class ReportGEBView extends GetView<ReportGEBController> {
                             ),
                             height: 42,
                             width: w / 3,
-                            child: const Text("")),
+                            child: Obx(
+                              () => Text((controller.machineList.isNotEmpty && controller.machineList[0].kvarh!=null)
+                                  ? controller.machineList[0].kvarh!
+                                      .toStringAsFixed(2)
+                                      .toString()
+                                  : "0"),
+                            )),
                       ],
                     ),
                     Column(
@@ -202,7 +231,13 @@ class ReportGEBView extends GetView<ReportGEBController> {
                             ),
                             height: 42,
                             width: w / 3,
-                            child: const Text("")),
+                            child: Obx(
+                              () => Text((controller.machineList.isNotEmpty && controller.machineList[0].kvarhper!=null)
+                                  ? controller.machineList[0].kvarhper!
+                                      .toStringAsFixed(2)
+                                      .toString()
+                                  : "0"),
+                            )),
                       ],
                     ),
                   ],
@@ -225,7 +260,10 @@ class ReportGEBView extends GetView<ReportGEBController> {
                             ),
                             height: 42,
                             width: w / 3,
-                            child: const Text("")),
+                            child: Obx(() => Text(
+                                (controller.machineList.isNotEmpty && controller.machineList[0].md !=  null)
+                                    ? controller.machineList[0].md.toString()
+                                    : "0"))),
                       ],
                     ),
                     Column(
@@ -240,7 +278,13 @@ class ReportGEBView extends GetView<ReportGEBController> {
                             ),
                             height: 42,
                             width: w / 3,
-                            child: const Text("30")),
+                            child: Obx(
+                              () => Text((controller.machineList.isNotEmpty && controller.machineList[0].mdper!=null)
+                                  ? controller.machineList[0].mdper!
+                                      .toStringAsFixed(2)
+                                      .toString()
+                                  : "0"),
+                            )),
                       ],
                     ),
                   ],
@@ -263,7 +307,13 @@ class ReportGEBView extends GetView<ReportGEBController> {
                             ),
                             height: 42,
                             width: w / 3,
-                            child: const Text("")),
+                            child: Obx(
+                              () => Text((controller.machineList.isNotEmpty && controller.machineList[0].kevah!=null)
+                                  ? controller.machineList[0].kevah!
+                                      .toStringAsFixed(2)
+                                      .toString()
+                                  : "0"),
+                            )),
                       ],
                     ),
                     Column(
@@ -278,7 +328,13 @@ class ReportGEBView extends GetView<ReportGEBController> {
                             ),
                             height: 42,
                             width: w / 3,
-                            child: const Text("")),
+                            child: Obx(
+                              () => Text((controller.machineList.isNotEmpty && controller.machineList[0].kvahper != null)
+                                  ? controller.machineList[0].kvahper!
+                                      .toStringAsFixed(2)
+                                      .toString()
+                                  : "0"),
+                            )),
                       ],
                     ),
                   ],
@@ -301,7 +357,13 @@ class ReportGEBView extends GetView<ReportGEBController> {
                             ),
                             height: 42,
                             width: w / 3,
-                            child: const Text("25")),
+                            child: Obx(
+                              () => Text((controller.machineList.isNotEmpty && controller.machineList[0].turbine != null)
+                                  ? controller.machineList[0].turbine!
+                                      .toStringAsFixed(2)
+                                      .toString()
+                                  : "0"),
+                            )),
                       ],
                     ),
                     Column(
@@ -315,7 +377,13 @@ class ReportGEBView extends GetView<ReportGEBController> {
                             ),
                             height: 42,
                             width: w / 3,
-                            child: const Text("5")),
+                            child: Obx(
+                              () => Text((controller.machineList.isNotEmpty && controller.machineList[0].turbineper != null)
+                                  ? controller.machineList[0].turbineper!
+                                      .toStringAsFixed(2)
+                                      .toString()
+                                  : "0"),
+                            )),
                       ],
                     ),
                   ],
@@ -324,6 +392,5 @@ class ReportGEBView extends GetView<ReportGEBController> {
             ],
           )),
     );
-
   }
 }

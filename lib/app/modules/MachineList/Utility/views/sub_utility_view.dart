@@ -6,7 +6,8 @@ import '../controllers/sub_utility_controller.dart';
 class SubUtilityView extends GetView<SubUtilityController> {
   @override
   Widget build(BuildContext context) {
-    Get.put(SubUtilityController());
+    // Get.put(SubUtilityController());
+    Get.lazyPut(() => SubUtilityController());
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(

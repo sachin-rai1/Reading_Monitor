@@ -16,13 +16,13 @@ class ModelReportWaterQuality {
     this.hardnessPercentage,
   });
 
-  int ? machineNameId;
+  int    ? machineNameId;
   String ? machineName;
-  int ? tds;
+  int    ? tds;
   double ? tdsPercentage;
   double ? ph;
   double ?  phPercentage;
-  int ? hardness;
+  int    ?     hardness;
   double ? hardnessPercentage;
 
   factory ModelReportWaterQuality.fromJson(Map<String, dynamic> json) => ModelReportWaterQuality(

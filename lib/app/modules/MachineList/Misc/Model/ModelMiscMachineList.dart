@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final modelMachineMisc = modelMachineMiscFromJson(jsonString);
+
 import 'dart:convert';
 
 List<ModelMachineMisc> modelMachineMiscFromJson(String str) => List<ModelMachineMisc>.from(json.decode(str).map((x) => ModelMachineMisc.fromJson(x)));
@@ -7,15 +11,15 @@ String modelMachineMiscToJson(List<ModelMachineMisc> data) => json.encode(List<d
 class ModelMachineMisc {
   ModelMachineMisc({
     this.id,
-  required this.machineName,
-  required this.unit,
-  required this.deviation,
+    this.machineName,
+    this.unit,
+    this.deviation,
   });
 
   int ? id;
-  String  machineName;
-  int unit;
-  int deviation;
+  String?  machineName;
+  int ?unit;
+  int ? deviation;
 
   factory ModelMachineMisc.fromJson(Map<String, dynamic> json) => ModelMachineMisc(
     id: json["id"],

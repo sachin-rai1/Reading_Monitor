@@ -114,7 +114,7 @@ class ReportMiscView extends GetView<ReportMiscController> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    controller.miscList[index].machineName
+                                    controller.miscList[index].categoryName
                                         .toString(),
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -168,7 +168,7 @@ class ReportMiscView extends GetView<ReportMiscController> {
                                           children: [
                                             Text("Deviation"),
                                             Text(controller.miscList[index]
-                                                .deviation.toString()),
+                                                .dev.toString()),
                                           ],
                                         ),
                                       ),

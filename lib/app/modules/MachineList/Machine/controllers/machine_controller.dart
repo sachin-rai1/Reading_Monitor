@@ -20,6 +20,7 @@ class MachineController extends GetxController {
 
   @override
   void onClose() {
+    onInit();
     fetchMachineList();
     super.onClose();
   }

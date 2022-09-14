@@ -16,13 +16,13 @@ class ReportSteamBoilerController extends GetxController {
         context: Get.context!,
         initialDate: selectedDate.value,
         firstDate: DateTime(2015, 8),
-        lastDate: DateTime.now()
-    );
+        lastDate: DateTime.now());
     if (picked != null && picked != selectedDate.value) {
       selectedDate.value = picked;
       fetchSteamBoiler();
     }
   }
+
   Future<void> fetchSteamBoiler() async {
     try {
       isLoading(true);
@@ -55,5 +55,9 @@ class ReportSteamBoilerController extends GetxController {
     }
   }
 
-
+  @override
+  void onInit() {
+    fetchSteamBoiler();
+    super.onInit();
+  }
 }

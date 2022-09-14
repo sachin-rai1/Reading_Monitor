@@ -10,7 +10,7 @@ class ModelUploadGeb {
    required this.date,
    required this.kwh,
    required this.kvarh,
-   required this.kvah,
+   required this.kevah,
    required this.md,
    required this.turbine,
   });
@@ -19,7 +19,7 @@ class ModelUploadGeb {
   DateTime ? date;
   int kwh;
   int kvarh;
-  int kvah;
+  int kevah;
   int md;
   int turbine;
 
@@ -28,7 +28,7 @@ class ModelUploadGeb {
     date: json["date"],
     kwh: json["kwh"],
     kvarh: json["kvarh"],
-    kvah: json["kvah"],
+    kevah: json["kevah"],
     md: json["md"],
     turbine: json["turbine"],
   );
@@ -38,7 +38,7 @@ class ModelUploadGeb {
     "date": date,
     "kwh": kwh,
     "kvarh": kvarh,
-    "kvah": kvah,
+    "kevah": kevah,
     "md": md,
     "turbine": turbine,
   };

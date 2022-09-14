@@ -67,7 +67,7 @@ class MachineListTabBarController extends GetxController
       Get.delete<UtilityController>();
       Get.lazyPut(() => UtilityController());
     } else if (selectedIndex == 1) {
-      Get.delete<SteamBoilerController>();
+      // Get.delete<SteamBoilerController>();
       Get.lazyPut(() => SteamBoilerController);
     } else if (selectedIndex == 2) {
       Get.delete<ThermoPackController>();

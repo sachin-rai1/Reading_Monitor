@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:readingmonitor2/app/modules/UploadData/Upload_FlueGas/controllers/upload_flue_gas_controller.dart';
-import 'package:readingmonitor2/app/modules/UploadData/Upload_GEB/controllers/upload_g_e_b_controller.dart';
 import 'package:readingmonitor2/app/modules/UploadData/Upload_Machine/controllers/upload_machine_controller.dart';
 import 'package:readingmonitor2/app/modules/UploadData/Upload_ManoMeter/controllers/upload_mano_meter_controller.dart';
 import 'package:readingmonitor2/app/modules/UploadData/Upload_Misc/controllers/upload_misc_controller.dart';
@@ -87,8 +86,8 @@ class UploadTabBarController extends GetxController
       Get.delete<UploadSupplyPumpController>();
       Get.lazyPut(() => UploadSupplyPumpController());
     } else if (selectedIndex == 6) {
-      Get.delete<UploadGEBController>();
-      Get.lazyPut(() => UploadGEBController());
+      // Get.delete<UploadGEBController>();
+      // Get.lazyPut(() => UploadGEBController());
     } else if (selectedIndex == 7) {
       Get.delete<UploadManoMeterController>();
       Get.lazyPut(() => UploadManoMeterController());

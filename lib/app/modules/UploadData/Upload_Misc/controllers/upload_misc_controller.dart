@@ -3,22 +3,22 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
-import 'package:readingmonitor2/app/modules/MachineList/Utility/controllers/utility_controller.dart';
 import 'package:readingmonitor2/app/modules/UploadData/Upload_Misc/Model/ModelUploadMisc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../data/Constants.dart';
+import '../../../MachineList/Misc/controllers/misc_controller.dart';
 
 class UploadMiscController extends GetxController {
   var selectedDate = DateTime.now().obs;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final utilityController = Get.put(UtilityController());
+  final miscController = Get.put(MiscController());
   var isLoading = true.obs;
   List<TextEditingController> valueUnit = [];
   List<TextEditingController> valueID = [];
   late SharedPreferences prefs;
   String? tokenvalue;
   var data;
-  late var listdata = utilityController.utilitymachineList;
+  late var listdata = miscController.miscList;
 
   @override
   void onReady() {
@@ -40,12 +40,18 @@ class UploadMiscController extends GetxController {
   }
 
   @override
-  void onInit()  {
+  void onInit() {
     fetchMiscList();
     super.onInit();
   }
 
-  //
+  @override
+  void onClose() {
+    fetchMiscList();
+    super.onClose();
+  }
+
+
 
   Future<List<ModelUploadMisc>?> fetchMiscList() async {
     isLoading(true);
@@ -80,7 +86,6 @@ class UploadMiscController extends GetxController {
             valueUnit.add(unitsController);
             isLoading(false);
           } else {
-            // print("without data");
             var unitsController = TextEditingController(text: "0");
             valueUnit.add(unitsController);
             isLoading(false);
@@ -96,9 +101,6 @@ class UploadMiscController extends GetxController {
     return null;
   }
 
-  //todo    when adding the data if the data has no value send "" (null string data or zero)
-  //todo but never let anyone go null coz it will effect the machine indexing while it has been replaced
-
   void addMiscList() async {
     for (int i = 0; i < listdata.length; i++) {
       if (valueUnit[i].text == "") {
@@ -113,7 +115,7 @@ class UploadMiscController extends GetxController {
         body: jsonEncode(<String, String>{
           "date": selectedDate.toString().split(" ")[0],
           "machine_id": listdata[i].id.toString(),
-          "machine_name": listdata[i].uitilityCategories.toString(),
+          "machine_name": listdata[i].machineName.toString(),
           "unit": valueUnit[i].text,
         }),
       );
@@ -150,7 +152,6 @@ class UploadMiscController extends GetxController {
         if (i == listdata.length - 1) {
           Constants.showtoast("Report Updated!");
         }
-        // Constants.showtoast("Report Updated!");
       } else {
         print(response.statusCode);
         print(response.body);

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import '../../../../data/Constants.dart';
 import '../controllers/upload_utility_controller.dart';
 
 class UploadUtilityView extends GetView<UploadUtilityController> {
   @override
   Widget build(BuildContext context) {
+    final w = MediaQuery.of(context).size.width;
     Get.put(UploadUtilityController());
     return Scaffold(
       body: Column(children: [
@@ -63,171 +65,172 @@ class UploadUtilityView extends GetView<UploadUtilityController> {
           ],
         ),
         const SizedBox(height: 20),
-        // (controller.isLoading.value)
-        //     ? SizedBox(
-        //         height: 500,
-        //         child: Center(
-        //           child: CircularProgressIndicator(
-        //             color: Constants.primaryColor,
-        //           ),
-        //         ),
-        //       )
-        //     (controller.data.length == 0)
-        //         ? Expanded(
-        //             flex: 2,
-        //             child: Obx(
-        //               () {
-        //                 if (controller.isLoading.value) {
-        //                   return const Center(
-        //                       child: CircularProgressIndicator());
-        //                 } else {
-        //                   print(" Null data   Hiiiiii");
-        //                   // print(controller.flow);
-        //                   return ListView.builder(
-        //                       itemCount: 2,
-        //                       itemBuilder: (context, index) {
-        //                         return Card(
-        //                           child: Padding(
-        //                             padding: const EdgeInsets.all(8.0),
-        //                             child: Column(
-        //                               children: [
-        //                                 Row(
-        //                                   children: [
-        //                                     Container(
-        //                                       height: 30,
-        //                                       width: w / 4,
-        //                                       child: Text(
-        //                                         // supplyController
-        //                                         //     .supplyPumpList[index].name
-        //                                         //     .toString(),
-        //                                         "Machine Name",
-        //                                         style: TextStyle(
-        //                                             fontWeight:
-        //                                                 FontWeight.bold),
-        //                                       ),
-        //                                     ),
-        //                                     Container(
-        //                                       decoration: BoxDecoration(
-        //                                           border: Border.all(
-        //                                               color: Colors.blueAccent,
-        //                                               width: 2),
-        //                                           borderRadius:
-        //                                               BorderRadius.circular(
-        //                                                   10)),
-        //                                       child: TextFormField(
-        //                                         decoration: InputDecoration(),
-        //                                         // controller:
-        //                                         // controller.flow[index],
-        //                                       ),
-        //                                       height: 30,
-        //                                       width: w / 4,
-        //                                     ),
-        //                                     Container(
-        //                                       decoration: BoxDecoration(
-        //                                           border: Border.all(
-        //                                               color: Colors.blueAccent,
-        //                                               width: 2),
-        //                                           borderRadius:
-        //                                               BorderRadius.circular(
-        //                                                   10)),
-        //                                       child: TextFormField(
-        //                                           // controller:
-        //                                           // controller.unit[index],
-        //                                           ),
-        //                                       height: 30,
-        //                                       width: w / 4,
-        //                                     ),
-        //                                   ],
-        //                                   mainAxisAlignment:
-        //                                       MainAxisAlignment.spaceBetween,
-        //                                 ),
-        //                               ],
-        //                             ),
-        //                           ),
-        //                         );
-        //                       });
-        //                 }
-        //               },
-        //             ),
-        //           )
-        //         : Expanded(
-        //             flex: 2,
-        //             child: Obx(
-        //               () {
-        //                 if (controller.isLoading.value) {
-        //                   return const Center(
-        //                       child: CircularProgressIndicator());
-        //                 } else {
-        //                   print("Hiiiiii");
-        //                   // print(controller.flow);
-        //                   return ListView.builder(
-        //                       itemCount: 2,
-        //                       // supplyController.supplyPumpList.length,
-        //                       itemBuilder: (context, index) {
-        //                         return Card(
-        //                           child: Padding(
-        //                             padding: const EdgeInsets.all(8.0),
-        //                             child: Column(
-        //                               children: [
-        //                                 Row(
-        //                                   children: [
-        //                                     Container(
-        //                                       height: 30,
-        //                                       width: w / 4,
-        //                                       child: Text(
-        //                                         // supplyController
-        //                                         //     .supplyPumpList[index].name
-        //                                         //     .toString(),
-        //                                         "Machine Name",
-        //                                         style: TextStyle(
-        //                                             fontWeight:
-        //                                                 FontWeight.bold),
-        //                                       ),
-        //                                     ),
-        //                                     Container(
-        //                                       decoration: BoxDecoration(
-        //                                           border: Border.all(
-        //                                               color: Colors.blueAccent,
-        //                                               width: 2),
-        //                                           borderRadius:
-        //                                               BorderRadius.circular(
-        //                                                   10)),
-        //                                       child: TextFormField(
-        //                                         decoration: InputDecoration(),
-        //                                         // controller:
-        //                                         // controller.flow[index],
-        //                                       ),
-        //                                       height: 30,
-        //                                       width: w / 4,
-        //                                     ),
-        //                                     Container(
-        //                                       decoration: BoxDecoration(
-        //                                           border: Border.all(
-        //                                               color: Colors.blueAccent,
-        //                                               width: 2),
-        //                                           borderRadius:
-        //                                               BorderRadius.circular(
-        //                                                   10)),
-        //                                       child: TextFormField(
-        //                                           // controller:
-        //                                           // controller.unit[index],
-        //                                           ),
-        //                                       height: 30,
-        //                                       width: w / 4,
-        //                                     ),
-        //                                   ],
-        //                                   mainAxisAlignment:
-        //                                       MainAxisAlignment.spaceBetween,
-        //                                 ),
-        //                               ],
-        //                             ),
-        //                           ),
-        //                         );
-        //                       });
-        //                 }
-        //               },
-        //             ),
-        //           )
+        (controller.isLoading.value)
+            ? SizedBox(
+                height: 500,
+                child: Center(
+                  child: CircularProgressIndicator(
+                    color: Constants.primaryColor,
+                  ),
+                ),
+              ):
+
+            (controller.data.length == 0)
+                ? Expanded(
+                    flex: 2,
+                    child: Obx(
+                      () {
+                        if (controller.isLoading.value) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        } else {
+                          print(" Null data   Hiiiiii");
+                          // print(controller.flow);
+                          return ListView.builder(
+                              itemCount: 2,
+                              itemBuilder: (context, index) {
+                                return Card(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Container(
+                                              height: 30,
+                                              width: w / 4,
+                                              child: Text(
+                                                // supplyController
+                                                //     .supplyPumpList[index].name
+                                                //     .toString(),
+                                                "Machine Name",
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color: Colors.blueAccent,
+                                                      width: 2),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10)),
+                                              child: TextFormField(
+                                                decoration: InputDecoration(),
+                                                // controller:
+                                                // controller.flow[index],
+                                              ),
+                                              height: 30,
+                                              width: w / 4,
+                                            ),
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color: Colors.blueAccent,
+                                                      width: 2),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10)),
+                                              child: TextFormField(
+                                                  // controller:
+                                                  // controller.unit[index],
+                                                  ),
+                                              height: 30,
+                                              width: w / 4,
+                                            ),
+                                          ],
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              });
+                        }
+                      },
+                    ),
+                  )
+                : Expanded(
+                    flex: 2,
+                    child: Obx(
+                      () {
+                        if (controller.isLoading.value) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        } else {
+                          print("Hiiiiii");
+                          // print(controller.flow);
+                          return ListView.builder(
+                              itemCount: 2,
+                              // supplyController.supplyPumpList.length,
+                              itemBuilder: (context, index) {
+                                return Card(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Container(
+                                              height: 30,
+                                              width: w / 4,
+                                              child: Text(
+                                                // supplyController
+                                                //     .supplyPumpList[index].name
+                                                //     .toString(),
+                                                "Machine Name",
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color: Colors.blueAccent,
+                                                      width: 2),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10)),
+                                              child: TextFormField(
+                                                decoration: InputDecoration(),
+                                                // controller:
+                                                // controller.flow[index],
+                                              ),
+                                              height: 30,
+                                              width: w / 4,
+                                            ),
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color: Colors.blueAccent,
+                                                      width: 2),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10)),
+                                              child: TextFormField(
+                                                  // controller:
+                                                  // controller.unit[index],
+                                                  ),
+                                              height: 30,
+                                              width: w / 4,
+                                            ),
+                                          ],
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              });
+                        }
+                      },
+                    ),
+                  )
       ]),
     );
   }

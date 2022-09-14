@@ -65,44 +65,43 @@ class ReportNavigationBar extends StatelessWidget {
                 Tab(
                     child: Text('Utility',
                         style:
-                        TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
+                            TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
                 Tab(
                     child: Text('Steam Boiler',
                         style:
-                        TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
+                            TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
                 Tab(
                     child: Text('Thermopack',
                         style:
-                        TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
+                            TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
                 Tab(
                     child: Text('Machines',
                         style:
-                        TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
+                            TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
                 Tab(
                     child: Text('WaterQuality',
                         style:
-                        TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
+                            TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
                 Tab(
                     child: Text('SupplyPump',
                         style:
-                        TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
+                            TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
                 Tab(
                     child: Text('GEB',
                         style:
-                        TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
+                            TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
                 Tab(
                     child: Text('ManoMeter',
                         style:
-                        TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
+                            TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
                 Tab(
                     child: Text('FlueGas',
                         style:
-                        TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
+                            TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
                 Tab(
                     child: Text('Misc.',
                         style:
-                        TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
-
+                            TextStyle(fontSize: 16, color: Color(0xFF6EB7A1)))),
               ],
             ),
           ),
@@ -118,7 +117,6 @@ class ReportNavigationBar extends StatelessWidget {
               ReportManoMeterView(),
               ReportFlueGasView(),
               ReportMiscView()
-
             ],
           ),
         ),
@@ -126,5 +124,3 @@ class ReportNavigationBar extends StatelessWidget {
     );
   }
 }
-
-

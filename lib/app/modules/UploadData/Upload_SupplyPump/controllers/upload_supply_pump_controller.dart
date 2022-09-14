@@ -30,8 +30,7 @@ class UploadSupplyPumpController extends GetxController {
       selectedDate.value = picked;
       unit.clear();
       flow.clear();
-      // supplyController.fetchSupplyPumps();
-      fetchUploadSupplypumpList();
+      supplydata();
     }
   }
 
@@ -57,7 +56,6 @@ class UploadSupplyPumpController extends GetxController {
 
     if (response.statusCode == 200) {
       data = jsonDecode(response.body);
-      print(data);
       if (data.length != 0) {
         for (int i = 0; i < supplyController.supplyPumpList.length; i++) {
           if (i < data.length) {
@@ -74,7 +72,7 @@ class UploadSupplyPumpController extends GetxController {
             unit.add(unitController);
             flow.add(flowController);
             isLoading(false);
-            print(data);
+            // print(data);
           } else {
             var flowController = TextEditingController(text: "0");
             flow.add(flowController);
@@ -95,7 +93,6 @@ class UploadSupplyPumpController extends GetxController {
       isLoading(false);
       return modelUploadSupplyPumpFromJson(response.body);
     } else {
-      // throw TimeoutException("TimeOut");
       throw Exception();
     }
   }
@@ -105,6 +102,10 @@ class UploadSupplyPumpController extends GetxController {
       isLoading(true);
       var pumps = await fetchUploadSupplypumpList();
       uploadSupplypumpList.value = pumps;
+      for (int i = 0; i < supplyController.supplyPumpList.length; i++) {
+        print("This Is Machine ID ${listdata[i].id}");
+        print("This is Data Id ${data[i]['id'].toString()}");
+      }
     } finally {
       isLoading(false);
     }
@@ -121,6 +122,10 @@ class UploadSupplyPumpController extends GetxController {
         unit[i].text = "0";
         flow[i].text = "0";
       }
+      else if (data[i]['id'] == listdata[i].id)
+        {
+          print("--------------------Id Found-------------------");
+        }
       final response = await http.post(
         Uri.parse('${Constants.connectionString}/GetSupplyPumpReportUploadAdd'),
         headers: <String, String>{
@@ -139,7 +144,8 @@ class UploadSupplyPumpController extends GetxController {
         print(jsonDecode(response.body));
         print(unit.toString());
         print(flow.toString());
-        print("This Is Machine ID${listdata[i].id}");
+        print("This Is Machine ID ${listdata[i].id}");
+        print(data[i]['id']);
 
         if (i == listdata.length - 1) {
           Constants.showtoast("Report Added!");
@@ -179,7 +185,7 @@ class UploadSupplyPumpController extends GetxController {
         if (i == listdata.length - 1) {
           Constants.showtoast("Report Updated!");
         }
-        // Constants.showtoast("Report Updated!");
+
       } else {
         print(response.statusCode);
         print(response.body);

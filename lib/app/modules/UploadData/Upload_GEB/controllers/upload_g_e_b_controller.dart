@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:readingmonitor2/app/data/http_service_provider.dart';
 import 'package:readingmonitor2/app/modules/UploadData/Upload_GEB/Model/ModelUploadGeb.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -48,7 +47,7 @@ class UploadGEBController extends GetxController {
           "date": selectedDate.value.toString(),
           "kwh": kwh.text,
           "kvarh": kvarh.text,
-          "kvah": kvah.text,
+          "kevah": kvah.text,
           "md": md.text,
           "turbine": turbine.text,
         }));
@@ -76,7 +75,7 @@ class UploadGEBController extends GetxController {
         "date": dateTime.toString(),
         "kwh": ukwh.toString(),
         "kvarh": ukvarh.toString(),
-        "kvah": ukvah.toString(),
+        "kevah": ukvah.toString(),
         "md": umd.toString(),
         "turbine": uturbine.toString(),
         "id": id.toString()
@@ -93,8 +92,7 @@ class UploadGEBController extends GetxController {
     }
   }
 
-  // var isLoading = true.obs;
-  // var uploadGebList = <ModelUploadGeb>[].obs;
+
 
   void fetchUploadgebList() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -109,13 +107,16 @@ class UploadGEBController extends GetxController {
     );
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
+      print(data);
       if (data.length != 0) {
         kwh.text = data[0]['kwh'];
         kvarh.text = data[0]['kvarh'];
-        kvah.text = data[0]['kvah'];
+        kvah.text = data[0]['kevah'];
         md.text = data[0]['md'];
         turbine.text = data[0]['turbine'];
         id = data[0]['id'];
+
+
       } else {
         clearData();
       }
@@ -150,7 +151,7 @@ class UploadGEBController extends GetxController {
           date: selectedDate.value,
           kwh: int.parse(kwh.text),
           kvarh: int.parse(kvarh.text),
-          kvah: int.parse(kvah.text),
+          kevah: int.parse(kvah.text),
           md: int.parse(md.text),
           turbine: int.parse(turbine.text),
         ));

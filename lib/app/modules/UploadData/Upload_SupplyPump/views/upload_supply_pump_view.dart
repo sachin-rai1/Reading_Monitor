@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:readingmonitor2/app/modules/MachineList/SupplyPump/controllers/supply_pump_controller.dart';
 import '../controllers/upload_supply_pump_controller.dart';
 
 class UploadSupplyPumpView extends GetView<UploadSupplyPumpController> {
-  final supplyController = Get.put(SupplyPumpController());
-
   @override
   Widget build(BuildContext context) {
     Get.put(UploadSupplyPumpController());
@@ -53,7 +50,7 @@ class UploadSupplyPumpView extends GetView<UploadSupplyPumpController> {
               alignment: Alignment.topRight,
               child: ElevatedButton(
                 onPressed: () {
-                  if (controller.data.length == 0) {
+                  if (controller.data.length < controller.listdata.length) {
                     controller.addSupplyList();
                   } else {
                     controller.updateSupplyList();
@@ -75,7 +72,7 @@ class UploadSupplyPumpView extends GetView<UploadSupplyPumpController> {
               return const Center(child: CircularProgressIndicator());
             } else {
               return ListView.builder(
-                  itemCount: supplyController.supplyPumpList.length,
+                  itemCount: controller.supplyController.supplyPumpList.length,
                   itemBuilder: (context, index) {
                     return Card(
                       child: Padding(
@@ -88,7 +85,8 @@ class UploadSupplyPumpView extends GetView<UploadSupplyPumpController> {
                                   height: 30,
                                   width: w / 4,
                                   child: Text(
-                                    supplyController.supplyPumpList[index].name
+                                    controller.supplyController
+                                        .supplyPumpList[index].name
                                         .toString(),
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),

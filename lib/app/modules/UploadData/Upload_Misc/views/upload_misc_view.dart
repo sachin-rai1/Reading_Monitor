@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:readingmonitor2/app/modules/MachineList/Utility/controllers/utility_controller.dart';
+import 'package:readingmonitor2/app/modules/MachineList/Misc/controllers/misc_controller.dart';
 import '../../../../data/Constants.dart';
 import '../controllers/upload_misc_controller.dart';
 
 class UploadMiscView extends GetView<UploadMiscController> {
-  final utilityController = Get.put(UtilityController());
+  final miscController = Get.put(MiscController());
+
   @override
   Widget build(BuildContext context) {
     Get.put(UploadMiscController());
@@ -59,6 +60,17 @@ class UploadMiscView extends GetView<UploadMiscController> {
                       } else {
                         controller.updateMiscList();
                       }
+
+                      // for (int i = 0; i < controller.listdata.length; i++) {
+                      //   if (controller.data.length == 0 || i > controller.data.length) {
+                      //     controller.addMiscList();
+                      //     print(controller.data.length);
+                      //     print(controller.listdata.length);
+                      //   }
+                      //   else  {
+                      //     controller.updateMiscList();
+                      //   }
+                      // }
                     },
                     child: Text("Submit"),
                     style: ElevatedButton.styleFrom(
@@ -73,7 +85,7 @@ class UploadMiscView extends GetView<UploadMiscController> {
                 return const Center(child: CircularProgressIndicator());
               } else {
                 return ListView.builder(
-                  itemCount: utilityController.utilitymachineList.length,
+                  itemCount: miscController.miscList.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -100,7 +112,7 @@ class UploadMiscView extends GetView<UploadMiscController> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  controller.listdata[index].uitilityCategories
+                                  controller.listdata[index].machineName
                                       .toString(),
                                   style: TextStyle(
                                       fontFamily: Constants.popins,

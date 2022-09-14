@@ -30,8 +30,8 @@ class ReportThermoPackView extends GetView<ReportThermoPackController> {
                           ),
                           Container(
                               alignment: Alignment.topLeft,
-                              child: Obx(()=>
-                                Text(
+                              child: Obx(
+                                () => Text(
                                   DateFormat("dd-MM-yyyy")
                                       .format(controller.selectedDate.value)
                                       .toString(),
@@ -108,7 +108,10 @@ class ReportThermoPackView extends GetView<ReportThermoPackController> {
                             ),
                             height: 42,
                             width: w / 3,
-                            child: const Text("10")),
+                            child: Obx(() => Text((controller
+                                    .machineList.isNotEmpty)
+                                ? controller.machineList[0].chamber.toString()
+                                : "0"))),
                       ],
                     ),
                   ],
@@ -121,7 +124,7 @@ class ReportThermoPackView extends GetView<ReportThermoPackController> {
                   children: [
                     Column(
                       children: [
-                        const Text("IN Temperature:"),
+                        const Text("Pump Pressure:"),
                         Container(
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
@@ -131,12 +134,16 @@ class ReportThermoPackView extends GetView<ReportThermoPackController> {
                             ),
                             height: 42,
                             width: w / 3,
-                            child: const Text("")),
+                            child: Obx(() => Text(
+                                (controller.machineList.isNotEmpty)
+                                    ? controller.machineList[0].pumpPresure
+                                        .toString()
+                                    : "0"))),
                       ],
                     ),
                     Column(
                       children: [
-                        const Text("Out Temperature  : "),
+                        const Text("Circuit Pressure: "),
                         Container(
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
@@ -146,7 +153,11 @@ class ReportThermoPackView extends GetView<ReportThermoPackController> {
                             ),
                             height: 42,
                             width: w / 3,
-                            child: const Text("")),
+                            child: Obx(() => Text(
+                                (controller.machineList.isNotEmpty)
+                                    ? controller.machineList[0].circuitPresure
+                                        .toString()
+                                    : "0"))),
                       ],
                     ),
                   ],
@@ -169,7 +180,10 @@ class ReportThermoPackView extends GetView<ReportThermoPackController> {
                             ),
                             height: 42,
                             width: w / 3,
-                            child: const Text("")),
+                            child: Obx(() => Text(
+                                (controller.machineList.isNotEmpty)
+                                    ? controller.machineList[0].coal1.toString()
+                                    : "0"))),
                       ],
                     ),
                     Column(
@@ -184,7 +198,10 @@ class ReportThermoPackView extends GetView<ReportThermoPackController> {
                             ),
                             height: 42,
                             width: w / 3,
-                            child: const Text("")),
+                            child: Obx(() => Text(
+                                (controller.machineList.isNotEmpty)
+                                    ? controller.machineList[0].col1.toString()
+                                    : "0"))),
                       ],
                     ),
                   ],
@@ -207,7 +224,10 @@ class ReportThermoPackView extends GetView<ReportThermoPackController> {
                             ),
                             height: 42,
                             width: w / 3,
-                            child: const Text("")),
+                            child: Obx(() => Text(
+                                (controller.machineList.isNotEmpty)
+                                    ? controller.machineList[0].coal2.toString()
+                                    : "0"))),
                       ],
                     ),
                     Column(
@@ -222,7 +242,10 @@ class ReportThermoPackView extends GetView<ReportThermoPackController> {
                             ),
                             height: 42,
                             width: w / 3,
-                            child: const Text("")),
+                            child: Obx(() => Text(
+                                (controller.machineList.isNotEmpty)
+                                    ? controller.machineList[0].col2.toString()
+                                    : "0"))),
                       ],
                     ),
                   ],
@@ -245,7 +268,10 @@ class ReportThermoPackView extends GetView<ReportThermoPackController> {
                             ),
                             height: 42,
                             width: w / 3,
-                            child: const Text("")),
+                            child: Obx(() => Text(
+                                (controller.machineList.isNotEmpty)
+                                    ? controller.machineList[0].dt.toString()
+                                    : "0"))),
                       ],
                     ),
                     Column(
@@ -260,7 +286,10 @@ class ReportThermoPackView extends GetView<ReportThermoPackController> {
                             ),
                             height: 42,
                             width: w / 3,
-                            child: const Text("")),
+                            child: Obx(() => Text(
+                                (controller.machineList.isNotEmpty)
+                                    ? controller.machineList[0].dtper.toString()
+                                    : "0"))),
                       ],
                     ),
                   ],
@@ -283,7 +312,10 @@ class ReportThermoPackView extends GetView<ReportThermoPackController> {
                             ),
                             height: 42,
                             width: w / 3,
-                            child: const Text("")),
+                            child: Obx(() => Text((controller
+                                    .machineList.isNotEmpty)
+                                ? controller.machineList[0].chamber.toString()
+                                : "0"))),
                       ],
                     ),
                     Column(
@@ -297,7 +329,10 @@ class ReportThermoPackView extends GetView<ReportThermoPackController> {
                             ),
                             height: 42,
                             width: w / 3,
-                            child: const Text("")),
+                            child: Obx(() => Text(
+                                (controller.machineList.isNotEmpty)
+                                    ? controller.machineList[0].ccper.toString()
+                                    : "0"))),
                       ],
                     ),
                   ],
@@ -307,8 +342,4 @@ class ReportThermoPackView extends GetView<ReportThermoPackController> {
           )),
     );
   }
-
-  @override
-  // TODO: implement wantKeepAlive
-  bool get wantKeepAlive => true;
 }
