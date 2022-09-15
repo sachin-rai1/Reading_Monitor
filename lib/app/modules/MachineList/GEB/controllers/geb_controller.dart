@@ -111,16 +111,48 @@ class GebController extends GetxController {
 
   @override
   void onInit() {
-    fetchGebList(1);
+    fetchGeb();
     super.onInit();
   }
+  int id = 1;
 
-  Future<Future<bool?>?> fetchGebList(int id) async {
-    print(id.toString());
+  Future<List<GebModel>?> fetchGeb() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var tokenvalue = prefs.getString("token");
     var response = await http.get(
-      Uri.parse('${Constants.connectionString}/GetGebSingleQuery/$id'),
+      Uri.parse('${Constants.connectionString}/GetGebListing'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $tokenvalue',
+      },
+    );
+    if(response.statusCode == 200){
+      print(response.body);
+      var data = jsonDecode(response.body);
+      kwh.text = data[0]["kwh"].toString();
+      devKwh.text=data[0]["kwm_deviation"].toString();
+      kvarh.text=data[0]["kvarh"].toString();
+      devKvarh.text =data[0]["kvarsh_deviation"].toString();
+      kvah.text=data[0]["kevah"].toString();
+      devKvah.text=data[0]["kevah_deviation"].toString();
+      pf.text=data[0]["pf"].toString();
+      devPf.text=data[0]["pf_deviation"].toString();
+      md.text=data[0]["md"].toString();
+      devMd.text=data[0]["md_deviation"].toString();
+      mf.text=data[0]["mf"].toString();
+      tb.text=data[0]["turbine_deviation"].toString();
+      devTb.text=data[0]["turbine"].toString();
+
+      return gebModelFromJson(response.body);
+    }
+    return null;
+  }
+
+  Future<Future<bool?>?> fetchGebList() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var tokenvalue = prefs.getString("token");
+    var response = await http.get(
+      Uri.parse('${Constants.connectionString}/GetGebListing'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $tokenvalue',

@@ -104,7 +104,7 @@ class UploadSupplyPumpController extends GetxController {
       uploadSupplypumpList.value = pumps;
       for (int i = 0; i < supplyController.supplyPumpList.length; i++) {
         print("This Is Machine ID ${listdata[i].id}");
-        print("This is Data Id ${data[i]['id'].toString()}");
+        // print("This is Data Id ${data[i]['id'].toString()}");
       }
     } finally {
       isLoading(false);

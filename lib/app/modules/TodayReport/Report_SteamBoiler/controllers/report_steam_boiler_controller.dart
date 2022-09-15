@@ -38,7 +38,7 @@ class ReportSteamBoilerController extends GetxController {
     var tokenvalue = prefs.getString("token");
     var response = await http.get(
       Uri.parse(
-          "${Constants.connectionString}/ViewReportSteamBolierDateSearch/${selectedDate.toString().split(" ")[0]}"),
+          "${Constants.connectionString}/ViewReportSteamBoilerDateSearchNew/${selectedDate.toString().split(" ")[0]}"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $tokenvalue',

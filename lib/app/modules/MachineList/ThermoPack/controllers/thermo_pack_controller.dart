@@ -101,6 +101,41 @@ class ThermoPackController extends GetxController {
     }
   }
 
+  Future<List<ModelThermoPack>?> fetchThermoPackList() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var tokenvalue = prefs.getString("token");
+    final response = await http.get(
+      Uri.parse("${Constants.connectionString}/ThermopackListing"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $tokenvalue',
+      },
+    );
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      print(data);
+      coal1.text = data[0]["coal_1"].toString();
+      coal1Dev.text = data[0]["coal_deviation1"].toString();
+      rateOfCoal1.text = data[0]["rate_of_cloal1"].toString();
+      coal2.text = data[0]["coal_2"].toString();
+      coal2Dev.text = data[0]["coal_deviation2"].toString();
+      rateOfCoal2.text = data[0]["rate_of_coal2"].toString();
+      deltaT1.text = data[0]["delta_t"].toString();
+      deltaT2.text = data[0]["delta_t_percentage"].toString();
+      chamberCost1.text = data[0]["chamber_cost"].toString();
+      chamberCost2.text = data[0]["chamber_cost_percentage"].toString();
+
+      return modelThermoPackFromJson(response.body);
+    }
+    return null;
+  }
+
+  @override
+  void onInit() {
+    fetchThermoPackList();
+    super.onInit();
+  }
+
   Future<Future<bool?>?> fetchThermoPack() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var tokenvalue = prefs.getString("token");

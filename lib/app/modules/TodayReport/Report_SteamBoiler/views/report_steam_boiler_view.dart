@@ -122,7 +122,7 @@ class ReportSteamBoilerView extends GetView<ReportSteamBoilerController> {
                                           height: 42,
                                           width: w / 3,
                                           child: Text(controller
-                                              .machineList[index].bfwone!.toStringAsFixed(2)
+                                              .machineList[index].bfw
                                               .toString())),
                                     ],
                                   ),
@@ -141,7 +141,7 @@ class ReportSteamBoilerView extends GetView<ReportSteamBoilerController> {
                                           width: w / 3,
                                           child: Text(controller
                                               .machineList[index]
-                                              .bfwTemperatureUpload!.toStringAsFixed(2)
+                                              .bfwTemperature
                                               .toString())),
                                     ],
                                   ),
@@ -169,7 +169,7 @@ class ReportSteamBoilerView extends GetView<ReportSteamBoilerController> {
                                           width: w / 3,
                                           child: Text(controller
                                               .machineList[index]
-                                              .bfwonePercentage!.toStringAsFixed(2)
+                                              .bfwper!.toStringAsFixed(2)
                                               .toString())),
                                     ],
                                   ),
@@ -189,7 +189,7 @@ class ReportSteamBoilerView extends GetView<ReportSteamBoilerController> {
                                           child:
                                           Text(controller
                                               .machineList[index]
-                                              .bfwtemperaturepercentage!.toStringAsFixed(2)
+                                              .tempper
                                               .toString())),
                                     ],
                                   ),
@@ -216,7 +216,7 @@ class ReportSteamBoilerView extends GetView<ReportSteamBoilerController> {
                                           height: 42,
                                           width: w / 3,
                                           child: Text(controller
-                                              .machineList[index].coal1!.toStringAsFixed(2)
+                                              .machineList[index].coal1
                                               .toString())),
                                     ],
                                   ),
@@ -235,7 +235,7 @@ class ReportSteamBoilerView extends GetView<ReportSteamBoilerController> {
                                           width: w / 3,
                                           child: Text(controller
                                               .machineList[index]
-                                              .coal1Percentage!.toStringAsFixed(2)
+                                              .coal1Per!.toStringAsFixed(2)
                                               .toString())),
                                     ],
                                   ),
@@ -262,7 +262,7 @@ class ReportSteamBoilerView extends GetView<ReportSteamBoilerController> {
                                           height: 42,
                                           width: w / 3,
                                           child: Text(controller
-                                              .machineList[index].coal2!.toStringAsFixed(2)
+                                              .machineList[index].coal2
                                               .toString()))
                                     ],
                                   ),
@@ -281,7 +281,7 @@ class ReportSteamBoilerView extends GetView<ReportSteamBoilerController> {
                                           width: w / 3,
                                           child: Text(controller
                                               .machineList[index]
-                                              .coal2Percentage!.toStringAsFixed(2)
+                                              .coal2Per
                                               .toString())),
                                     ],
                                   ),
@@ -326,7 +326,7 @@ class ReportSteamBoilerView extends GetView<ReportSteamBoilerController> {
                                           height: 42,
                                           width: w / 3,
                                           child: Text(controller
-                                              .machineList[index].scPercentage!.toStringAsFixed(2)
+                                              .machineList[index].scper
                                               .toString())),
                                     ],
                                   ),

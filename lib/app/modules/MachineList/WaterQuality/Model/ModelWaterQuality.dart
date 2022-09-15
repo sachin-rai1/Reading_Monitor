@@ -7,24 +7,24 @@ String modelWaterQualityToJson(List<ModelWaterQuality> data) => json.encode(List
 class ModelWaterQuality {
   ModelWaterQuality({
     this.id,
-   required this.machineName,
-   required this.tds,
-   required this.tdsPercentage,
-   required this.ph,
-   required this.phDeviation,
-   required this.hardness,
-   required this.hardnessPercentage,
+    this.machineName,
+    this.tds,
+    this.tdsPercentage,
+    this.ph,
+    this.phDeviation,
+    this.hardness,
+    this.hardnessPercentage,
     this.deletedAt
   });
 
-  int ? id;
-  String machineName;
-  int tds;
-  int tdsPercentage;
-  int ph;
-  int phDeviation;
-  int hardness;
-  int hardnessPercentage;
+  num ? id;
+  String ? machineName;
+  num ? tds;
+  num ? tdsPercentage;
+  num ? ph;
+  num ? phDeviation;
+  num ? hardness;
+  num ? hardnessPercentage;
   dynamic  deletedAt;
 
   factory ModelWaterQuality.fromJson(Map<String, dynamic> json) => ModelWaterQuality(

@@ -15,7 +15,7 @@ class SteamBoilerView extends GetView<SteamBoilerController> {
       child: Form(
         key: _formKey,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(15.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -369,7 +369,7 @@ class SteamBoilerView extends GetView<SteamBoilerController> {
               ),
               ElevatedButton(
                   style:
-                      ElevatedButton.styleFrom(primary: Constants.primaryColor),
+                      ElevatedButton.styleFrom(backgroundColor: Constants.primaryColor),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       key.currentState?.save();

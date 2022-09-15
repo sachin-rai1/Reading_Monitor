@@ -11,7 +11,6 @@ class WaterQualityView extends GetView<WaterQualityController> {
   @override
   Widget build(BuildContext context) {
     Get.put(WaterQualityController());
-
     final w = MediaQuery.of(context).size.width;
     final h = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -34,7 +33,7 @@ class WaterQualityView extends GetView<WaterQualityController> {
                       children: [Text("ADD"), Icon(Icons.add_box_outlined)],
                     ),
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.green,
+                      backgroundColor: Colors.green,
                     ),
                   ),
                 ),
@@ -61,12 +60,14 @@ class WaterQualityView extends GetView<WaterQualityController> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    controller.machineList[index].machineName
-                                        .toString()
-                                        .toUpperCase(),
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                                  Obx(()=>
+                                     Text((controller.machineList[index].machineName.toString() != null)?
+                                      controller.machineList[index].machineName
+                                          .toString()
+                                          .toUpperCase() : "null",
+                                      style:
+                                          TextStyle(fontWeight: FontWeight.bold),
+                                    ),
                                   ),
                                   Row(
                                     children: [
@@ -137,9 +138,12 @@ class WaterQualityView extends GetView<WaterQualityController> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text("TDS"),
-                                            Text(controller
-                                                .machineList[index].tds
-                                                .toString()),
+                                            Obx(()=>
+                                               Text((controller.machineList[index].tds ==  null)
+                                                   ?controller
+                                                  .machineList[index].tds
+                                                  .toString() :  "0"),
+                                            ),
                                           ],
                                         ),
                                         Row(
@@ -147,9 +151,13 @@ class WaterQualityView extends GetView<WaterQualityController> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text("TDS %"),
-                                            Text(controller.machineList[index]
-                                                .tdsPercentage
-                                                .toString()),
+                                            Obx(()=>
+                                               Text((controller.machineList[index]
+                                                  .tdsPercentage ==  null)?
+                                                controller.machineList[index]
+                                                  .tdsPercentage
+                                                  .toString() :  "0"),
+                                            ),
                                           ],
                                         ),
                                         Row(

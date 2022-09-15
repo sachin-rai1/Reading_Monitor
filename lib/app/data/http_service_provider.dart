@@ -9,7 +9,6 @@ import 'package:readingmonitor2/app/modules/MachineList/Utility/Model/ModelUtili
 import 'package:readingmonitor2/app/modules/MachineList/WaterQuality/Model/ModelWaterQuality.dart';
 import 'package:readingmonitor2/app/modules/UploadData/Upload_GEB/Model/ModelUploadGeb.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../modules/MachineList/Machine/Model/ModelMachineList.dart';
 
 class HttpServiceProvider extends GetConnect {

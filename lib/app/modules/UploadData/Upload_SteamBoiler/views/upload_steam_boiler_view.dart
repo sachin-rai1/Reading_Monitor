@@ -62,7 +62,7 @@ class UploadSteamBoilerView extends GetView<UploadSteamBoilerController> {
                       },
                       child: Text("Submit"),
                       style: ElevatedButton.styleFrom(
-                        primary: Color(0xFF6EB7A1),
+                        backgroundColor: Color(0xFF6EB7A1),
                       ),
                     )),
               ],
