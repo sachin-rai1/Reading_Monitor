@@ -139,10 +139,9 @@ class ReportSteamBoilerView extends GetView<ReportSteamBoilerController> {
                                           ),
                                           height: 42,
                                           width: w / 3,
-                                          child: Text(controller
-                                              .machineList[index]
-                                              .bfwTemperature
-                                              .toString())),
+                                          child: Text((controller.machineList[index].bfwTemperature != null)?
+                                          num.parse(controller.machineList[index].bfwTemperature.toString()).toStringAsFixed(2)
+                                              .toString() : "0")),
                                     ],
                                   ),
                                 ],
@@ -167,10 +166,12 @@ class ReportSteamBoilerView extends GetView<ReportSteamBoilerController> {
                                           ),
                                           height: 42,
                                           width: w / 3,
-                                          child: Text(controller
+                                          child: Text((controller
+                                              .machineList[index]
+                                              .bfwper != null)?controller
                                               .machineList[index]
                                               .bfwper!.toStringAsFixed(2)
-                                              .toString())),
+                                              .toString():"0")),
                                     ],
                                   ),
                                   Column(
@@ -308,9 +309,10 @@ class ReportSteamBoilerView extends GetView<ReportSteamBoilerController> {
                                           ),
                                           height: 42,
                                           width: w / 3,
-                                          child: Text(controller
+                                          child: Text((controller
+                                              .machineList[index].sc!= null)?controller
                                               .machineList[index].sc!.toStringAsFixed(2)
-                                              .toString())),
+                                              .toString() : "0")),
                                     ],
                                   ),
                                   Column(

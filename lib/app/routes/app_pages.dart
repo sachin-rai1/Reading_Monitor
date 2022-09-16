@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:readingmonitor2/app/modules/MachineComparison/NavigationCompare/CompareNavigationBinding.dart';
 import 'package:readingmonitor2/app/modules/MachineList/MachineListTabBarNaviagtion/MachineListTabBar.dart';
+import 'package:readingmonitor2/app/modules/TodayReport/ReportNavigation/Bindings/ReportNavigationBinding.dart';
+import 'package:readingmonitor2/app/modules/TodayReport/ReportNavigation/views/report_navigation_bar_view.dart';
 import 'package:readingmonitor2/app/modules/Transition/bindings/transition_binding.dart';
 import 'package:readingmonitor2/app/modules/Transition/views/transition_view.dart';
 import 'package:readingmonitor2/app/modules/UploadData/UploadNavigationBar/UploadNavigationBar.dart';
@@ -56,7 +58,6 @@ import '../modules/MachineList/GEB/bindings/geb_binding.dart';
 import '../modules/MachineList/GEB/views/geb_view.dart';
 import '../modules/MachineList/Machine/bindings/machine_binding.dart';
 import '../modules/MachineList/Machine/views/machine_view.dart';
-import '../modules/MachineList/MachineListTabBarNaviagtion/MachineListTabBar.dart';
 import '../modules/MachineList/MachineListTabBarNaviagtion/MachineListTabBarBindings.dart';
 import '../modules/MachineList/ManoMeter/bindings/mano_meter_binding.dart';
 import '../modules/MachineList/ManoMeter/views/mano_meter_view.dart';
@@ -93,7 +94,6 @@ import '../modules/TodayReport/Report_Utilty/bindings/report_utilty_binding.dart
 import '../modules/TodayReport/Report_Utilty/views/report_utilty_view.dart';
 import '../modules/TodayReport/Report_WaterQuality/bindings/report_water_quality_binding.dart';
 import '../modules/TodayReport/Report_WaterQuality/views/report_water_quality_view.dart';
-import '../modules/UploadData/UploadNavigationBar/UploadNavigationBar.dart';
 import '../modules/UploadData/Upload_FlueGas/bindings/upload_flue_gas_binding.dart';
 import '../modules/UploadData/Upload_GEB/bindings/upload_g_e_b_binding.dart';
 import '../modules/UploadData/Upload_GEB/views/upload_g_e_b_view.dart';
@@ -122,6 +122,13 @@ class AppPages {
   static const INITIAL = Routes.LOGIN;
 
   static final routes = [
+
+    GetPage(
+      page: () => ReportNavigationBarView(),
+      name: _Paths.ReportNavigationBarView,
+      binding :ReportNavigationBinding(),
+    ),
+
     GetPage(
       page: () => UploadNavigationBar(),
       name: _Paths.UploadNavigationBar,

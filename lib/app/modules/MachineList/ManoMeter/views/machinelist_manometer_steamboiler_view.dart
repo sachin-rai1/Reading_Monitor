@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
+import 'package:readingmonitor2/app/modules/MachineList/ManoMeter/Model/ModelManoMeterSteamBoiler.dart';
 import '../controllers/mano_meter_controller.dart';
-
 class MachinelistManometerSteamboilerView extends GetView<ManoMeterController> {
   final _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     Get.put(ManoMeterController);
@@ -16,7 +13,9 @@ class MachinelistManometerSteamboilerView extends GetView<ManoMeterController> {
         Container(
             padding: EdgeInsets.all(8),
             alignment: Alignment.topRight,
-            child: ElevatedButton(onPressed: () {}, child: Text("Add"))),
+            child: ElevatedButton(onPressed: () {
+              addDialog(context);
+            }, child: Text("Add"))),
         Expanded(
             child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -27,61 +26,56 @@ class MachinelistManometerSteamboilerView extends GetView<ManoMeterController> {
               return ListView.builder(
                   itemCount: controller.steamBoilermachineList.length,
                   itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () {
-                        // Get.to(() => SubUtilityView());
-                      },
-                      child: Container(
-                        color: Colors.transparent,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              controller
-                                  .steamBoilermachineList[index].steamBoiler
-                                  .toString(),
-                            ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                GestureDetector(
-                                    onTap: () {
-                                      controller.steamBoiler.text = controller
-                                          .steamBoilermachineList[index]
-                                          .steamBoiler
-                                          .toString();
-                                      editDialog(
-                                          context,
-                                          int.parse(controller
-                                              .steamBoilermachineList[index].id
-                                              .toString()));
-                                    },
-                                    child: Icon(
-                                      Icons.edit,
-                                      color: Colors.green,
-                                    )),
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                GestureDetector(
-                                    onTap: () {
-                                      // controller.categories.text = controller
-                                      //     .utilitymachineList[index]
-                                      //     .uitilityCategories
-                                      //     .toString();
-                                      // deleteDialog(
-                                      //     context,
-                                      //     controller
-                                      //         .utilitymachineList[index].id);
-                                    },
-                                    child: Icon(
-                                      Icons.delete,
-                                      color: Colors.red,
-                                    )),
-                              ],
-                            )
-                          ],
-                        ),
+                    return Container(
+                      color: Colors.transparent,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            controller
+                                .steamBoilermachineList[index].steamBoiler
+                                .toString(),
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              GestureDetector(
+                                  onTap: () {
+                                    controller.steamBoiler.text = controller
+                                        .steamBoilermachineList[index]
+                                        .steamBoiler
+                                        .toString();
+                                    editDialog(
+                                        context,
+                                        int.parse(controller
+                                            .steamBoilermachineList[index].id
+                                            .toString()));
+                                  },
+                                  child: Icon(
+                                    Icons.edit,
+                                    color: Colors.green,
+                                  )),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              GestureDetector(
+                                  onTap: () {
+                                    // controller.categories.text = controller
+                                    //     .utilitymachineList[index]
+                                    //     .uitilityCategories
+                                    //     .toString();
+                                    // deleteDialog(
+                                    //     context,
+                                    //     controller
+                                    //         .utilitymachineList[index].id);
+                                  },
+                                  child: Icon(
+                                    Icons.delete,
+                                    color: Colors.red,
+                                  )),
+                            ],
+                          )
+                        ],
                       ),
                     );
                     // });
@@ -136,8 +130,8 @@ class MachinelistManometerSteamboilerView extends GetView<ManoMeterController> {
       child: Text("OK"),
       onPressed: () {
         if (_formKey.currentState!.validate()) {
-          // controller.addUtilityMachine(ModelUtilityMachineList(
-          //     uitilityCategories: controller.categories.text.toString()));
+          controller.addManoMeterSteamBoiler(ModelManoMeterSteamBoiler(
+              steamBoiler: controller.steamBoiler.text.toString()));
           Get.back();
         }
         // print(controller.categories.text);

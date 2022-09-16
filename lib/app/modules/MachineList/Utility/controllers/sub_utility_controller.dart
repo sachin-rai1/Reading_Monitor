@@ -21,6 +21,10 @@ class SubUtilityController extends GetxController {
     fetchSubUtilityMachinelist();
     super.onInit();
   }
+  void onClose(){
+    fetchSubUtilityMachinelist();
+    super.onClose();
+}
 
   Future<ModelUtilitySubMachineList?> fetchSubUtilityMachinelist() async {
     try {
@@ -72,6 +76,7 @@ class SubUtilityController extends GetxController {
           "deviation": deviation.text,
         }));
     if (response.statusCode == 200) {
+      print(data1);
       filterData.clear();
       fetchSubUtilityMachinelist();
       var data = jsonEncode(response.body);
@@ -79,6 +84,7 @@ class SubUtilityController extends GetxController {
           msg: "Machine Added Successfully", backgroundColor: Colors.green);
       print(data);
     } else {
+      print(data1);
       Fluttertoast.showToast(msg: "Error", backgroundColor: Colors.red);
       print(response.body);
     }

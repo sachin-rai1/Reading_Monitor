@@ -29,7 +29,7 @@ class UtilityController extends GetxController {
 
   void fetchUtilityMachinelist() async {
     try {
-      isLoading(true);
+      // isLoading(true);
       var machinesUtility = await HttpServiceProvider.fetchUtilityMachinelist();
       utilitymachineList.value = machinesUtility;
     } finally {

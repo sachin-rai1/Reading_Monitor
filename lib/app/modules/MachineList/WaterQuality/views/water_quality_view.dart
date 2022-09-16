@@ -44,187 +44,192 @@ class WaterQualityView extends GetView<WaterQualityController> {
             if (controller.isLoading.value) {
               return const Center(child: CircularProgressIndicator());
             } else {
-              return ListView.builder(
-                  itemCount: controller.machineList.length,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      padding: EdgeInsets.all(15),
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0)),
-                        child: Column(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.only(left: 15,right: 15 , top: 15),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Obx(()=>
-                                     Text((controller.machineList[index].machineName.toString() != null)?
-                                      controller.machineList[index].machineName
-                                          .toString()
-                                          .toUpperCase() : "null",
-                                      style:
-                                          TextStyle(fontWeight: FontWeight.bold),
+              return RefreshIndicator(
+                  onRefresh: (){
+                    return Future(() => controller.fetchWaterQualityList());
+                  },
+                child: ListView.builder(
+                    itemCount: controller.machineList.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        padding: EdgeInsets.all(15),
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0)),
+                          child: Column(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.only(left: 15,right: 15 , top: 15),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Obx(()=>
+                                       Text((controller.machineList[index].machineName.toString() != null)?
+                                        controller.machineList[index].machineName
+                                            .toString()
+                                            .toUpperCase() : "null",
+                                        style:
+                                            TextStyle(fontWeight: FontWeight.bold),
+                                      ),
                                     ),
-                                  ),
-                                  Row(
-                                    children: [
-                                      GestureDetector(
-                                        onTap: () {
-                                          controller.machineName.text =
-                                              controller.machineList[index]
-                                                  .machineName
-                                                  .toString();
-                                          controller.tds.text = controller
-                                              .machineList[index].tds
-                                              .toString();
-                                          controller.tdsPer.text = controller
-                                              .machineList[index].tdsPercentage
-                                              .toString();
-                                          controller.ph.text = controller
-                                              .machineList[index].ph
-                                              .toString();
-                                          controller.phPerc.text = controller
-                                              .machineList[index].phDeviation
-                                              .toString();
-                                          controller.hardness.text = controller
-                                              .machineList[index].hardness
-                                              .toString();
-                                          controller.hardnessPerc.text =
-                                              controller.machineList[index]
-                                                  .hardnessPercentage
-                                                  .toString();
-                                          editDialog(
-                                              context,
-                                              int.parse(controller
-                                                  .machineList[index].id
-                                                  .toString()));
-                                        },
-                                        child: Icon(
-                                          Icons.edit,
-                                          color: Colors.green,
-                                        ),
-                                      ),
-                                      GestureDetector(
-                                        onTap: () {
-                                          deleteDialog(context,
-                                              controller.machineList[index].id);
-                                        },
-                                        child: Icon(
-                                          Icons.delete,
-                                          color: Colors.red,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                            // Divider(thickness: 1,color: Colors.black,),
-                            Padding(
-                              padding: EdgeInsets.only(left: 15,right: 15 , top: 15 , bottom: 15),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    width: w / 3,
-                                    child: Column(
+                                    Row(
                                       children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text("TDS"),
-                                            Obx(()=>
-                                               Text((controller.machineList[index].tds ==  null)
-                                                   ?controller
-                                                  .machineList[index].tds
-                                                  .toString() :  "0"),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text("TDS %"),
-                                            Obx(()=>
-                                               Text((controller.machineList[index]
-                                                  .tdsPercentage ==  null)?
+                                        GestureDetector(
+                                          onTap: () {
+                                            controller.machineName.text =
                                                 controller.machineList[index]
-                                                  .tdsPercentage
-                                                  .toString() :  "0"),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text("PH"),
-                                            Text(controller
+                                                    .machineName
+                                                    .toString();
+                                            controller.tds.text = controller
+                                                .machineList[index].tds
+                                                .toString();
+                                            controller.tdsPer.text = controller
+                                                .machineList[index].tdsPercentage
+                                                .toString();
+                                            controller.ph.text = controller
                                                 .machineList[index].ph
-                                                .toString()),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    height: h / 15,
-                                    child: VerticalDivider(
-                                      color: Colors.black12,
-                                      thickness: 2,
-                                    ),
-                                  ),
-                                  Container(
-                                    width: w / 3,
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text("PH % : "),
-                                            Text(controller
+                                                .toString();
+                                            controller.phPerc.text = controller
                                                 .machineList[index].phDeviation
-                                                .toString()),
-                                          ],
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text("Hardness : "),
-                                            Text(controller
+                                                .toString();
+                                            controller.hardness.text = controller
                                                 .machineList[index].hardness
-                                                .toString()),
-                                          ],
+                                                .toString();
+                                            controller.hardnessPerc.text =
+                                                controller.machineList[index]
+                                                    .hardnessPercentage
+                                                    .toString();
+                                            editDialog(
+                                                context,
+                                                int.parse(controller
+                                                    .machineList[index].id
+                                                    .toString()));
+                                          },
+                                          child: Icon(
+                                            Icons.edit,
+                                            color: Colors.green,
+                                          ),
                                         ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text("Hardness % : "),
-                                            Text(controller.machineList[index]
-                                                .hardnessPercentage
-                                                .toString()),
-                                          ],
+                                        GestureDetector(
+                                          onTap: () {
+                                            deleteDialog(context,
+                                                controller.machineList[index].id);
+                                          },
+                                          child: Icon(
+                                            Icons.delete,
+                                            color: Colors.red,
+                                          ),
                                         ),
                                       ],
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                              // Divider(thickness: 1,color: Colors.black,),
+                              Padding(
+                                padding: EdgeInsets.only(left: 15,right: 15 , top: 15 , bottom: 15),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      width: w / 3,
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text("TDS"),
+                                              Obx(()=>
+                                                 Text((controller.machineList[index].tds !=  null)
+                                                     ?controller
+                                                    .machineList[index].tds
+                                                    .toString() :  "0"),
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text("TDS %"),
+                                              Obx(()=>
+                                                 Text((controller.machineList[index]
+                                                    .tdsPercentage !=  null)?
+                                                  controller.machineList[index]
+                                                    .tdsPercentage
+                                                    .toString() :  "0"),
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text("PH"),
+                                              Text(controller
+                                                  .machineList[index].ph
+                                                  .toString()),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      height: h / 15,
+                                      child: VerticalDivider(
+                                        color: Colors.black12,
+                                        thickness: 2,
+                                      ),
+                                    ),
+                                    Container(
+                                      width: w / 3,
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text("PH % : "),
+                                              Text(controller
+                                                  .machineList[index].phDeviation
+                                                  .toString()),
+                                            ],
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text("Hardness : "),
+                                              Text(controller
+                                                  .machineList[index].hardness
+                                                  .toString()),
+                                            ],
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text("Hardness % : "),
+                                              Text(controller.machineList[index]
+                                                  .hardnessPercentage
+                                                  .toString()),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  });
+                      );
+                    }),
+              );
             }
           }))
         ],

@@ -80,95 +80,100 @@ class SubUtilityView extends GetView<SubUtilityController> {
                     if (controller.isLoading.value) {
                       return Center(child: CircularProgressIndicator());
                     } else {
-                      return ListView.builder(
-                          itemCount: controller.filterData.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        controller.filterData[index]
-                                                ['uilitysubc_name']
-                                            .toString(),
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Row(
-                                        children: [
-                                          GestureDetector(
-                                            onTap: () {
-                                              controller.name.text = controller
-                                                  .filterData[index]
-                                                      ["uilitysubc_name"]
-                                                  .toString();
-                                              controller.average.text =
-                                                  controller.filterData[index]
-                                                          ["average"]
-                                                      .toString();
-                                              controller.deviation.text =
-                                                  controller.filterData[index]
-                                                          ["deviation"]
-                                                      .toString();
-                                              editDialog(
-                                                  context,
-                                                  int.parse(controller
-                                                      .filterData[index][
-                                                          "id"]
-                                                      .toString()));
-                                            },
-                                            child: Icon(
-                                              Icons.edit,
-                                              color: Colors.green,
+                      return RefreshIndicator(
+                        onRefresh: (){
+                          return Future(() => controller.onInit());
+                        },
+                        child: ListView.builder(
+                            itemCount: controller.filterData.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          controller.filterData[index]
+                                                  ['uilitysubc_name']
+                                              .toString(),
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Row(
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () {
+                                                controller.name.text = controller
+                                                    .filterData[index]
+                                                        ["uilitysubc_name"]
+                                                    .toString();
+                                                controller.average.text =
+                                                    controller.filterData[index]
+                                                            ["average"]
+                                                        .toString();
+                                                controller.deviation.text =
+                                                    controller.filterData[index]
+                                                            ["deviation"]
+                                                        .toString();
+                                                editDialog(
+                                                    context,
+                                                    int.parse(controller
+                                                        .filterData[index][
+                                                            "id"]
+                                                        .toString()));
+                                              },
+                                              child: Icon(
+                                                Icons.edit,
+                                                color: Colors.green,
+                                              ),
                                             ),
-                                          ),
-                                          SizedBox(
-                                            width: 20,
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              deleteDialog(
-                                                  context,
-                                                  controller.filterData[index]
-                                                      ['id']);
-                                            },
-                                            child: Icon(
-                                              Icons.delete,
-                                              color: Colors.red,
+                                            SizedBox(
+                                              width: 20,
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text("Average  : "),
-                                      Text(controller.filterData[index]
-                                              ['average']
-                                          .toString()),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text("Deviation :  "),
-                                      Text(controller.filterData[index]
-                                              ['deviation']
-                                          .toString()),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            );
-                          });
+                                            GestureDetector(
+                                              onTap: () {
+                                                deleteDialog(
+                                                    context,
+                                                    controller.filterData[index]
+                                                        ['id']);
+                                              },
+                                              child: Icon(
+                                                Icons.delete,
+                                                color: Colors.red,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text("Average  : "),
+                                        Text(controller.filterData[index]
+                                                ['average']
+                                            .toString()),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text("Deviation :  "),
+                                        Text(controller.filterData[index]
+                                                ['deviation']
+                                            .toString()),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }),
+                      );
                     }
                   }),
                 ))
@@ -235,9 +240,11 @@ class SubUtilityView extends GetView<SubUtilityController> {
     Widget okButton = TextButton(
       child: Text("OK"),
       onPressed: () {
+        print("---------------------hooioojkjskfh");
+        print(controller.data1);
         controller.addUtilitySubMachine(ModelUtilitySubMachineList(
-            uilitysubcName: controller.name.text,
             uitilityCategoriesId: int.parse(controller.data1),
+            uilitysubcName: controller.name.text,
             average: int.parse(controller.average.text),
             deviation: int.parse(controller.deviation.text)));
 

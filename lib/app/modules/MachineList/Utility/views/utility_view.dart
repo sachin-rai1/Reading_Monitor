@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:readingmonitor2/app/modules/MachineList/Utility/Model/ModelUtilityMachineList.dart';
+import 'package:readingmonitor2/app/modules/MachineList/Utility/controllers/sub_utility_controller.dart';
 import 'package:readingmonitor2/app/modules/MachineList/Utility/views/sub_utility_view.dart';
 import '../controllers/utility_controller.dart';
 
@@ -38,7 +39,7 @@ class UtilityView extends GetView<UtilityController> {
                     Icon(Icons.add_box_outlined, color: Colors.black, size: 15),
                   ],
                 ),
-                style: ElevatedButton.styleFrom(primary: Colors.white),
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
               )
             ],
           ),
@@ -48,85 +49,87 @@ class UtilityView extends GetView<UtilityController> {
             padding: const EdgeInsets.all(8.0),
             child: Obx(() {
               if (controller.isLoading.value) {
-                return ClipRRect(
-                  child: Image.asset(
-                    fit: BoxFit.fitWidth,
-                    'assets/images/Control.png',
-                    alignment: Alignment.center,
-                  ),
-                );
+                return Center(child: CircularProgressIndicator());
               } else {
                 return Obx(
-                  () => ListView.builder(
-                      itemCount: controller.utilitymachineList.length,
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            Get.to(
-                              () => SubUtilityView(),
-                              arguments: controller.utilitymachineList[index].id
-                                  .toString(),
-                            );
-                          },
-                          child: Container(
-                            color: Colors.transparent,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Obx(
-                                  () => Text(
-                                    controller.utilitymachineList[index]
-                                        .uitilityCategories.obs
-                                        .toString(),
-                                  ),
-                                ),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    GestureDetector(
-                                        onTap: () {
-                                          controller.categories.text =
-                                              controller
-                                                  .utilitymachineList[index]
-                                                  .uitilityCategories
-                                                  .toString();
-                                          editDialog(
-                                              context,
-                                              int.parse(controller
-                                                  .utilitymachineList[index].id
-                                                  .toString()));
-                                        },
-                                        child: Icon(
-                                          Icons.edit,
-                                          color: Colors.green,
-                                        )),
-                                    SizedBox(
-                                      width: 20,
+                  () => RefreshIndicator(
+                    child: ListView.builder(
+                        itemCount: controller.utilitymachineList.length,
+                        physics: AlwaysScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () {
+                              Get.delete<SubUtilityController>();
+                              Get.to(
+                                () => SubUtilityView(),
+                                arguments: controller.utilitymachineList[index].id
+                                    .toString(),
+                              );
+                            },
+                            child: Container(
+                              color: Colors.transparent,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Obx(
+                                    () => Text(
+                                      controller.utilitymachineList[index]
+                                          .uitilityCategories.obs
+                                          .toString(),
                                     ),
-                                    GestureDetector(
-                                        onTap: () {
-                                          controller.categories.text =
-                                              controller
-                                                  .utilitymachineList[index]
-                                                  .uitilityCategories
-                                                  .toString();
-                                          deleteDialog(
-                                              context,
-                                              controller
-                                                  .utilitymachineList[index]
-                                                  .id);
-                                        },
-                                        child: Icon(
-                                          Icons.delete,
-                                          color: Colors.red,
-                                        )),
-                                  ],
-                                )
-                              ],
+                                  ),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      GestureDetector(
+                                          onTap: () {
+                                            controller.categories.text =
+                                                controller
+                                                    .utilitymachineList[index]
+                                                    .uitilityCategories
+                                                    .toString();
+                                            editDialog(
+                                                context,
+                                                int.parse(controller
+                                                    .utilitymachineList[index].id
+                                                    .toString()));
+                                          },
+                                          child: Icon(
+                                            Icons.edit,
+                                            color: Colors.green,
+                                          )),
+                                      SizedBox(
+                                        width: 20,
+                                      ),
+                                      GestureDetector(
+                                          onTap: () {
+                                            controller.categories.text =
+                                                controller
+                                                    .utilitymachineList[index]
+                                                    .uitilityCategories
+                                                    .toString();
+                                            deleteDialog(
+                                                context,
+                                                controller
+                                                    .utilitymachineList[index]
+                                                    .id);
+                                          },
+                                          child: Icon(
+                                            Icons.delete,
+                                            color: Colors.red,
+                                          )),
+                                    ],
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                        );
-                      }),
+                          );
+                        }
+                        ),
+                  onRefresh: (){
+                      return Future(() => controller.fetchUtilityMachinelist());
+                  }
+                  ),
                 );
               }
             }),

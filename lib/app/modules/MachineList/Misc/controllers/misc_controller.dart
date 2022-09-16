@@ -122,7 +122,7 @@ class MiscController extends GetxController {
 
   void fetchMiscList() async {
     try {
-      isLoading(true);
+      // isLoading(true);
       var pumps = await HttpServiceProvider.fetchMiscList();
       miscList.value = pumps;
     } finally {

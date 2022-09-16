@@ -140,8 +140,8 @@ class GebController extends GetxController {
       md.text=data[0]["md"].toString();
       devMd.text=data[0]["md_deviation"].toString();
       mf.text=data[0]["mf"].toString();
-      tb.text=data[0]["turbine_deviation"].toString();
-      devTb.text=data[0]["turbine"].toString();
+      tb.text=data[0]["turbine"].toString();
+      devTb.text=data[0]["turbine_deviation"].toString();
 
       return gebModelFromJson(response.body);
     }

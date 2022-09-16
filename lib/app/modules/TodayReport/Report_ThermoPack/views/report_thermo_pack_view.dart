@@ -91,251 +91,264 @@ class ReportThermoPackView extends GetView<ReportThermoPackController> {
                   ),
                 ],
               ),
-              Container(
-                padding: const EdgeInsets.only(left: 32),
-                child: Row(
-                  //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      children: [
-                        const Text("Chamber : "),
-                        Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              border: Border.all(),
-                              borderRadius: BorderRadius.circular(6),
-                              color: Colors.white,
+              RefreshIndicator(
+                onRefresh: (){
+                  return Future(() => controller.fetchThermoPack());
+                },
+                child: SingleChildScrollView(
+                  physics: AlwaysScrollableScrollPhysics(),
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.only(left: 32),
+                        child: Row(
+                          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              children: [
+                                const Text("Chamber : "),
+                                Container(
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(),
+                                      borderRadius: BorderRadius.circular(6),
+                                      color: Colors.white,
+                                    ),
+                                    height: 42,
+                                    width: w / 3,
+                                    child: Obx(() => Text((controller
+                                            .machineList.isNotEmpty)
+                                        ? controller.machineList[0].chamber.toString()
+                                        : "0"))),
+                              ],
                             ),
-                            height: 42,
-                            width: w / 3,
-                            child: Obx(() => Text((controller
-                                    .machineList.isNotEmpty)
-                                ? controller.machineList[0].chamber.toString()
-                                : "0"))),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Column(
-                      children: [
-                        const Text("Pump Pressure:"),
-                        Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              border: Border.all(),
-                              borderRadius: BorderRadius.circular(6),
-                              color: Colors.white,
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Column(
+                              children: [
+                                const Text("Pump Pressure:"),
+                                Container(
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(),
+                                      borderRadius: BorderRadius.circular(6),
+                                      color: Colors.white,
+                                    ),
+                                    height: 42,
+                                    width: w / 3,
+                                    child: Obx(() => Text(
+                                        (controller.machineList.isNotEmpty)
+                                            ? controller.machineList[0].pumpPresure
+                                                .toString()
+                                            : "0"))),
+                              ],
                             ),
-                            height: 42,
-                            width: w / 3,
-                            child: Obx(() => Text(
-                                (controller.machineList.isNotEmpty)
-                                    ? controller.machineList[0].pumpPresure
-                                        .toString()
-                                    : "0"))),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        const Text("Circuit Pressure: "),
-                        Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              border: Border.all(),
-                              borderRadius: BorderRadius.circular(6),
-                              color: Colors.white,
+                            Column(
+                              children: [
+                                const Text("Circuit Pressure: "),
+                                Container(
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(),
+                                      borderRadius: BorderRadius.circular(6),
+                                      color: Colors.white,
+                                    ),
+                                    height: 42,
+                                    width: w / 3,
+                                    child: Obx(() => Text(
+                                        (controller.machineList.isNotEmpty)
+                                            ? controller.machineList[0].circuitPresure
+                                                .toString()
+                                            : "0"))),
+                              ],
                             ),
-                            height: 42,
-                            width: w / 3,
-                            child: Obx(() => Text(
-                                (controller.machineList.isNotEmpty)
-                                    ? controller.machineList[0].circuitPresure
-                                        .toString()
-                                    : "0"))),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Column(
-                      children: [
-                        const Text("Coal 1 : "),
-                        Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              border: Border.all(),
-                              borderRadius: BorderRadius.circular(6),
-                              color: Colors.white,
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Column(
+                              children: [
+                                const Text("Coal 1 : "),
+                                Container(
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(),
+                                      borderRadius: BorderRadius.circular(6),
+                                      color: Colors.white,
+                                    ),
+                                    height: 42,
+                                    width: w / 3,
+                                    child: Obx(() => Text(
+                                        (controller.machineList.isNotEmpty)
+                                            ? controller.machineList[0].coal1.toString()
+                                            : "0"))),
+                              ],
                             ),
-                            height: 42,
-                            width: w / 3,
-                            child: Obx(() => Text(
-                                (controller.machineList.isNotEmpty)
-                                    ? controller.machineList[0].coal1.toString()
-                                    : "0"))),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        const Text("Coal 1 Deviation : "),
-                        Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              border: Border.all(),
-                              borderRadius: BorderRadius.circular(6),
-                              color: Colors.white,
+                            Column(
+                              children: [
+                                const Text("Coal 1 Deviation : "),
+                                Container(
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(),
+                                      borderRadius: BorderRadius.circular(6),
+                                      color: Colors.white,
+                                    ),
+                                    height: 42,
+                                    width: w / 3,
+                                    child: Obx(() => Text(
+                                        (controller.machineList.isNotEmpty)
+                                            ? controller.machineList[0].col1.toString()
+                                            : "0"))),
+                              ],
                             ),
-                            height: 42,
-                            width: w / 3,
-                            child: Obx(() => Text(
-                                (controller.machineList.isNotEmpty)
-                                    ? controller.machineList[0].col1.toString()
-                                    : "0"))),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Column(
-                      children: [
-                        const Text("Coal 2 : "),
-                        Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              border: Border.all(),
-                              borderRadius: BorderRadius.circular(6),
-                              color: Colors.white,
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Column(
+                              children: [
+                                const Text("Coal 2 : "),
+                                Container(
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(),
+                                      borderRadius: BorderRadius.circular(6),
+                                      color: Colors.white,
+                                    ),
+                                    height: 42,
+                                    width: w / 3,
+                                    child: Obx(() => Text(
+                                        (controller.machineList.isNotEmpty)
+                                            ? controller.machineList[0].coal2.toString()
+                                            : "0"))),
+                              ],
                             ),
-                            height: 42,
-                            width: w / 3,
-                            child: Obx(() => Text(
-                                (controller.machineList.isNotEmpty)
-                                    ? controller.machineList[0].coal2.toString()
-                                    : "0"))),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        const Text("Coal 2 Deviation : "),
-                        Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              border: Border.all(),
-                              borderRadius: BorderRadius.circular(6),
-                              color: Colors.white,
+                            Column(
+                              children: [
+                                const Text("Coal 2 Deviation : "),
+                                Container(
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(),
+                                      borderRadius: BorderRadius.circular(6),
+                                      color: Colors.white,
+                                    ),
+                                    height: 42,
+                                    width: w / 3,
+                                    child: Obx(() => Text(
+                                        (controller.machineList.isNotEmpty)
+                                            ? controller.machineList[0].col2.toString()
+                                            : "0"))),
+                              ],
                             ),
-                            height: 42,
-                            width: w / 3,
-                            child: Obx(() => Text(
-                                (controller.machineList.isNotEmpty)
-                                    ? controller.machineList[0].col2.toString()
-                                    : "0"))),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Column(
-                      children: [
-                        const Text("Delta T: "),
-                        Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              border: Border.all(),
-                              borderRadius: BorderRadius.circular(6),
-                              color: Colors.white,
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Column(
+                              children: [
+                                const Text("Delta T: "),
+                                Container(
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(),
+                                      borderRadius: BorderRadius.circular(6),
+                                      color: Colors.white,
+                                    ),
+                                    height: 42,
+                                    width: w / 3,
+                                    child: Obx(() => Text(
+                                        (controller.machineList.isNotEmpty)
+                                            ? controller.machineList[0].dt.toString()
+                                            : "0"))),
+                              ],
                             ),
-                            height: 42,
-                            width: w / 3,
-                            child: Obx(() => Text(
-                                (controller.machineList.isNotEmpty)
-                                    ? controller.machineList[0].dt.toString()
-                                    : "0"))),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        const Text("Delta T %: "),
-                        Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              border: Border.all(),
-                              borderRadius: BorderRadius.circular(6),
-                              color: Colors.white,
+                            Column(
+                              children: [
+                                const Text("Delta T %: "),
+                                Container(
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(),
+                                      borderRadius: BorderRadius.circular(6),
+                                      color: Colors.white,
+                                    ),
+                                    height: 42,
+                                    width: w / 3,
+                                    child: Obx(() => Text(
+                                        (controller.machineList.isNotEmpty)
+                                            ? controller.machineList[0].dtper!.toStringAsFixed(2).
+                                        toString()
+                                            : "0"))),
+                              ],
                             ),
-                            height: 42,
-                            width: w / 3,
-                            child: Obx(() => Text(
-                                (controller.machineList.isNotEmpty)
-                                    ? controller.machineList[0].dtper.toString()
-                                    : "0"))),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Column(
-                      children: [
-                        const Text("Chamber Cost : "),
-                        Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              border: Border.all(),
-                              borderRadius: BorderRadius.circular(6),
-                              color: Colors.white,
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Column(
+                              children: [
+                                const Text("Chamber Cost : "),
+                                Container(
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(),
+                                      borderRadius: BorderRadius.circular(6),
+                                      color: Colors.white,
+                                    ),
+                                    height: 42,
+                                    width: w / 3,
+                                    child: Obx(() => Text((controller
+                                            .machineList.isNotEmpty)
+                                        ? controller.machineList[0].chamber.toString()
+                                        : "0"))),
+                              ],
                             ),
-                            height: 42,
-                            width: w / 3,
-                            child: Obx(() => Text((controller
-                                    .machineList.isNotEmpty)
-                                ? controller.machineList[0].chamber.toString()
-                                : "0"))),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        const Text("Chamber Cost % : "),
-                        Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              border: Border.all(),
-                              borderRadius: BorderRadius.circular(6),
+                            Column(
+                              children: [
+                                const Text("Chamber Cost % : "),
+                                Container(
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(),
+                                      borderRadius: BorderRadius.circular(6),
+                                    ),
+                                    height: 42,
+                                    width: w / 3,
+                                    child: Obx(() => Text(
+                                        (controller.machineList.isNotEmpty)
+                                            ? controller.machineList[0].ccper.toString()
+                                            : "0"))),
+                              ],
                             ),
-                            height: 42,
-                            width: w / 3,
-                            child: Obx(() => Text(
-                                (controller.machineList.isNotEmpty)
-                                    ? controller.machineList[0].ccper.toString()
-                                    : "0"))),
-                      ],
-                    ),
-                  ],
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

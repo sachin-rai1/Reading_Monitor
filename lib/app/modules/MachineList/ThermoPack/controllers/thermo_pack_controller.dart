@@ -68,15 +68,15 @@ class ThermoPackController extends GetxController {
     int deltaT2,
     int chamberCost1,
     int chamberCost2,
-    // int id,
+    int id,
   ) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var tokenvalue = prefs.getString("token");
     final response = await http.put(
-      Uri.parse("${Constants.connectionString}/ThermoopackUpdated"),
+      Uri.parse("${Constants.connectionString}/ThermoopackUpdated/$uId"),
       body: jsonEncode(<String, String>{
         '_method': "PUT",
-        // "id": id.toString(),
+        "id": id.toString(),
         "coal_1": coal1.toString(),
         "coal_deviation1": coal1Dev.toString(),
         "rate_of_cloal1": rateOfCoal1.toString(),
@@ -97,6 +97,7 @@ class ThermoPackController extends GetxController {
       Constants.showtoast("Data Updated!");
       return null;
     } else {
+      print(response.statusCode);
       throw Exception('Failed to update Data.');
     }
   }
@@ -129,6 +130,8 @@ class ThermoPackController extends GetxController {
     }
     return null;
   }
+
+  int uId = 1;
 
   @override
   void onInit() {
@@ -175,7 +178,7 @@ class ThermoPackController extends GetxController {
           int.parse(deltaT2.text.toString()),
           int.parse(chamberCost1.text.toString()),
           int.parse(chamberCost2.text.toString()),
-          // int.parse(id.toString()),
+          int.parse(uId.toString()),
         );
         print(response.body);
       }

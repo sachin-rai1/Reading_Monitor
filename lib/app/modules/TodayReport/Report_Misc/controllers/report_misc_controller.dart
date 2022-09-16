@@ -30,7 +30,7 @@ class ReportMiscController extends GetxController {
 
   void fetchMiscViewReport() async {
     try {
-      isLoading(true);
+      // isLoading(true);
       var machine = await fetchMiscViewReportList();
       miscList.value = machine;
     } finally {

@@ -34,7 +34,7 @@ class WaterQualityController extends GetxController {
 
   Future<void> fetchWaterQualityList() async {
     try {
-      isLoading(true);
+      // isLoading(true);
       var waterQualitymachines =
           await HttpServiceProvider.fetchWaterQualityList();
       machineList.value = waterQualitymachines;

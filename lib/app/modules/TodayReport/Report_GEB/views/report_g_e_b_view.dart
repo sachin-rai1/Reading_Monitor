@@ -93,302 +93,317 @@ class ReportGEBView extends GetView<ReportGEBController> {
                   ),
                 ],
               ),
-              Container(
-                padding: const EdgeInsets.all(8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Column(
-                      children: [
-                        const Text("KWH : "),
-                        Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              border: Border.all(),
-                              borderRadius: BorderRadius.circular(6),
-                              color: Colors.white,
+              RefreshIndicator(
+                  onRefresh: (){
+                    return Future(() => controller.fetchGebList());
+                  },
+                child:
+                   SingleChildScrollView(
+                     child: Form(
+                       child: Column(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Column(
+                                  children: [
+                                    const Text("KWH : "),
+                                    Container(
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(),
+                                          borderRadius: BorderRadius.circular(6),
+                                          color: Colors.white,
+                                        ),
+                                        height: 42,
+                                        width: w / 3,
+                                        child: Obx(
+                                          () => Text(
+                                              (controller.machineList.isNotEmpty && controller.machineList[0].kwh!=null)
+                                              ? controller.machineList[0].kwh.toString()
+                                              : "0"
+                                          ),
+                                        )),
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    const Text("KWH Deviation : "),
+                                    Container(
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(),
+                                          borderRadius: BorderRadius.circular(6),
+                                          color: Colors.white,
+                                        ),
+                                        height: 42,
+                                        width: w / 3,
+                                        child: Obx(
+                                          () => Text((controller.machineList.isNotEmpty && controller.machineList[0].kwhtotalper!=null)
+                                              ? controller.machineList[0].kwhtotalper!
+                                                  .toStringAsFixed(2)
+                                                  .toString()
+                                              : "0"),
+                                        )),
+                                  ],
+                                ),
+                              ],
                             ),
-                            height: 42,
-                            width: w / 3,
-                            child: Obx(
-                              () => Text(
-                                  (controller.machineList.isNotEmpty && controller.machineList[0].kwh!=null)
-                                  ? controller.machineList[0].kwh.toString()
-                                  : "0"
-                              ),
-                            )),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        const Text("KWH Deviation : "),
-                        Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              border: Border.all(),
-                              borderRadius: BorderRadius.circular(6),
-                              color: Colors.white,
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Column(
+                                  children: [
+                                    const Text("PF :"),
+                                    Container(
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(),
+                                          borderRadius: BorderRadius.circular(6),
+                                          color: Colors.white,
+                                        ),
+                                        height: 42,
+                                        width: w / 3,
+                                        child: Obx(
+                                          () => Text((controller.machineList.isNotEmpty && controller.machineList[0].pf!=null)
+                                              ? controller.machineList[0].pf!
+                                                  .toStringAsFixed(2)
+                                                  .toString()
+                                              : "0"),
+                                        )),
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    const Text("PF Deviation : "),
+                                    Container(
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(),
+                                          borderRadius: BorderRadius.circular(6),
+                                          color: Colors.white,
+                                        ),
+                                        height: 42,
+                                        width: w / 3,
+                                        child: Obx(
+                                          () => Text((controller.machineList.isNotEmpty && controller.machineList[0].pfper!=null)
+                                              ? controller.machineList[0].pfper!
+                                                  .toStringAsFixed(2)
+                                                  .toString()
+                                              : "0"),
+                                        )),
+                                  ],
+                                ),
+                              ],
                             ),
-                            height: 42,
-                            width: w / 3,
-                            child: Obx(
-                              () => Text((controller.machineList.isNotEmpty && controller.machineList[0].kwhtotalper!=null)
-                                  ? controller.machineList[0].kwhtotalper!
-                                      .toStringAsFixed(2)
-                                      .toString()
-                                  : "0"),
-                            )),
-                      ],
-                    ),
-                  ],
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Column(
+                                  children: [
+                                    const Text("KVARH : "),
+                                    Container(
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(),
+                                          borderRadius: BorderRadius.circular(6),
+                                          color: Colors.white,
+                                        ),
+                                        height: 42,
+                                        width: w / 3,
+                                        child: Obx(
+                                          () => Text((controller.machineList.isNotEmpty && controller.machineList[0].kvarh!=null)
+                                              ? controller.machineList[0].kvarh!
+                                                  .toStringAsFixed(2)
+                                                  .toString()
+                                              : "0"),
+                                        )),
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    const Text("KVARH Deviation : "),
+                                    Container(
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(),
+                                          borderRadius: BorderRadius.circular(6),
+                                          color: Colors.white,
+                                        ),
+                                        height: 42,
+                                        width: w / 3,
+                                        child: Obx(
+                                          () => Text((controller.machineList.isNotEmpty && controller.machineList[0].kvarhper!=null)
+                                              ? controller.machineList[0].kvarhper!
+                                                  .toStringAsFixed(2)
+                                                  .toString()
+                                              : "0"),
+                                        )),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Column(
+                                  children: [
+                                    const Text("MD : "),
+                                    Container(
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(),
+                                          borderRadius: BorderRadius.circular(6),
+                                          color: Colors.white,
+                                        ),
+                                        height: 42,
+                                        width: w / 3,
+                                        child: Obx(() => Text(
+                                            (controller.machineList.isNotEmpty && controller.machineList[0].md !=  null)
+                                                ? controller.machineList[0].md.toString()
+                                                : "0"))),
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    const Text("MD Deviation : "),
+                                    Container(
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(),
+                                          borderRadius: BorderRadius.circular(6),
+                                          color: Colors.white,
+                                        ),
+                                        height: 42,
+                                        width: w / 3,
+                                        child: Obx(
+                                          () => Text((controller.machineList.isNotEmpty && controller.machineList[0].mdper!=null)
+                                              ? controller.machineList[0].mdper!
+                                                  .toStringAsFixed(2)
+                                                  .toString()
+                                              : "0"),
+                                        )),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Column(
+                                  children: [
+                                    const Text("KVAH : "),
+                                    Container(
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(),
+                                          borderRadius: BorderRadius.circular(6),
+                                          color: Colors.white,
+                                        ),
+                                        height: 42,
+                                        width: w / 3,
+                                        child: Obx(
+                                          () => Text((controller.machineList.isNotEmpty && controller.machineList[0].kevah!=null)
+                                              ? controller.machineList[0].kevah!
+                                                  .toStringAsFixed(2)
+                                                  .toString()
+                                              : "0"),
+                                        )),
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    const Text("KVAH Deviation : "),
+                                    Container(
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(),
+                                          borderRadius: BorderRadius.circular(6),
+                                          color: Colors.white,
+                                        ),
+                                        height: 42,
+                                        width: w / 3,
+                                        child: Obx(
+                                          () => Text((controller.machineList.isNotEmpty && controller.machineList[0].kvahper != null)
+                                              ? controller.machineList[0].kvahper!
+                                                  .toStringAsFixed(2)
+                                                  .toString()
+                                              : "0"),
+                                        )),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Column(
+                                  children: [
+                                    const Text("Turbine : "),
+                                    Container(
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(),
+                                          borderRadius: BorderRadius.circular(6),
+                                          color: Colors.white,
+                                        ),
+                                        height: 42,
+                                        width: w / 3,
+                                        child: Obx(
+                                          () => Text((controller.machineList.isNotEmpty && controller.machineList[0].turbine != null)
+                                              ? controller.machineList[0].turbine!
+                                                  .toStringAsFixed(2)
+                                                  .toString()
+                                              : "0"),
+                                        )),
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    const Text("Turbine Deviation : "),
+                                    Container(
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(),
+                                          borderRadius: BorderRadius.circular(6),
+                                        ),
+                                        height: 42,
+                                        width: w / 3,
+                                        child: Obx(
+                                          () => Text((controller.machineList.isNotEmpty && controller.machineList[0].turbineper != null)
+                                              ? controller.machineList[0].turbineper!
+                                                  .toStringAsFixed(2)
+                                                  .toString()
+                                              : "0"),
+                                        )),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                  ),
+                     ),
+                   ),
                 ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Column(
-                      children: [
-                        const Text("PF :"),
-                        Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              border: Border.all(),
-                              borderRadius: BorderRadius.circular(6),
-                              color: Colors.white,
-                            ),
-                            height: 42,
-                            width: w / 3,
-                            child: Obx(
-                              () => Text((controller.machineList.isNotEmpty && controller.machineList[0].pf!=null)
-                                  ? controller.machineList[0].pf!
-                                      .toStringAsFixed(2)
-                                      .toString()
-                                  : "0"),
-                            )),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        const Text("PF Deviation : "),
-                        Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              border: Border.all(),
-                              borderRadius: BorderRadius.circular(6),
-                              color: Colors.white,
-                            ),
-                            height: 42,
-                            width: w / 3,
-                            child: Obx(
-                              () => Text((controller.machineList.isNotEmpty && controller.machineList[0].pfper!=null)
-                                  ? controller.machineList[0].pfper!
-                                      .toStringAsFixed(2)
-                                      .toString()
-                                  : "0"),
-                            )),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Column(
-                      children: [
-                        const Text("KVARH : "),
-                        Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              border: Border.all(),
-                              borderRadius: BorderRadius.circular(6),
-                              color: Colors.white,
-                            ),
-                            height: 42,
-                            width: w / 3,
-                            child: Obx(
-                              () => Text((controller.machineList.isNotEmpty && controller.machineList[0].kvarh!=null)
-                                  ? controller.machineList[0].kvarh!
-                                      .toStringAsFixed(2)
-                                      .toString()
-                                  : "0"),
-                            )),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        const Text("KVARH Deviation : "),
-                        Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              border: Border.all(),
-                              borderRadius: BorderRadius.circular(6),
-                              color: Colors.white,
-                            ),
-                            height: 42,
-                            width: w / 3,
-                            child: Obx(
-                              () => Text((controller.machineList.isNotEmpty && controller.machineList[0].kvarhper!=null)
-                                  ? controller.machineList[0].kvarhper!
-                                      .toStringAsFixed(2)
-                                      .toString()
-                                  : "0"),
-                            )),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Column(
-                      children: [
-                        const Text("MD : "),
-                        Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              border: Border.all(),
-                              borderRadius: BorderRadius.circular(6),
-                              color: Colors.white,
-                            ),
-                            height: 42,
-                            width: w / 3,
-                            child: Obx(() => Text(
-                                (controller.machineList.isNotEmpty && controller.machineList[0].md !=  null)
-                                    ? controller.machineList[0].md.toString()
-                                    : "0"))),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        const Text("MD Deviation : "),
-                        Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              border: Border.all(),
-                              borderRadius: BorderRadius.circular(6),
-                              color: Colors.white,
-                            ),
-                            height: 42,
-                            width: w / 3,
-                            child: Obx(
-                              () => Text((controller.machineList.isNotEmpty && controller.machineList[0].mdper!=null)
-                                  ? controller.machineList[0].mdper!
-                                      .toStringAsFixed(2)
-                                      .toString()
-                                  : "0"),
-                            )),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Column(
-                      children: [
-                        const Text("KVAH : "),
-                        Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              border: Border.all(),
-                              borderRadius: BorderRadius.circular(6),
-                              color: Colors.white,
-                            ),
-                            height: 42,
-                            width: w / 3,
-                            child: Obx(
-                              () => Text((controller.machineList.isNotEmpty && controller.machineList[0].kevah!=null)
-                                  ? controller.machineList[0].kevah!
-                                      .toStringAsFixed(2)
-                                      .toString()
-                                  : "0"),
-                            )),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        const Text("KVAH Deviation : "),
-                        Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              border: Border.all(),
-                              borderRadius: BorderRadius.circular(6),
-                              color: Colors.white,
-                            ),
-                            height: 42,
-                            width: w / 3,
-                            child: Obx(
-                              () => Text((controller.machineList.isNotEmpty && controller.machineList[0].kvahper != null)
-                                  ? controller.machineList[0].kvahper!
-                                      .toStringAsFixed(2)
-                                      .toString()
-                                  : "0"),
-                            )),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Column(
-                      children: [
-                        const Text("Turbine : "),
-                        Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              border: Border.all(),
-                              borderRadius: BorderRadius.circular(6),
-                              color: Colors.white,
-                            ),
-                            height: 42,
-                            width: w / 3,
-                            child: Obx(
-                              () => Text((controller.machineList.isNotEmpty && controller.machineList[0].turbine != null)
-                                  ? controller.machineList[0].turbine!
-                                      .toStringAsFixed(2)
-                                      .toString()
-                                  : "0"),
-                            )),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        const Text("Turbine Deviation : "),
-                        Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              border: Border.all(),
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            height: 42,
-                            width: w / 3,
-                            child: Obx(
-                              () => Text((controller.machineList.isNotEmpty && controller.machineList[0].turbineper != null)
-                                  ? controller.machineList[0].turbineper!
-                                      .toStringAsFixed(2)
-                                      .toString()
-                                  : "0"),
-                            )),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
+
             ],
           )),
     );

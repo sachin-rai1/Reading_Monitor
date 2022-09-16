@@ -118,4 +118,5 @@ abstract class _Paths {
   static const CHART_MISC = '/chart-misc';
   static const MachineListTabBar = '/MachineListTabBar';
   static const UploadNavigationBar = '/UploadNavigationBar';
+  static const ReportNavigationBarView = '/ReportNavigationBarView';
 }

@@ -52,60 +52,65 @@ class MachineView extends GetView<MachineController> {
               if (controller.isLoading.value) {
                 return const Center(child: CircularProgressIndicator());
               } else {
-                return ListView.builder(
-                    itemCount: controller.machineList.length,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          Get.to(() => SubMachinesView());
-                        },
-                        child: Container(
-                          color: Colors.transparent,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                controller.machineList[index].categories,
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  GestureDetector(
-                                      onTap: () {
-                                        controller.category.text = controller
-                                            .machineList[index].categories
-                                            .toString();
-                                        editDialog(
-                                            context,
-                                            int.parse(controller
-                                                .machineList[index].id
-                                                .toString()));
-                                      },
-                                      child: Icon(
-                                        Icons.edit,
-                                        color: Colors.green,
-                                      )),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                  GestureDetector(
-                                      onTap: () {
-                                        controller.category.text = controller
-                                            .machineList[index].categories
-                                            .toString();
-                                        deleteDialog(context);
-                                      },
-                                      child: Icon(
-                                        Icons.delete,
-                                        color: Colors.red,
-                                      )),
-                                ],
-                              )
-                            ],
+                return RefreshIndicator(
+                  onRefresh: (){
+                    return Future(() => controller.onInit());
+                  },
+                  child: ListView.builder(
+                      itemCount: controller.machineList.length,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            Get.to(() => SubMachinesView());
+                          },
+                          child: Container(
+                            color: Colors.transparent,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  controller.machineList[index].categories,
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    GestureDetector(
+                                        onTap: () {
+                                          controller.category.text = controller
+                                              .machineList[index].categories
+                                              .toString();
+                                          editDialog(
+                                              context,
+                                              int.parse(controller
+                                                  .machineList[index].id
+                                                  .toString()));
+                                        },
+                                        child: Icon(
+                                          Icons.edit,
+                                          color: Colors.green,
+                                        )),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    GestureDetector(
+                                        onTap: () {
+                                          controller.category.text = controller
+                                              .machineList[index].categories
+                                              .toString();
+                                          deleteDialog(context);
+                                        },
+                                        child: Icon(
+                                          Icons.delete,
+                                          color: Colors.red,
+                                        )),
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                      );
-                    });
+                        );
+                      }),
+                );
               }
             }),
           ),

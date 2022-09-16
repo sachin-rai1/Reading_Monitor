@@ -99,87 +99,93 @@ class ReportMiscView extends GetView<ReportMiscController> {
                 return Center(child: CircularProgressIndicator());
               }
               else {
-                return ListView.builder(
-                  itemCount: controller.miscList.length,
-                  itemBuilder: (context, index) {
-                    return Card(
-                        child: Column(
-                          children: [
-                            Container(
-                              height: 30,
-                              alignment: Alignment.center,
-                              padding: EdgeInsets.only(left: 10, right: 10),
-                              width: w,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    controller.miscList[index].categoryName
-                                        .toString(),
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                  ),
-                                ],
+                return RefreshIndicator(
+                  onRefresh: (){
+                    return Future(() =>  controller.fetchMiscViewReport());
+                  },
+                  child: ListView.builder(
+                    physics: AlwaysScrollableScrollPhysics(),
+                    itemCount: controller.miscList.length,
+                    itemBuilder: (context, index) {
+                      return Card(
+                          child: Column(
+                            children: [
+                              Container(
+                                height: 30,
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.only(left: 10, right: 10),
+                                width: w,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      controller.miscList[index].categoryName
+                                          .toString(),
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white),
+                                    ),
+                                  ],
+                                ),
+                                decoration: BoxDecoration(
+                                    color: Color(0xFF716259)),
                               ),
-                              decoration: BoxDecoration(
-                                  color: Color(0xFF716259)),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 15, right: 15, bottom: 8),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment
-                                    .spaceBetween,
-                                children: [
-                                  Column(
-                                    children: [
-                                      Container(
-                                        width: w / 3,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text("UNIT"),
-                                            Text(controller.miscList[index].unit
-                                                .toString()),
-                                          ],
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 15, right: 15, bottom: 8),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment
+                                      .spaceBetween,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Container(
+                                          width: w / 3,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text("UNIT"),
+                                              Text(controller.miscList[index].unit
+                                                  .toString()),
+                                            ],
+                                          ),
                                         ),
-                                      ),
 
-                                    ],
-                                  ),
-                                  Container(
-                                      height: 20,
-                                      child: VerticalDivider(
-                                        thickness: 2,
-                                        color: Colors.red,
-                                      )),
-                                  Column(
-                                    children: [
-                                      Container(
-                                        width: w / 3,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text("Deviation"),
-                                            Text(controller.miscList[index]
-                                                .dev.toString()),
-                                          ],
+                                      ],
+                                    ),
+                                    Container(
+                                        height: 20,
+                                        child: VerticalDivider(
+                                          thickness: 2,
+                                          color: Colors.red,
+                                        )),
+                                    Column(
+                                      children: [
+                                        Container(
+                                          width: w / 3,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text("Deviation"),
+                                              Text(controller.miscList[index]
+                                                  .dev.toString()),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ));
-                  });
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ));
+                    }),
+                );
               }
             }
             ),

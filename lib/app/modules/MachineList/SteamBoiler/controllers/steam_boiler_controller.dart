@@ -22,7 +22,7 @@ class SteamBoilerController extends GetxController {
   TextEditingController bfwTemperature2 = TextEditingController();
   TextEditingController steamCost1 = TextEditingController();
   TextEditingController steamCost2 = TextEditingController();
-  int id = 1;
+  int uid = 1;
 
   addSteamBoiler(ModelSteamBoiler steamBoiler) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -81,13 +81,12 @@ class SteamBoilerController extends GetxController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var tokenvalue = prefs.getString("token");
     final response = await http.put(
-      Uri.parse("${Constants.connectionString}/SteamBolierUpadated/$id"),
+      Uri.parse("${Constants.connectionString}/SteamBolierUpadated/$uid"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $tokenvalue',
       },
       body: jsonEncode(<String, String>{
-        '_method': "PUT",
         "id": id.toString(),
         "bfw": bfw.toString(),
         "temperature": temp.toString(),
@@ -105,8 +104,10 @@ class SteamBoilerController extends GetxController {
     );
     if (response.statusCode == 200) {
       Constants.showtoast("Data Updated!");
+      print(id);
       return null;
     } else {
+      print(id);
       throw Exception('Failed to update Data.');
     }
   }
@@ -156,6 +157,7 @@ class SteamBoilerController extends GetxController {
       },
     );
     if (response.statusCode == 200) {
+      print(response.statusCode);
       var data = jsonDecode(response.body);
       print(data);
       if (data.length == 0) {
@@ -177,7 +179,7 @@ class SteamBoilerController extends GetxController {
         print(data);
       } else {
         print("Updated");
-        print(id);
+        print(uid);
         updateSteamBoiler(
             bfw1.text.toString(),
             bfw2.text.toString(),
@@ -191,11 +193,10 @@ class SteamBoilerController extends GetxController {
             rateOfCoal2.text.toString(),
             steamCost1.text.toString(),
             steamCost2.text.toString(),
-            int.parse(id.toString())
+            int.parse(uid.toString())
         );
         clearData();
         fetchSteamBoilerList();
-
         print(response.body);
         print(data);
       }

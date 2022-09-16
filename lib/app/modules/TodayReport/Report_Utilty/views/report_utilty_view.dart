@@ -98,343 +98,362 @@ class ReportUtiltyView extends GetView<ReportUtiltyController> {
                       if (controller.isLoading.value) {
                         return Center(child: CircularProgressIndicator());
                       } else {
-                        return ListView.builder(
-                            physics: BouncingScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: controller.utilityList.length,
-                            itemBuilder: (context, index) {
-                              return Card(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                color: Colors.grey[200],
-                                child: ExpansionTile(
-                                  trailing: Icon(Icons.arrow_drop_down_outlined,
-                                      color: Colors.red),
-                                  title: Column(children: [
-                                    Container(
-                                      height: 50,
-                                      alignment: Alignment.center,
-                                      width: w,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            controller.utilityList[index]
-                                                .uitilityCategories
-                                                .toString()
-                                                .toUpperCase(),
-                                            style: TextStyle(
-                                                // fontSize: 20,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.brown[500]
-                                                // color: Colors.white
-                                                ),
-                                          ),
-                                        ],
+                        return RefreshIndicator(
+                          onRefresh: () {
+                            return Future(() => controller.onInit());
+                          },
+                          child: ListView.builder(
+                              physics: BouncingScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: controller.utilityList.length,
+                              itemBuilder: (context, index) {
+                                return Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  color: Colors.grey[200],
+                                  child: ExpansionTile(
+                                    trailing: Icon(
+                                        Icons.arrow_drop_down_outlined,
+                                        color: Colors.red),
+                                    title: Column(children: [
+                                      Container(
+                                        height: 50,
+                                        alignment: Alignment.center,
+                                        width: w,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              controller.utilityList[index]
+                                                  .uitilityCategories
+                                                  .toString()
+                                                  .toUpperCase(),
+                                              style: TextStyle(
+                                                  // fontSize: 20,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.brown[500]
+                                                  // color: Colors.white
+                                                  ),
+                                            ),
+                                          ],
+                                        ),
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(5)),
                                       ),
-                                      decoration: BoxDecoration(
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        decoration: BoxDecoration(
                                           borderRadius:
-                                              BorderRadius.circular(5)),
-                                    ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      padding:
-                                          const EdgeInsets.only(bottom: 10),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Column(
-                                            children: [
-                                              Container(
-                                                width: w / 3,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Text("EM",
-                                                        style: TextStyle(
+                                              BorderRadius.circular(15),
+                                        ),
+                                        padding:
+                                            const EdgeInsets.only(bottom: 10),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Column(
+                                              children: [
+                                                Container(
+                                                  width: w / 3,
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Text("EM",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 15)),
+                                                      Text(
+                                                          controller
+                                                              .utilityList[
+                                                                  index]
+                                                              .em!
+                                                              .toStringAsFixed(
+                                                                  2)
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              color: Colors
+                                                                  .black)),
+                                                    ],
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Container(
+                                                  width: w / 3,
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Text("HM",
+                                                          style: TextStyle(
+                                                            fontSize: 15,
                                                             color: Colors.black,
-                                                            fontSize: 15)),
-                                                    Text(
-                                                        controller
-                                                            .utilityList[index]
-                                                            .em!
-                                                            .toStringAsFixed(2)
-                                                            .toString(),
-                                                        style: TextStyle(
-                                                            fontSize: 15,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            color:
-                                                                Colors.black)),
-                                                  ],
+                                                          )),
+                                                      Text(
+                                                          controller
+                                                              .utilityList[
+                                                                  index]
+                                                              .hm!
+                                                              .toStringAsFixed(
+                                                                  2)
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              fontSize: 15,
+                                                              color: Colors
+                                                                  .black)),
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
-                                              SizedBox(
-                                                height: 5,
-                                              ),
-                                              Container(
-                                                width: w / 3,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Text("HM",
-                                                        style: TextStyle(
-                                                          fontSize: 15,
-                                                          color: Colors.black,
-                                                        )),
-                                                    Text(
-                                                        controller
-                                                            .utilityList[index]
-                                                            .hm!
-                                                            .toStringAsFixed(2)
-                                                            .toString(),
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            fontSize: 15,
-                                                            color:
-                                                                Colors.black)),
-                                                  ],
+                                              ],
+                                            ),
+                                            Container(
+                                                height: 40,
+                                                child: VerticalDivider(
+                                                  thickness: 2,
+                                                  color: Colors.red,
+                                                )),
+                                            Column(
+                                              children: [
+                                                Container(
+                                                  width: w / 3,
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Text("Average",
+                                                          style: TextStyle(
+                                                              fontSize: 15,
+                                                              color: Colors
+                                                                  .black)),
+                                                      Text(
+                                                          controller
+                                                              .utilityList[
+                                                                  index]
+                                                              .average
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              color: Colors
+                                                                  .black)),
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                          Container(
-                                              height: 40,
-                                              child: VerticalDivider(
-                                                thickness: 2,
-                                                color: Colors.red,
-                                              )),
-                                          Column(
-                                            children: [
-                                              Container(
-                                                width: w / 3,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Text("Average",
-                                                        style: TextStyle(
-                                                            fontSize: 15,
-                                                            color:
-                                                                Colors.black)),
-                                                    Text(
-                                                        controller
-                                                            .utilityList[index]
-                                                            .average
-                                                            .toString(),
-                                                        style: TextStyle(
-                                                            fontSize: 15,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            color:
-                                                                Colors.black)),
-                                                  ],
+                                                SizedBox(
+                                                  height: 5,
                                                 ),
-                                              ),
-                                              SizedBox(
-                                                height: 5,
-                                              ),
-                                              Container(
-                                                width: w / 3,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Text("Deviation",
-                                                        style: TextStyle(
-                                                            fontSize: 15,
-                                                            color:
-                                                                Colors.black)),
-                                                    Text(
-                                                        controller
-                                                            .utilityList[index]
-                                                            .dev
-                                                            .toString(),
-                                                        style: TextStyle(
-                                                            fontSize: 15,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            color:
-                                                                Colors.black)),
-                                                  ],
+                                                Container(
+                                                  width: w / 3,
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Text("Deviation",
+                                                          style: TextStyle(
+                                                              fontSize: 15,
+                                                              color: Colors
+                                                                  .black)),
+                                                      Text(
+                                                          controller
+                                                              .utilityList[
+                                                                  index]
+                                                              .dev
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              color: Colors
+                                                                  .black)),
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
+                                              ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ]),
-                                  children: <Widget>[
-                                    Container(
-                                      padding: EdgeInsets.all(8),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      child: ListView.builder(
-                                          physics:
-                                              NeverScrollableScrollPhysics(),
-                                          shrinkWrap: true,
-                                          itemCount:
-                                              controller.subUtilityList.length,
-                                          itemBuilder: (BuildContext context,
-                                              int sIndex) {
-                                            print("data are");
-                                            print(controller.utilityList[index]
-                                                .uitilityCategories);
-                                            print(controller
-                                                .subUtilityList[sIndex]
-                                                .categoryName);
-                                            return (controller
-                                                        .utilityList[index]
-                                                        .uitilityCategories ==
-                                                    controller
-                                                        .subUtilityList[sIndex]
-                                                        .categoryName)
-                                                ? Card(
-                                                    child: Column(
-                                                      children: [
-                                                        Container(
-                                                          height: 30,
-                                                          padding:
-                                                              EdgeInsets.only(
-                                                                  left: 15,
-                                                                  right: 15),
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        5),
-                                                            color: Color(
-                                                                0xFF6EB7A1),
+                                    ]),
+                                    children: <Widget>[
+                                      Container(
+                                        padding: EdgeInsets.all(8),
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: ListView.builder(
+                                            physics:
+                                                NeverScrollableScrollPhysics(),
+                                            shrinkWrap: true,
+                                            itemCount: controller
+                                                .subUtilityList.length,
+                                            itemBuilder: (BuildContext context,
+                                                int sIndex) {
+                                              print("data are");
+                                              print(controller
+                                                  .utilityList[index]
+                                                  .uitilityCategories);
+                                              print(controller
+                                                  .subUtilityList[sIndex]
+                                                  .categoryName);
+                                              return (controller
+                                                          .utilityList[index]
+                                                          .uitilityCategories ==
+                                                      controller
+                                                          .subUtilityList[
+                                                              sIndex]
+                                                          .categoryName)
+                                                  ? Card(
+                                                      child: Column(
+                                                        children: [
+                                                          Container(
+                                                            height: 30,
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    left: 15,
+                                                                    right: 15),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          5),
+                                                              color: Color(
+                                                                  0xFF6EB7A1),
+                                                            ),
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: [
+                                                                Text(
+                                                                    controller
+                                                                        .subUtilityList[
+                                                                            sIndex]
+                                                                        .subCategoryName
+                                                                        .toString(),
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .black,
+                                                                        fontWeight:
+                                                                            FontWeight.bold)),
+                                                              ],
+                                                            ),
+                                                            // color: Color(0xFF6EB7A1),
                                                           ),
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            children: [
-                                                              Text(
-                                                                  controller
-                                                                      .subUtilityList[
-                                                                          sIndex]
-                                                                      .subCategoryName
-                                                                      .toString(),
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold)),
-                                                            ],
+                                                          Container(
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    left: 15,
+                                                                    right: 15),
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: [
+                                                                Text("EM : "),
+                                                                Text(controller
+                                                                    .subUtilityList[
+                                                                        index]
+                                                                    .em!
+                                                                    .toStringAsFixed(
+                                                                        2)
+                                                                    .toString()),
+                                                                Text(
+                                                                    "Average : "),
+                                                                Text(controller
+                                                                    .subUtilityList[
+                                                                        index]
+                                                                    .average!
+                                                                    .toStringAsFixed(
+                                                                        2)
+                                                                    .toString()),
+                                                              ],
+                                                            ),
                                                           ),
-                                                          // color: Color(0xFF6EB7A1),
-                                                        ),
-                                                        Container(
-                                                          padding:
-                                                              EdgeInsets.only(
-                                                                  left: 15,
-                                                                  right: 15),
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            children: [
-                                                              Text("EM : "),
-                                                              Text(controller
-                                                                  .subUtilityList[
-                                                                      index]
-                                                                  .em!
-                                                                  .toStringAsFixed(
-                                                                      2)
-                                                                  .toString()),
-                                                              Text(
-                                                                  "Average : "),
-                                                              Text(controller
-                                                                  .subUtilityList[
-                                                                      index]
-                                                                  .average!
-                                                                  .toStringAsFixed(
-                                                                      2)
-                                                                  .toString()),
-                                                            ],
+                                                          SizedBox(
+                                                            height: 5,
                                                           ),
-                                                        ),
-                                                        SizedBox(
-                                                          height: 5,
-                                                        ),
-                                                        Container(
-                                                          padding:
-                                                              EdgeInsets.only(
-                                                                  left: 15,
-                                                                  right: 15,
-                                                                  bottom: 10),
-                                                          // decoration: BoxDecoration(
-                                                          //   borderRadius: BorderRadius.circular(10) ),
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            children: [
-                                                              Text("HM : "),
-                                                              Text((controller
-                                                                          .subUtilityList[
-                                                                              index]
-                                                                          .dev
-                                                                          .toString() !=
-                                                                      "null")
-                                                                  ? controller
-                                                                      .subUtilityList[
-                                                                          index]
-                                                                      .hm!
-                                                                      .toStringAsFixed(
-                                                                          2)
-                                                                      .toString()
-                                                                  : "0"),
-                                                              Text(
-                                                                  "Deviation :"),
-                                                              Text((controller
-                                                                          .subUtilityList[
-                                                                              index]
-                                                                          .dev
-                                                                          .toString() !=
-                                                                      "null")
-                                                                  ? controller
-                                                                      .subUtilityList[
-                                                                          index]
-                                                                      .dev!
-                                                                      .toStringAsFixed(
-                                                                          2)
-                                                                      .toString()
-                                                                  : "0"),
-                                                            ],
+                                                          Container(
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    left: 15,
+                                                                    right: 15,
+                                                                    bottom: 10),
+                                                            // decoration: BoxDecoration(
+                                                            //   borderRadius: BorderRadius.circular(10) ),
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: [
+                                                                Text("HM : "),
+                                                                Text((controller
+                                                                            .subUtilityList[
+                                                                                index]
+                                                                            .dev
+                                                                            .toString() !=
+                                                                        "null")
+                                                                    ? controller
+                                                                        .subUtilityList[
+                                                                            index]
+                                                                        .hm!
+                                                                        .toStringAsFixed(
+                                                                            2)
+                                                                        .toString()
+                                                                    : "0"),
+                                                                Text(
+                                                                    "Deviation :"),
+                                                                Text((controller
+                                                                            .subUtilityList[
+                                                                                index]
+                                                                            .dev
+                                                                            .toString() !=
+                                                                        "null")
+                                                                    ? controller
+                                                                        .subUtilityList[
+                                                                            index]
+                                                                        .dev!
+                                                                        .toStringAsFixed(
+                                                                            2)
+                                                                        .toString()
+                                                                    : "0"),
+                                                              ],
+                                                            ),
                                                           ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  )
-                                                : Container();
-                                          }),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            });
+                                                        ],
+                                                      ),
+                                                    )
+                                                  : Container();
+                                            }),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }),
+                        );
                       }
                     }),
                   ))
@@ -634,8 +653,7 @@ class ReportUtiltyView extends GetView<ReportUtiltyController> {
                                                 .subUtilityController
                                                 .subUtilityList[sIndex]
                                                 .uitilityCategoriesId);
-                                            return
-                                              (controller
+                                            return (controller
                                                         .utilityController
                                                         .utilitymachineList[
                                                             index]

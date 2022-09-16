@@ -14,7 +14,6 @@ import 'package:readingmonitor2/app/modules/UploadData/Upload_Utility/views/uplo
 import 'package:readingmonitor2/app/modules/UploadData/Upload_WaterQuality/views/upload_water_quality_view.dart';
 import 'package:readingmonitor2/app/modules/home/views/home_view.dart';
 
-
 class UploadNavigationBar extends GetView<UploadTabBarController> {
   @override
   Widget build(BuildContext context) {

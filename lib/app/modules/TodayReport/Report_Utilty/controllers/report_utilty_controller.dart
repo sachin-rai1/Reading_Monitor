@@ -9,14 +9,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../data/Constants.dart';
 import 'package:http/http.dart' as http;
 
-
 class ReportUtiltyController extends GetxController {
   var selectedDate = DateTime.now().obs;
   var isLoading = true.obs;
   var utilityList = <ModelViewUtility>[].obs;
   var subUtilityList = <ModelViewSubUtility>[].obs;
-  final  utilityController = Get.put(UtilityController());
-  final  subUtilityController = Get.put(SubUtilityController());
+  // final utilityController = Get.put(UtilityController());
+  final UtilityController utilityController = Get.find();
+  final SubUtilityController subUtilityController = Get.find();
 
   var utilityData;
   var subUtilityData;
@@ -26,25 +26,22 @@ class ReportUtiltyController extends GetxController {
         context: Get.context!,
         initialDate: selectedDate.value,
         firstDate: DateTime(2015, 8),
-        lastDate: DateTime.now()
-    );
+        lastDate: DateTime.now());
     if (picked != null && picked != selectedDate.value) {
       selectedDate.value = picked;
       fetchUtilityViewReportList();
-      // fetchSubUtilityViewReport();
+      fetchSubUtilityViewReport();
     }
   }
+
   @override
-  void onInit()
-  {
+  void onInit() {
     fetchUtilityViewReportList();
     super.onInit();
   }
 
-
-
-   Future<List<ModelViewUtility>> fetchUtilityViewReport() async {
-     print("Getting Util Data");
+  Future<List<ModelViewUtility>> fetchUtilityViewReport() async {
+    print("Getting Util Data");
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var tokenvalue = prefs.getString("token");
     var response = await http.get(
@@ -70,6 +67,7 @@ class ReportUtiltyController extends GetxController {
       throw Exception();
     }
   }
+
   Future<List<ModelViewSubUtility>> fetchSubUtilityViewReport() async {
     print("Getting Sub Data");
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -87,7 +85,6 @@ class ReportUtiltyController extends GetxController {
       subUtilityData = response.body;
       print(response.statusCode);
       print(jsonDecode(subUtilityData));
-      // return null;
       return modelViewSubUtilityFromJson(subUtilityData);
     } else {
       print("Error in SubUtil");
@@ -97,6 +94,7 @@ class ReportUtiltyController extends GetxController {
       throw Exception();
     }
   }
+
   void fetchUtilityViewReportList() async {
     try {
       isLoading(true);
@@ -105,10 +103,15 @@ class ReportUtiltyController extends GetxController {
       utilityList.value = utility;
       print("Sub Util Data ");
       var subUtility = await fetchSubUtilityViewReport();
-      subUtilityList.value =  subUtility;
-
+      subUtilityList.value = subUtility;
     } finally {
       isLoading(false);
     }
+  }
+
+  void onDispose(){
+    subUtilityController;
+    utilityController;
+    super.onDelete();
   }
 }

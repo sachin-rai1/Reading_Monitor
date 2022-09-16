@@ -57,6 +57,7 @@ class ReportSteamBoilerController extends GetxController {
 
   @override
   void onInit() {
+
     fetchSteamBoiler();
     super.onInit();
   }

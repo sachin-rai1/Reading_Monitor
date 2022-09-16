@@ -23,7 +23,7 @@ class ReportGEBController extends GetxController {
         initialDate: selectedDate.value,
         firstDate: DateTime(2015, 8),
         lastDate: DateTime.now());
-    if (picked != null && picked != selectedDate.value) {
+    if (picked != null) {
       selectedDate.value = picked;
       fetchGebList();
     }

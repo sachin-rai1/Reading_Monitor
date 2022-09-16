@@ -56,141 +56,146 @@ class SupplyPumpView extends GetView<SupplyPumpController> {
                   if (controller.isLoading.value) {
                     return const Center(child: CircularProgressIndicator());
                   } else {
-                    return ListView.builder(
-                      itemCount: controller.supplyPumpList.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(15.0)),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.2),
-                                  spreadRadius: 2,
-                                  blurRadius: 3,
-                                  offset: const Offset(
-                                      0, 3), // changes position of shadow
-                                ),
-                              ],
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 15),
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      controller.supplyPumpList[index].name
-                                          .toString(),
-                                      style: TextStyle(
-                                          fontFamily: Constants.popins,
-                                          color: Constants.textColor,
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 15),
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:  MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        IconButton(
-                                            onPressed: () {
-                                              controller.machineNameTextController
-                                                      .text =
-                                                  controller
-                                                      .supplyPumpList[index].name
-                                                      .toString();
-                                              controller
-                                                      .averageTextController.text =
-                                                  controller
-                                                      .supplyPumpList[index].average
-                                                      .toString();
-                                              controller.deviationTextController
-                                                      .text =
-                                                  controller.supplyPumpList[index]
-                                                      .deviation
-                                                      .toString();
-                                              Get.put(_updateDialog(
-                                                  context,
-                                                  int.parse(controller
-                                                      .supplyPumpList[index].id
-                                                      .toString())));
-                                            },
-                                            icon: const Icon(
-                                              Icons.edit,
-                                              color: Colors.green,
-                                              size: 20,
-                                            )),
-                                        IconButton(
-                                            onPressed: () {
-                                              Get.put(_deleteMachineDialog(
-                                                  context,
-                                                  int.parse(controller
-                                                      .supplyPumpList[index].id
-                                                      .toString())));
-                                            },
-                                            icon: const Icon(
-                                              Icons.delete,
-                                              color: Colors.red,
-                                              size: 20,
-                                            )),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Flow / Unit (Average)",
-                                      style: TextStyle(
-                                          fontFamily: Constants.popins,
-                                          fontSize: 12),
-                                    ),
-                                    Text(
-                                      controller.supplyPumpList[index].average
-                                          .toString(),
-                                      style: TextStyle(
-                                          decoration: TextDecoration.underline,
-                                          fontFamily: Constants.popins,
-                                          fontSize: 12),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  // crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Deviation",
-                                      style: TextStyle(
-                                          fontFamily: Constants.popins,
-                                          fontSize: 12),
-                                    ),
-                                    Text(
-                                      controller.supplyPumpList[index].deviation
-                                          .toString(),
-                                      style: TextStyle(
-                                          decoration: TextDecoration.underline,
-                                          fontFamily: Constants.popins,
-                                          fontSize: 12),
-                                    ),
-                                  ],
-                                ),
-                                // Container(color: Colors.blue,width: w,height: 1,),
-                              ],
-                            ),
-                          ),
-                        );
+                    return RefreshIndicator(
+                      onRefresh: (){
+                        return Future(() => controller.onInit());
                       },
+                      child: ListView.builder(
+                        itemCount: controller.supplyPumpList.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(15.0)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.2),
+                                    spreadRadius: 2,
+                                    blurRadius: 3,
+                                    offset: const Offset(
+                                        0, 3), // changes position of shadow
+                                  ),
+                                ],
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 15),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        controller.supplyPumpList[index].name
+                                            .toString(),
+                                        style: TextStyle(
+                                            fontFamily: Constants.popins,
+                                            color: Constants.textColor,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 15),
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:  MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          IconButton(
+                                              onPressed: () {
+                                                controller.machineNameTextController
+                                                        .text =
+                                                    controller
+                                                        .supplyPumpList[index].name
+                                                        .toString();
+                                                controller
+                                                        .averageTextController.text =
+                                                    controller
+                                                        .supplyPumpList[index].average
+                                                        .toString();
+                                                controller.deviationTextController
+                                                        .text =
+                                                    controller.supplyPumpList[index]
+                                                        .deviation
+                                                        .toString();
+                                                Get.put(_updateDialog(
+                                                    context,
+                                                    int.parse(controller
+                                                        .supplyPumpList[index].id
+                                                        .toString())));
+                                              },
+                                              icon: const Icon(
+                                                Icons.edit,
+                                                color: Colors.green,
+                                                size: 20,
+                                              )),
+                                          IconButton(
+                                              onPressed: () {
+                                                Get.put(_deleteMachineDialog(
+                                                    context,
+                                                    int.parse(controller
+                                                        .supplyPumpList[index].id
+                                                        .toString())));
+                                              },
+                                              icon: const Icon(
+                                                Icons.delete,
+                                                color: Colors.red,
+                                                size: 20,
+                                              )),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Flow / Unit (Average)",
+                                        style: TextStyle(
+                                            fontFamily: Constants.popins,
+                                            fontSize: 12),
+                                      ),
+                                      Text(
+                                        controller.supplyPumpList[index].average
+                                            .toString(),
+                                        style: TextStyle(
+                                            decoration: TextDecoration.underline,
+                                            fontFamily: Constants.popins,
+                                            fontSize: 12),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    // crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Deviation",
+                                        style: TextStyle(
+                                            fontFamily: Constants.popins,
+                                            fontSize: 12),
+                                      ),
+                                      Text(
+                                        controller.supplyPumpList[index].deviation
+                                            .toString(),
+                                        style: TextStyle(
+                                            decoration: TextDecoration.underline,
+                                            fontFamily: Constants.popins,
+                                            fontSize: 12),
+                                      ),
+                                    ],
+                                  ),
+                                  // Container(color: Colors.blue,width: w,height: 1,),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
                     );
                   }
                 }),
@@ -652,9 +657,8 @@ class SupplyPumpView extends GetView<SupplyPumpController> {
                 width: 100,
                 child: ElevatedButton(
                   onPressed: () {
-                    // setState(() {
-                    Navigator.pop(context);
-                    // });
+                    Get.back();
+
                   },
                   style: ButtonStyle(
                       textStyle: MaterialStateProperty.all<TextStyle>(TextStyle(
