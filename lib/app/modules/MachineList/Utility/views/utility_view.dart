@@ -38,7 +38,7 @@ class UtilityView extends GetView<UtilityController> {
                     Icon(Icons.add_box_outlined, color: Colors.black, size: 15),
                   ],
                 ),
-                style: ElevatedButton.styleFrom(primary: Colors.white),
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
               )
             ],
           ),
@@ -48,13 +48,14 @@ class UtilityView extends GetView<UtilityController> {
             padding: const EdgeInsets.all(8.0),
             child: Obx(() {
               if (controller.isLoading.value) {
-                return ClipRRect(
-                  child: Image.asset(
-                    fit: BoxFit.fitWidth,
-                    'assets/images/Control.png',
-                    alignment: Alignment.center,
-                  ),
-                );
+                return Center(child: CircularProgressIndicator());
+                //   ClipRRect(
+                //   child: Image.asset(
+                //     fit: BoxFit.fitWidth,
+                //     'assets/images/Control.png',
+                //     alignment: Alignment.center,
+                //   ),
+                // );
               } else {
                 return Obx(
                   () => ListView.builder(

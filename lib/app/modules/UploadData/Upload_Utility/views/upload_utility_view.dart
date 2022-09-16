@@ -52,14 +52,14 @@ class UploadUtilityView extends GetView<UploadUtilityController> {
                 child: ElevatedButton(
                   onPressed: () {
                     if (controller.data.length == 0) {
-                      // controller.addSupplyList();
+                      controller.addUtilityList();
                     } else {
-                      // controller.updateSupplyList();
+                      controller.uploadUtilityList();
                     }
                   },
                   child: Text("Submit"),
                   style: ElevatedButton.styleFrom(
-                    primary: Color(0xFF6EB7A1),
+                    backgroundColor: Color(0xFF6EB7A1),
                   ),
                 )),
           ],
@@ -88,7 +88,7 @@ class UploadUtilityView extends GetView<UploadUtilityController> {
                           // print(controller.flow);
                           return ListView.builder(
                               itemCount: 2,
-                              itemBuilder: (context, index) {
+                              itemBuilder: (context,index) {
                                 return Card(
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
@@ -100,10 +100,10 @@ class UploadUtilityView extends GetView<UploadUtilityController> {
                                               height: 30,
                                               width: w / 4,
                                               child: Text(
-                                                // supplyController
-                                                //     .supplyPumpList[index].name
-                                                //     .toString(),
-                                                "Machine Name",
+                                                controller.utilityController
+                                                    .utilitymachineList[index].uitilityCategories
+                                                    .toString(),
+                                                // "Machine Name",
                                                 style: TextStyle(
                                                     fontWeight:
                                                         FontWeight.bold),
@@ -119,8 +119,8 @@ class UploadUtilityView extends GetView<UploadUtilityController> {
                                                           10)),
                                               child: TextFormField(
                                                 decoration: InputDecoration(),
-                                                // controller:
-                                                // controller.flow[index],
+                                                controller:
+                                                controller.hmText[index],
                                               ),
                                               height: 30,
                                               width: w / 4,
@@ -134,8 +134,8 @@ class UploadUtilityView extends GetView<UploadUtilityController> {
                                                       BorderRadius.circular(
                                                           10)),
                                               child: TextFormField(
-                                                  // controller:
-                                                  // controller.unit[index],
+                                                  controller:
+                                                  controller.emText[index],
                                                   ),
                                               height: 30,
                                               width: w / 4,
@@ -161,7 +161,7 @@ class UploadUtilityView extends GetView<UploadUtilityController> {
                           return const Center(
                               child: CircularProgressIndicator());
                         } else {
-                          print("Hiiiiii");
+                          print("Hawaii");
                           // print(controller.flow);
                           return ListView.builder(
                               itemCount: 2,
@@ -197,8 +197,8 @@ class UploadUtilityView extends GetView<UploadUtilityController> {
                                                           10)),
                                               child: TextFormField(
                                                 decoration: InputDecoration(),
-                                                // controller:
-                                                // controller.flow[index],
+                                                controller:
+                                                controller.hmText[index],
                                               ),
                                               height: 30,
                                               width: w / 4,
@@ -212,8 +212,8 @@ class UploadUtilityView extends GetView<UploadUtilityController> {
                                                       BorderRadius.circular(
                                                           10)),
                                               child: TextFormField(
-                                                  // controller:
-                                                  // controller.unit[index],
+                                                  controller:
+                                                  controller.emText[index],
                                                   ),
                                               height: 30,
                                               width: w / 4,

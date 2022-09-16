@@ -164,8 +164,7 @@ class ReportMachinesView extends GetView<ReportMachinesController> {
                                                 style: TextStyle(
                                                     fontSize: 15,
                                                     fontWeight: FontWeight.w600,
-                                                    color: Colors.black
-                                                    )),
+                                                    color: Colors.black)),
                                           ],
                                         ),
                                       ),
@@ -179,9 +178,9 @@ class ReportMachinesView extends GetView<ReportMachinesController> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text("HM",
-                                                style: TextStyle(fontSize: 15,
-                                                    color: Colors.black
-                                                    )),
+                                                style: TextStyle(
+                                                    fontSize: 15,
+                                                    color: Colors.black)),
                                             Text(
                                                 controller
                                                     .machineList[index].hm!
@@ -190,8 +189,7 @@ class ReportMachinesView extends GetView<ReportMachinesController> {
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.w600,
                                                     fontSize: 15,
-                                                    color: Colors.black
-                                                    )),
+                                                    color: Colors.black)),
                                           ],
                                         ),
                                       ),
@@ -202,12 +200,12 @@ class ReportMachinesView extends GetView<ReportMachinesController> {
                                         width: w / 3,
                                         child: Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text("Water",
-                                                style: TextStyle(fontSize: 15,
-                                                    color: Colors.black
-                                                )),
+                                                style: TextStyle(
+                                                    fontSize: 15,
+                                                    color: Colors.black)),
                                             Text(
                                                 controller
                                                     .machineList[index].water
@@ -215,8 +213,7 @@ class ReportMachinesView extends GetView<ReportMachinesController> {
                                                 style: TextStyle(
                                                     fontSize: 15,
                                                     fontWeight: FontWeight.w600,
-                                                    color: Colors.black
-                                                )),
+                                                    color: Colors.black)),
                                           ],
                                         ),
                                       ),
@@ -227,12 +224,12 @@ class ReportMachinesView extends GetView<ReportMachinesController> {
                                         width: w / 3,
                                         child: Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text("Batch",
-                                                style: TextStyle(fontSize: 15,
-                                                  color: Colors.black
-                                                )),
+                                                style: TextStyle(
+                                                    fontSize: 15,
+                                                    color: Colors.black)),
                                             Text(
                                                 controller
                                                     .machineList[index].batch
@@ -240,8 +237,7 @@ class ReportMachinesView extends GetView<ReportMachinesController> {
                                                 style: TextStyle(
                                                     fontSize: 15,
                                                     fontWeight: FontWeight.w600,
-                                                    color: Colors.black
-                                                )),
+                                                    color: Colors.black)),
                                           ],
                                         ),
                                       ),
@@ -262,19 +258,20 @@ class ReportMachinesView extends GetView<ReportMachinesController> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text("Average",
-                                                style: TextStyle(fontSize: 15,
-                                                    color: Colors.black
-                                                    )),
-                                            Text(
-                                                controller
-                                                    .machineList[index].average!
-                                                    .toStringAsFixed(2)
-                                                    .toString(),
                                                 style: TextStyle(
                                                     fontSize: 15,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: Colors.black
-                                                    )),
+                                                    color: Colors.black)),
+                                            Obx(()=>
+                                               Text((controller.machineList[index].average) != null?
+                                                  controller
+                                                      .machineList[index].average!
+                                                      .toStringAsFixed(2)
+                                                      .toString() : "0",
+                                                  style: TextStyle(
+                                                      fontSize: 15,
+                                                      fontWeight: FontWeight.w600,
+                                                      color: Colors.black)),
+                                            ),
                                           ],
                                         ),
                                       ),
@@ -288,9 +285,9 @@ class ReportMachinesView extends GetView<ReportMachinesController> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text("Deviation",
-                                                style: TextStyle(fontSize: 15,
-                                                    color: Colors.black
-                                                    )),
+                                                style: TextStyle(
+                                                    fontSize: 15,
+                                                    color: Colors.black)),
                                             Text(
                                                 controller
                                                     .machineList[index].dev
@@ -298,8 +295,7 @@ class ReportMachinesView extends GetView<ReportMachinesController> {
                                                 style: TextStyle(
                                                     fontSize: 15,
                                                     fontWeight: FontWeight.w600,
-                                                    color: Colors.black
-                                                    )),
+                                                    color: Colors.black)),
                                           ],
                                         ),
                                       ),
@@ -310,12 +306,12 @@ class ReportMachinesView extends GetView<ReportMachinesController> {
                                         width: w / 3,
                                         child: Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text("Water %",
-                                                style: TextStyle(fontSize: 15,
-                                                    color: Colors.black
-                                                )),
+                                                style: TextStyle(
+                                                    fontSize: 15,
+                                                    color: Colors.black)),
                                             Text(
                                                 controller
                                                     .machineList[index].weterper
@@ -323,8 +319,7 @@ class ReportMachinesView extends GetView<ReportMachinesController> {
                                                 style: TextStyle(
                                                     fontSize: 15,
                                                     fontWeight: FontWeight.w600,
-                                                    color: Colors.black
-                                                )),
+                                                    color: Colors.black)),
                                           ],
                                         ),
                                       ),
@@ -335,21 +330,20 @@ class ReportMachinesView extends GetView<ReportMachinesController> {
                                         width: w / 3,
                                         child: Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text("W/B",
-                                                style: TextStyle(fontSize: 15,
-                                                    color: Colors.black
-                                                )),
+                                                style: TextStyle(
+                                                    fontSize: 15,
+                                                    color: Colors.black)),
                                             Text(
-                                                controller
-                                                    .machineList[index].waterbatch
+                                                controller.machineList[index]
+                                                    .waterbatch
                                                     .toString(),
                                                 style: TextStyle(
                                                     fontSize: 15,
                                                     fontWeight: FontWeight.w600,
-                                                    color: Colors.black
-                                                )),
+                                                    color: Colors.black)),
                                           ],
                                         ),
                                       ),
@@ -430,11 +424,10 @@ class ReportMachinesView extends GetView<ReportMachinesController> {
                                                           .toStringAsFixed(2)
                                                           .toString()),
                                                       Text("Average : "),
-                                                      Text(controller
-                                                          .subMachineList[index]
-                                                          .average!
-                                                          .toStringAsFixed(2)
-                                                          .toString()),
+                                                      Obx(()=>
+                                                         Text((controller.subMachineList[index].average != null)
+                                                             ?controller.subMachineList[index].average!.toStringAsFixed(2).toString() : "0"),
+                                                      ),
                                                     ],
                                                   ),
                                                 ),
@@ -487,11 +480,9 @@ class ReportMachinesView extends GetView<ReportMachinesController> {
                                                           .toStringAsFixed(2)
                                                           .toString()),
                                                       Text("Water % :"),
-                                                      Text(controller
-                                                          .subMachineList[index]
-                                                          .weterper!
-                                                          .toStringAsFixed(2)
-                                                          .toString()),
+                                                      Obx(()=>
+                                                         Text((controller.subMachineList[index].weterper != null)?controller.subMachineList[index].weterper!.toStringAsFixed(2).toString(): "0"),
+                                                      ),
                                                     ],
                                                   ),
                                                 ),
@@ -513,11 +504,15 @@ class ReportMachinesView extends GetView<ReportMachinesController> {
                                                           .batch!
                                                           .toString()),
                                                       Text("W/B :"),
-                                                      Text(controller
-                                                          .subMachineList[index]
-                                                          .waterbatch!
-                                                          .toStringAsFixed(2)
-                                                          .toString()),
+                                                      Obx(()=>
+                                                         Text((controller
+                                                             .subMachineList[index]
+                                                             .waterbatch != null)?controller
+                                                            .subMachineList[index]
+                                                            .waterbatch!
+                                                            .toStringAsFixed(2)
+                                                            .toString() : "0"),
+                                                      ),
                                                     ],
                                                   ),
                                                 ),

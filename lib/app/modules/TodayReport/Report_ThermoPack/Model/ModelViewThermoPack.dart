@@ -30,12 +30,12 @@ class ModelViewThermoPack {
   String ? col1;
   String ? col2;
   String ? circuitPresure;
-  int ? dt;
-  int ? dtper;
-  int ? coal1;
-  double ? coal2;
-  int ? cc;
-  double ? ccper;
+  num ? dt;
+  num ? dtper;
+  num ? coal1;
+  num ? coal2;
+  num ? cc;
+  num ? ccper;
 
   factory ModelViewThermoPack.fromJson(Map<String, dynamic> json) => ModelViewThermoPack(
     chamber: json["chamber"],
@@ -47,9 +47,9 @@ class ModelViewThermoPack {
     dt: json["dt"],
     dtper: json["dtper"],
     coal1: json["coal_1"],
-    coal2: json["coal_2"].toDouble(),
+    coal2: json["coal_2"],
     cc: json["cc"],
-    ccper: json["ccper"].toDouble(),
+    ccper: json["ccper"]
   );
 
   Map<String, dynamic> toJson() => {

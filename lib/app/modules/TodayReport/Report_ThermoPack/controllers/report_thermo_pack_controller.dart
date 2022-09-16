@@ -18,6 +18,7 @@ class ReportThermoPackController extends GetxController {
     );
     if (picked != null && picked != selectedDate.value) {
       selectedDate.value = picked;
+      fetchThermoPackList();
     }
   }
   Future<void> fetchThermoPackList() async {

@@ -288,7 +288,8 @@ class ReportThermoPackView extends GetView<ReportThermoPackController> {
                             width: w / 3,
                             child: Obx(() => Text(
                                 (controller.machineList.isNotEmpty)
-                                    ? controller.machineList[0].dtper.toString()
+                                    ? controller.machineList[0].dtper!.toStringAsFixed(2).
+                                toString()
                                     : "0"))),
                       ],
                     ),

@@ -139,7 +139,7 @@ class WaterQualityView extends GetView<WaterQualityController> {
                                           children: [
                                             Text("TDS"),
                                             Obx(()=>
-                                               Text((controller.machineList[index].tds ==  null)
+                                               Text((controller.machineList[index].tds !=  null)
                                                    ?controller
                                                   .machineList[index].tds
                                                   .toString() :  "0"),
@@ -153,7 +153,7 @@ class WaterQualityView extends GetView<WaterQualityController> {
                                             Text("TDS %"),
                                             Obx(()=>
                                                Text((controller.machineList[index]
-                                                  .tdsPercentage ==  null)?
+                                                  .tdsPercentage !=  null)?
                                                 controller.machineList[index]
                                                   .tdsPercentage
                                                   .toString() :  "0"),

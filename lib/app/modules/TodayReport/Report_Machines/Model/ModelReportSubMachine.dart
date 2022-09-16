@@ -37,7 +37,7 @@ class ModelReportSubMachine {
     dev: json["dev"],
     waterbatch: json["waterbatch"],
     weterper: json["weterper"],
-    average: json["average"].toDouble(),
+    average: json["average"],
     categoryName: json["CategoryName"],
     subCategoryName: json["SubCategoryName"],
   );

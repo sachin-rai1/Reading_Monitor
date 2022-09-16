@@ -38,7 +38,7 @@ class LoginController extends GetxController {
       },
     );
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200 || response.statusCode == 201) {
       var data = jsonDecode(response.body);
       if (data['message'] == "Bad creds") {
         Fluttertoast.showToast(

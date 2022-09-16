@@ -29,12 +29,12 @@ class ModelReportSteamBoiler {
   String? bfwTemperature;
   String? coal1;
   String? coal2;
-  num? bfwper;
-  num? tempper;
-  num? sc;
-  num? scper;
-  num? coal1Per;
-  num? coal2Per;
+  num ? bfwper;
+  num ? tempper;
+  num ? sc;
+  num ? scper;
+  num ? coal1Per;
+  num ? coal2Per;
 
   factory ModelReportSteamBoiler.fromJson(Map<String, dynamic> json) =>
       ModelReportSteamBoiler(

@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
 import '../controllers/mano_meter_controller.dart';
-
 class MachinelistManometerSteamboilerView extends GetView<ManoMeterController> {
   final _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     Get.put(ManoMeterController);

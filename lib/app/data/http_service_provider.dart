@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:readingmonitor2/app/data/Constants.dart';
+import 'package:readingmonitor2/app/modules/MachineList/FlueGas/Model/ModelFlueGasSteamBoiler.dart';
+import 'package:readingmonitor2/app/modules/MachineList/FlueGas/Model/ModelFlueGasThermoPack.dart';
 import 'package:readingmonitor2/app/modules/MachineList/ManoMeter/Model/ModelManoMeterSteamBoiler.dart';
 import 'package:readingmonitor2/app/modules/MachineList/ManoMeter/Model/ModelManoMeterThermoPack.dart';
 import 'package:readingmonitor2/app/modules/MachineList/Misc/Model/ModelMiscMachineList.dart';
@@ -122,6 +124,56 @@ class HttpServiceProvider extends GetConnect {
     }
   }
 
+  static Future<List<ModelFlueGasSteamBoiler>> fetchFlueGasSteamBoiler() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var tokenvalue = prefs.getString("token");
+    print(tokenvalue);
+    var response = await http.get(
+      Uri.parse(
+          "${Constants.connectionString}/GetFlueGasSteamBolierListingData"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $tokenvalue',
+      },
+    );
+    if (response.statusCode == 200) {
+      String data = response.body;
+      print(response.statusCode);
+      print(data);
+      return modelFlueGasSteamBoilerFromJson(data);
+    } else {
+      print(response.statusCode);
+      print(response.body);
+
+      throw Exception();
+    }
+  }
+
+  static Future<List<ModelFlueGasThermopack>> fetchFlueGasThermopack() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var tokenvalue = prefs.getString("token");
+    print(tokenvalue);
+    var response = await http.get(
+      Uri.parse(
+          "${Constants.connectionString}/GetFlueGasThermoPackListingData"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $tokenvalue',
+      },
+    );
+    if (response.statusCode == 200) {
+      String data = response.body;
+      print(response.statusCode);
+      print(data);
+      return modelFlueGasThermopackFromJson(data);
+    } else {
+      print(response.statusCode);
+      print(response.body);
+
+      throw Exception();
+    }
+  }
+
   static Future<List<ModelMachineMisc>> fetchMiscMachineList() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var tokenvalue = prefs.getString("token");
@@ -212,8 +264,4 @@ class HttpServiceProvider extends GetConnect {
       throw Exception();
     }
   }
-
-
-
-
 }
